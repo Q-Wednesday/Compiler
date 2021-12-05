@@ -5,7 +5,7 @@
 #ifndef SRC_ASTNODES_H
 #define SRC_ASTNODES_H
 #include <iostream>
-
+#include<memory>
 using namespace std;
 
 //所有抽象语法树节点的基类
@@ -70,7 +70,39 @@ class IntegerNode:public ExpressionNode{
         string getNodeType()const override{
             return "Integer";
         }
-}
+};
 
+//赋值语句
+class AssignmentNode:public ExpressionNode{
+    public:
+        shared_ptr<IdentifierNode> lhs;
+        shared_ptr<ExpressionNode> rhs;
+
+
+        AssignmentNode(){}
+        AssignmentNode(shared_ptr<IdentifierNode> l,shared_ptr<ExpressionNode> r):
+        lhs(l),rhs(r){}
+
+        string getNodeType()const override{
+            return "Assignment";
+        }
+};
+
+//声明变量
+class VariableDeclaration:public StatementNode{
+    public:
+        const shared_ptr<IdentifierNode> type;//采用用户定义标识符支持结构体
+        shared_ptr<IdentifierNode> name;
+        shared_ptr<ExpressionNode> initValue = nullptr;
+
+        StatementNode(){}
+        StatementNode(const shared_ptr<IdentifierNode> type, shared_ptr<IdentifierNode> name,
+        shared_ptr<ExpressionNode> value=nullptr):type(type),name(name),initValue(value){}
+
+        string getNodeType()const override{
+            return "Variable Declaration";
+        }
+        
+}
 
 #endif //SRC_ASTNODES_H

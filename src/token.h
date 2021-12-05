@@ -10,6 +10,7 @@ enum Token
     T_TBOOL,
     T_TVOID,
     T_EXTERN,
+    T_RETURN,
     T_IDENTIFIER,
     T_INTEGER,
     T_DOUBLE,

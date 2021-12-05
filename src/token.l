@@ -23,6 +23,7 @@ COMMENT         ("//"[^\n]*)
 "bool"          {return T_TBOOL;}
 "void"          {return T_TVOID;}
 "extern"        {return T_EXTERN;}
+"return"        {return T_RETURN}
 {IDENTIFIER}     {return T_IDENTIFIER;}
 {INTEGER}         {yylval=atoi(yytext); return T_INTEGER;}
 {DOUBLE}        {return T_DOUBLE;}
