@@ -1,6 +1,12 @@
 %{
 //#include "token.h" //测试用
+#include "ASTNodes.h"
 #include "grammar.hpp"
+#include <string>
+//SAVE_TOKEN保存了所有之后在构建语法树的时候要用到匹配到的字符串的token
+#define SAVE_TOKEN printf("%s\n",yytext);yylval.string = new string(yytext)
+//MAKE_TOKEN仅仅保存token的值
+#define MAKE_TOKEN(t) (yylval.token = t)
 %}
 %option noyywrap
 
@@ -16,40 +22,40 @@ COMMENT         ("//"[^\n]*)
 {COMMENT}       {}
 
 
-"int"           {return T_TINT;}
-"double"        {return T_TDOUBLE;}
-"float"         {return T_TFLOAT;}
-"char"          {return T_TCHAR;}
-"bool"          {return T_TBOOL;}
-"void"          {return T_TVOID;}
-"extern"        {return T_EXTERN;}
-"return"        {return T_RETURN}
-{IDENTIFIER}     {return T_IDENTIFIER;}
-{INTEGER}         {yylval=atoi(yytext); return T_INTEGER;}
-{DOUBLE}        {return T_DOUBLE;}
-\"(\\.|[^"])*\"      {return T_LITERAL;}
+"int"           {SAVE_TOKEN; return T_TINT;}
+"double"        {SAVE_TOKEN; return T_TDOUBLE;}
+"float"         {SAVE_TOKEN; return T_TFLOAT;}
+"char"          {SAVE_TOKEN; return T_TCHAR;}
+"bool"          {SAVE_TOKEN; return T_TBOOL;}
+"void"          {SAVE_TOKEN; return T_TVOID;}
+"extern"        {SAVE_TOKEN; return T_EXTERN;}
+"return"        {SAVE_TOKEN; return T_RETURN;}
+{IDENTIFIER}    {SAVE_TOKEN; return T_IDENTIFIER;}
+{INTEGER}       {SAVE_TOKEN; return T_INTEGER;}
+{DOUBLE}        {SAVE_TOKEN; return T_DOUBLE;}
+\"(\\.|[^"])*\"      {SAVE_TOKEN; return T_LITERAL;}
 
-"="             {return T_ASSIGN;}
+"="             {printf("T_ASSIGN\n");return MAKE_TOKEN(T_ASSIGN);}
 
-"=="            {return T_CEQUAL;}
-"!="            {return T_CNEQUAL;}
-"<"             {return T_CLT;}
-"<="            {return T_CLE;}
-">"             {return T_CGT;}
-">="            {return T_CGE;}
-"("             {return T_LPAREN;}
-")"             {return T_RPAREN;}
-"{"             {return T_LBRACE;}
-"}"             {return T_RBRACE;}
-"["             {return T_LBRACKET;}
-"]"             {return T_RBRACKET;}
-"."             {return T_DOT;}
-","             {return T_COMMA;}
-"+"             {return T_PLUS;}
-"-"             {return T_MINUS;}
-"*"             {return T_MULT;}
-"/"             {return T_DIV;}
-";"             {return T_SEMICOLON;}
+"=="            {return MAKE_TOKEN(T_CEQUAL);}
+"!="            {return MAKE_TOKEN(T_CNEQUAL);}
+"<"             {return MAKE_TOKEN(T_CLT);}
+"<="            {return MAKE_TOKEN(T_CLE);}
+">"             {return MAKE_TOKEN(T_CGT);}
+">="            {return MAKE_TOKEN(T_CGE);}
+"("             {return MAKE_TOKEN(T_LPAREN);}
+")"             {return MAKE_TOKEN(T_RPAREN);}
+"{"             {return MAKE_TOKEN(T_LBRACE);}
+"}"             {return MAKE_TOKEN(T_RBRACE);}
+"["             {return MAKE_TOKEN(T_LBRACKET);}
+"]"             {return MAKE_TOKEN(T_RBRACKET);}
+"."             {return MAKE_TOKEN(T_DOT);}
+","             {return MAKE_TOKEN(T_COMMA);}
+"+"             {return MAKE_TOKEN(T_PLUS);}
+"-"             {return MAKE_TOKEN(T_MINUS);}
+"*"             {return MAKE_TOKEN(T_MULT);}
+"/"             {return MAKE_TOKEN(T_DIV);}
+";"             {return MAKE_TOKEN(T_SEMICOLON);}
 
 %%
 // int main(){

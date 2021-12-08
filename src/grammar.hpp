@@ -38,7 +38,7 @@
 # define YY_YY_GRAMMAR_HPP_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -56,36 +56,54 @@ extern int yydebug;
     T_TBOOL = 262,
     T_TVOID = 263,
     T_EXTERN = 264,
-    T_IDENTIFIER = 265,
-    T_INTEGER = 266,
-    T_DOUBLE = 267,
-    T_LITERAL = 268,
-    T_ASSIGN = 269,
-    T_CEQUAL = 270,
-    T_CNEQUAL = 271,
-    T_CLT = 272,
-    T_CLE = 273,
-    T_CGT = 274,
-    T_CGE = 275,
-    T_LPAREN = 276,
-    T_RPAREN = 277,
-    T_LBRACE = 278,
-    T_RBRACE = 279,
-    T_LBRACKET = 280,
-    T_RBRACKET = 281,
-    T_PLUS = 282,
-    T_MINUS = 283,
-    T_MULT = 284,
-    T_DIV = 285,
-    T_DOT = 286,
-    T_COMMA = 287,
-    T_SEMICOLON = 288
+    T_RETURN = 265,
+    T_IDENTIFIER = 266,
+    T_INTEGER = 267,
+    T_DOUBLE = 268,
+    T_LITERAL = 269,
+    T_ASSIGN = 270,
+    T_CEQUAL = 271,
+    T_CNEQUAL = 272,
+    T_CLT = 273,
+    T_CLE = 274,
+    T_CGT = 275,
+    T_CGE = 276,
+    T_LPAREN = 277,
+    T_RPAREN = 278,
+    T_LBRACE = 279,
+    T_RBRACE = 280,
+    T_LBRACKET = 281,
+    T_RBRACKET = 282,
+    T_SEMICOLON = 283,
+    T_PLUS = 284,
+    T_MINUS = 285,
+    T_MULT = 286,
+    T_DIV = 287,
+    T_DOT = 288,
+    T_COMMA = 289
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 14 "grammar.y"
+
+    ExpressionNode* expr;
+    StatementNode* stat;
+    IdentifierNode* ident;
+    std::string* string;
+    VariableDeclaration* var_dec;
+    ExprVec* exprvec;
+    int token;
+    CodeBlockNode* block;
+    VariableVec* varvec;
+
+#line 104 "grammar.hpp"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

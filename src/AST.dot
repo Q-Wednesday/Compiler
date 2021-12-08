@@ -1,0 +1,33 @@
+#@startdot
+digraph AST{
+node18[label="Code Block"]
+node17[label="Function declaration"]
+node1[label="Identifier"]
+node2[label="Identifier"]
+node7[label="Code Block"]
+node6[label="Variable Declaration"]
+node3[label="Identifier"]
+node4[label="Identifier"]
+node6->node3
+node6->node4
+node7->node6
+node10[label="Variable Declaration"]
+node8[label="Identifier"]
+node9[label="Identifier"]
+node10->node8
+node10->node9
+node7->node10
+node14[label="Expression Statement"]
+node13[label="Call Function"]
+node11[label="Identifier"]
+node13->node11
+node14->node13
+node7->node14
+node16[label="Return"]
+node7->node16
+node17->node1
+node17->node2
+node17->node7
+node18->node17
+}
+#@enddot
