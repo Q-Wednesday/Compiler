@@ -1,13 +1,18 @@
 //
-// Created by 14032 on 2021/12/5.
+// Created by Q-Wednesday on 2021/12/5.
 //
 
 #ifndef SRC_ASTNODES_H
 #define SRC_ASTNODES_H
+
+#include <llvm/IR/Value.h>
 #include <iostream>
 #include <memory>
 #include <vector>
+
 using namespace std;
+using namespace llvm;
+
 class StatementNode;
 class VariableDeclaration;
 class ExpressionNode;
@@ -15,6 +20,8 @@ using StatementVec = vector<shared_ptr<StatementNode>>;
 using VariableVec = vector<shared_ptr<VariableDeclaration>>;
 using ExprVec = vector<shared_ptr<ExpressionNode>>;
 //TODO: 对可视化函数进行重构，简化代码
+
+class CodeGenContext;
 
 //所有抽象语法树节点的基类
 class ASTNode
@@ -31,6 +38,9 @@ public:
     {
         out << "node" << to_string(nodeID)
             << "[label=\"" << getNodeType() << "\"]" << endl;
+    }
+    virtual Value* codeGen(CodeGenContext&){
+        return nullptr;
     }
 };
 
@@ -75,6 +85,8 @@ public:
             << "->"
             << "node" << to_string(expression->nodeID) << endl;
     }
+
+    Value* codeGen(CodeGenContext &) override;
 };
 
 class CodeBlockNode : public ExpressionNode
@@ -98,6 +110,7 @@ public:
                 << "node" << to_string(state->nodeID) << endl;
         }
     }
+    Value* codeGen(CodeGenContext &) override;
 };
 
 class IdentifierNode : public ExpressionNode
@@ -113,6 +126,7 @@ public:
     {
         return "Identifier";
     }
+    Value *codeGen(CodeGenContext &context) override;
 };
 
 class DoubleNode : public ExpressionNode
@@ -128,6 +142,8 @@ public:
     {
         return "Double";
     }
+
+    Value *codeGen(CodeGenContext &context) override;
 };
 
 class IntegerNode : public ExpressionNode
@@ -141,6 +157,7 @@ public:
     {
         return "Integer";
     }
+    Value *codeGen(CodeGenContext &context) override;
 };
 
 class LiteralNode : public ExpressionNode
@@ -154,6 +171,7 @@ public:
     {
         return "Literal";
     }
+    Value *codeGen(CodeGenContext &context) override;
 };
 //赋值语句
 class AssignmentNode : public ExpressionNode
@@ -182,6 +200,7 @@ public:
             << "->"
             << "node" << to_string(rhs->nodeID) << endl;
     }
+    Value *codeGen(CodeGenContext &context) override;
 };
 
 //声明变量
@@ -189,12 +208,12 @@ class VariableDeclaration : public StatementNode
 {
 public:
     const shared_ptr<IdentifierNode> type; //采用用户定义标识符支持结构体
-    shared_ptr<IdentifierNode> name;
+    shared_ptr<IdentifierNode> ident;
     shared_ptr<ExpressionNode> initValue = nullptr;
 
     VariableDeclaration() {}
     VariableDeclaration(const shared_ptr<IdentifierNode> type, shared_ptr<IdentifierNode> name,
-                        shared_ptr<ExpressionNode> value = nullptr) : type(type), name(name), initValue(value) {}
+                        shared_ptr<ExpressionNode> value = nullptr) : type(type), ident(name), initValue(value) {}
 
     string getNodeType() const override
     {
@@ -205,14 +224,16 @@ public:
     {
         ASTNode::graphGen(out);
         type->graphGen(out);
-        name->graphGen(out);
+        ident->graphGen(out);
         out << "node" << to_string(nodeID)
             << "->"
             << "node" << to_string(type->nodeID) << endl;
         out << "node" << to_string(nodeID)
             << "->"
-            << "node" << to_string(name->nodeID) << endl;
+            << "node" << to_string(ident->nodeID) << endl;
     }
+
+    Value *codeGen(CodeGenContext &) override;
 };
 
 //声明函数，函数就是由一系列语句组成的
@@ -220,13 +241,14 @@ class FunctionDeclaration : public StatementNode
 {
 public:
     shared_ptr<IdentifierNode> type;
-    shared_ptr<IdentifierNode> name;
+    shared_ptr<IdentifierNode>funcName;
     shared_ptr<VariableVec> variables;
     shared_ptr<CodeBlockNode> body;
-
+    bool isExtern;
     FunctionDeclaration() {}
     FunctionDeclaration(shared_ptr<IdentifierNode> type, shared_ptr<IdentifierNode> name,
-                        shared_ptr<VariableVec> variables, shared_ptr<CodeBlockNode> body) : type(type), name(name), variables(variables), body(body) {}
+                        shared_ptr<VariableVec> variables, shared_ptr<CodeBlockNode> body,
+                        bool isExtern=false) : type(type), funcName(name), variables(variables), body(body),isExtern(isExtern) {}
 
     string getNodeType() const override
     {
@@ -237,19 +259,25 @@ public:
     {
         ASTNode::graphGen(out);
         type->graphGen(out);
-        name->graphGen(out);
-        body->graphGen(out);
+        funcName->graphGen(out);
+        if(body){
+            body->graphGen(out);        
+            out << "node" << to_string(nodeID)
+            << "->"
+            << "node" << to_string(body->nodeID) << endl;
+        }
+        
         //TODO: 暂时没有对变量进行处理
         out << "node" << to_string(nodeID)
             << "->"
             << "node" << to_string(type->nodeID) << endl;
         out << "node" << to_string(nodeID)
             << "->"
-            << "node" << to_string(name->nodeID) << endl;
-        out << "node" << to_string(nodeID)
-            << "->"
-            << "node" << to_string(body->nodeID) << endl;
+            << "node" << to_string(funcName->nodeID) << endl;
+
     }
+
+    Value *codeGen(CodeGenContext &) override;
 };
 
 // return语句
@@ -264,6 +292,7 @@ public:
     {
         return "Return";
     }
+    Value *codeGen(CodeGenContext &) override;
 };
 
 // 二元运算
@@ -294,17 +323,18 @@ public:
             << "->"
             << "node" << to_string(rhs->nodeID) << endl;
     }
+    Value *codeGen(CodeGenContext &) override;
 };
 
 //函数调用
 class CallFunctionNode : public ExpressionNode
 {
 public:
-    shared_ptr<IdentifierNode> func;
+    shared_ptr<IdentifierNode> funcName;
     shared_ptr<ExprVec> argv = make_shared<ExprVec>();
 
     CallFunctionNode() {}
-    CallFunctionNode(shared_ptr<IdentifierNode> func, shared_ptr<ExprVec> argv) : func(func), argv(argv) {}
+    CallFunctionNode(shared_ptr<IdentifierNode> funcName, shared_ptr<ExprVec> argv) : funcName(funcName), argv(argv) {}
     //CallFunctionNode(shared_ptr<IdentifierNode> func) : func(func) {}
 
     string getNodeType() const override
@@ -316,10 +346,10 @@ public:
     {
         //TODO: 如果能确定函数id可以添加一条调用边指向函数声明处。不过这好像是CFG的需求
         ASTNode::graphGen(out);
-        func->graphGen(out);
+        funcName->graphGen(out);
         out << "node" << to_string(nodeID)
             << "->"
-            << "node" << to_string(func->nodeID) << endl;
+            << "node" << to_string(funcName->nodeID) << endl;
     }
 };
 #endif //SRC_ASTNODES_H

@@ -3,9 +3,16 @@ all: parser
 OBJECTS = grammar.o \
 		 token.o \
 		 graphGen.o \
+		 CodeGen.o \
+
+LLVMCONFIG = llvm-config
+CPPFLAGS = `$(LLVMCONFIG) --cppflags` -std=c++14
+LDFLAGS = `$(LLVMCONFIG) --ldflags` -lpthread -ldl -lz -lncurses -rdynamic -L/usr/local/lib
+LIBS = `$(LLVMCONFIG) --libs`
+CC = clang++
 
 parser: $(OBJECTS)
-		g++  -o $@ $(OBJECTS) 
+		$(CC)  $(CPPFLAGS) -o $@ $(OBJECTS) $(LIBS) $(LDFLAGS)
 
 
 token.cpp: token.l grammar.hpp
@@ -17,7 +24,7 @@ grammar.cpp: grammar.y
 grammar.hpp: grammar.cpp
 
 %.o: %.cpp
-		g++ -c -o $@ $< --std=c++14
+		$(CC) -c $(CPPFLAGS) -o $@ $<
 
 compiler: ASTNodes.h
 
@@ -29,3 +36,4 @@ test: parser
 
 viz: AST.dot
 	dot AST.dot -T png -o AST.png
+

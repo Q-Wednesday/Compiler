@@ -1,12 +1,13 @@
 #include "ASTNodes.h"
 #include "grammar.hpp"
+#include "CodeGen.h"
 #include <fstream>
 unsigned ASTNode::numOfNodes = 0;
 extern CodeBlockNode* programBlock;
 int main(){
 
     #ifdef YYDEBUG
-      yydebug = 0;
+      yydebug = 1;
     #endif
     yyparse();
     ofstream fout("AST.dot");
