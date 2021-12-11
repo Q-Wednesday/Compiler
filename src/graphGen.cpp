@@ -6,7 +6,7 @@ extern CodeBlockNode* programBlock;
 int main(){
 
     #ifdef YYDEBUG
-      yydebug = 0;
+      yydebug = 1;
     #endif
     yyparse();
     ofstream fout("AST.dot");

@@ -28,6 +28,8 @@ COMMENT         ("//"[^\n]*)
 "char"          {SAVE_TOKEN; return T_TCHAR;}
 "bool"          {SAVE_TOKEN; return T_TBOOL;}
 "void"          {SAVE_TOKEN; return T_TVOID;}
+"for"           {SAVE_TOKEN; return T_TFOR;}
+"while"         {SAVE_TOKEN; return T_TWHILE;}
 "extern"        {SAVE_TOKEN; return T_EXTERN;}
 "return"        {SAVE_TOKEN; return T_RETURN;}
 {IDENTIFIER}    {SAVE_TOKEN; return T_IDENTIFIER;}
