@@ -352,4 +352,71 @@ public:
             << "node" << to_string(funcName->nodeID) << endl;
     }
 };
+// for 语句 for(initval;termval;increval)
+class ForNode : public StatementNode
+{
+public:
+    shared_ptr<CodeBlockNode> block;
+    shared_ptr<ExpressionNode> initval, termval, increval;
+    
+
+    ForNode(shared_ptr<CodeBlockNode> bin,shared_ptr<ExpressionNode> initin=nullptr,shared_ptr<ExpressionNode> termin=nullptr,shared_ptr<ExpressionNode> increin=nullptr)
+    :block(bin), initval(initin),termval(termin),increval(increin)  
+    {
+
+
+        if (initval==nullptr) //一直跑下去
+        {
+            initval = make_shared<IntegerNode>(1);
+        }
+
+        if (termval==nullptr) //一直跑下去
+        {
+            termval = make_shared<IntegerNode>(1);
+        }
+        
+        if (increval==nullptr) //一直跑下去
+        {
+            increval = make_shared<IntegerNode>(1);
+        }
+    }
+
+    string getNodeType() const override
+    {
+        return "ForNode";
+    }
+
+    void graphGen(ostream &out) const override
+    {
+        ASTNode::graphGen(out);
+        if(initval!=nullptr)
+        {
+            initval->graphGen(out);
+            out << "node" << to_string(nodeID)
+            << "->"
+            << "node" << to_string(initval->nodeID) << endl;
+        }
+        if(termval!=nullptr)
+        {
+            termval->graphGen(out);
+            out << "node" << to_string(nodeID)
+            << "->"
+            << "node" << to_string(termval->nodeID) << endl;
+        }
+        if (increval!=nullptr)
+        {
+            increval->graphGen(out);
+            out << "node" << to_string(nodeID)
+            << "->"
+            << "node" << to_string(increval->nodeID) << endl;
+        }
+        block->graphGen(out);      
+        out << "node" << to_string(nodeID)
+            << "->"
+            << "node" << to_string(block->nodeID) << endl;
+    }
+
+};
+
+
 #endif //SRC_ASTNODES_H

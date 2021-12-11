@@ -27,7 +27,7 @@ void yyerror(const char* msg){
 
 %token <string> T_IDENTIFIER T_INTEGER T_DOUBLE T_LITERAL
 
-%token <token>  T_ASSIGN T_CEQUAL T_CNEQUAL T_CLT T_CLE T_CGT T_CGE
+%token <token>  T_ASSIGN T_CEQUAL T_CNEQUAL T_CLT T_CLE T_CGT T_CGE T_TFOR T_TWHILE
 
 %token <token>  T_LPAREN T_RPAREN  T_LBRACE T_RBRACE T_LBRACKET T_RBRACKET T_SEMICOLON
 
@@ -37,7 +37,7 @@ void yyerror(const char* msg){
 
 %type <expr> expr assignmemt number call
 %type <ident> ident typename 
-%type <stat> stat var_dec func_dec
+%type <stat> stat var_dec func_dec for_stm while_stm
 %type <block> stats program block
 %type <varvec> varvec
 %type <exprvec> call_args
@@ -55,8 +55,16 @@ stat        :   var_dec T_SEMICOLON     {$$=$1;}
             |   func_dec                {$$=$1;}
             |   expr T_SEMICOLON        {$$=new ExpressionStatement(shared_ptr<ExpressionNode>($1));}
             |   T_RETURN expr T_SEMICOLON {$$=new ReturnNode(shared_ptr<ExpressionNode>($2));}
-            |   T_SEMICOLON  {$$=new ExpressionStatement(nullptr);}
-            ;
+            |   for_stm
+//            |   for_stm1
+//            |   for_stm2
+ //           |   for_stm3
+  //          |   for_stm4
+     //       |   for_stm5
+  //          |   for_stm6
+   //         |   for_stm7
+   //         |   while_stm
+   //         ;
 
 block       :   T_LBRACE stats T_RBRACE { $$ = $2;}
             ;
@@ -82,6 +90,7 @@ typename    :   T_TINT  { $$ = new IdentifierNode(*$1);cout<<"type int"<<endl; d
 assignmemt  :   ident T_ASSIGN expr { $$=new AssignmentNode(shared_ptr<IdentifierNode>($1),shared_ptr<ExpressionNode>($3));}
             ;
 
+
 expr        :   assignmemt  {$$=$1; }
             |   number  {$$=$1;}
             |   ident   {$$=$1;}
@@ -106,6 +115,18 @@ call_args   :   call_args T_COMMA expr {$$->push_back(shared_ptr<ExpressionNode>
             |   /* nothing*/ {$$= new ExprVec();}
             ;
 
+for_stm :   T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block {$$ = new ForNode(shared_ptr<CodeBlockNode>($9),shared_ptr<ExpressionNode>($3),shared_ptr<ExpressionNode>($5),shared_ptr<ExpressionNode>($7));}
+        |   T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN block {$$ = new ForNode(shared_ptr<CodeBlockNode>($7),shared_ptr<ExpressionNode>($3),nullptr,nullptr);}
+        |   T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN block {$$ = new ForNode(shared_ptr<CodeBlockNode>($7),nullptr,shared_ptr<ExpressionNode>($4),nullptr);}
+        |   T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN block {$$ = new ForNode(shared_ptr<CodeBlockNode>($7),nullptr,nullptr,shared_ptr<ExpressionNode>($5));}
+        |   T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block {$$ = new ForNode(shared_ptr<CodeBlockNode>($8),shared_ptr<ExpressionNode>($3),shared_ptr<ExpressionNode>($5),nullptr);}
+        |   T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block {$$ = new ForNode(shared_ptr<CodeBlockNode>($8),shared_ptr<ExpressionNode>($3),nullptr,shared_ptr<ExpressionNode>($6));}
+        |   T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block {$$ = new ForNode(shared_ptr<CodeBlockNode>($8),nullptr,shared_ptr<ExpressionNode>($4),shared_ptr<ExpressionNode>($6));}
+        |   T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN block {$$ = new ForNode(shared_ptr<CodeBlockNode>($6),nullptr,nullptr,nullptr);}
+        ;
+
+
+while_stm : T_TWHILE T_LPAREN expr T_RPAREN block {$$ = new ForNode(shared_ptr<CodeBlockNode>($5),nullptr,shared_ptr<ExpressionNode>($3),nullptr);}
 %%
 
 // int main(){
