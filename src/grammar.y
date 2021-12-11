@@ -70,6 +70,7 @@ block       :   T_LBRACE stats T_RBRACE { $$ = $2;}
             ;
 
 func_dec    :  typename ident T_LPAREN varvec T_RPAREN block { $$ = new FunctionDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2),shared_ptr<VariableVec>($4),shared_ptr<CodeBlockNode>($6));}
+            |  T_EXTERN typename ident T_LPAREN varvec T_RPAREN T_SEMICOLON { $$ = new FunctionDeclaration(shared_ptr<IdentifierNode>($2),shared_ptr<IdentifierNode>($3),shared_ptr<VariableVec>($5),nullptr,true);}
             ;   
 varvec      :   varvec T_COMMA var_dec {$$->push_back(shared_ptr<VariableDeclaration>($<var_dec>3));}
             |   var_dec {$$ = new VariableVec(); $$->push_back(shared_ptr<VariableDeclaration>($<var_dec>1));}
@@ -92,6 +93,7 @@ assignmemt  :   ident T_ASSIGN expr { $$=new AssignmentNode(shared_ptr<Identifie
 
 expr        :   assignmemt  {$$=$1; }
             |   number  {$$=$1;}
+            |   ident   {$$=$1;}
             |   expr T_PLUS expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
             |   expr T_MINUS expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
             |   expr T_MULT expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}

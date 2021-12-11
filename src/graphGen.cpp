@@ -1,5 +1,6 @@
 #include "ASTNodes.h"
 #include "grammar.hpp"
+#include "CodeGen.h"
 #include <fstream>
 unsigned ASTNode::numOfNodes = 0;
 extern CodeBlockNode* programBlock;
