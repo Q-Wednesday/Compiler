@@ -26,6 +26,7 @@ COMMENT         ("//"[^\n]*)
 "double"        {SAVE_TOKEN; return T_TDOUBLE;}
 "float"         {SAVE_TOKEN; return T_TFLOAT;}
 "char"          {SAVE_TOKEN; return T_TCHAR;}
+"string"        {SAVE_TOKEN; return T_TSTRING;}
 "bool"          {SAVE_TOKEN; return T_TBOOL;}
 "void"          {SAVE_TOKEN; return T_TVOID;}
 "for"           {SAVE_TOKEN; return T_TFOR;}

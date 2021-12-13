@@ -2,8 +2,16 @@ int func(int num){
     return num;
 }
 
+extern void printf(string format);
+
 int testFunc(int num){
     int a=num*func(num);
+
+    printf("Hello");
     return a;
 }
 
+int main(){
+    printf("hello world\n");
+    return 0;
+}

@@ -165,7 +165,7 @@ class LiteralNode : public ExpressionNode
 public:
     string value;
     LiteralNode() {}
-    LiteralNode(string v) : value(v) {}
+    LiteralNode(string v) : value(v.begin()+1,v.end()-1) {}
 
     string getNodeType() const override
     {

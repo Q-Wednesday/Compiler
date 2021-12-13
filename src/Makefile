@@ -39,5 +39,5 @@ test: parser
 viz: AST.dot
 	dot AST.dot -T png -o AST.png
 
-testlink: testlink.c test
-	$(CC) testlink.c test.o -o testlink
+testlink: testlink.c test.o
+	clang testlink.c test.o -o testlink

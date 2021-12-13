@@ -55,34 +55,35 @@ extern int yydebug;
     T_TCHAR = 261,
     T_TBOOL = 262,
     T_TVOID = 263,
-    T_EXTERN = 264,
-    T_RETURN = 265,
-    T_IDENTIFIER = 266,
-    T_INTEGER = 267,
-    T_DOUBLE = 268,
-    T_LITERAL = 269,
-    T_ASSIGN = 270,
-    T_CEQUAL = 271,
-    T_CNEQUAL = 272,
-    T_CLT = 273,
-    T_CLE = 274,
-    T_CGT = 275,
-    T_CGE = 276,
-    T_TFOR = 277,
-    T_TWHILE = 278,
-    T_LPAREN = 279,
-    T_RPAREN = 280,
-    T_LBRACE = 281,
-    T_RBRACE = 282,
-    T_LBRACKET = 283,
-    T_RBRACKET = 284,
-    T_SEMICOLON = 285,
-    T_PLUS = 286,
-    T_MINUS = 287,
-    T_MULT = 288,
-    T_DIV = 289,
-    T_DOT = 290,
-    T_COMMA = 291
+    T_TSTRING = 264,
+    T_EXTERN = 265,
+    T_RETURN = 266,
+    T_IDENTIFIER = 267,
+    T_INTEGER = 268,
+    T_DOUBLE = 269,
+    T_LITERAL = 270,
+    T_ASSIGN = 271,
+    T_CEQUAL = 272,
+    T_CNEQUAL = 273,
+    T_CLT = 274,
+    T_CLE = 275,
+    T_CGT = 276,
+    T_CGE = 277,
+    T_TFOR = 278,
+    T_TWHILE = 279,
+    T_LPAREN = 280,
+    T_RPAREN = 281,
+    T_LBRACE = 282,
+    T_RBRACE = 283,
+    T_LBRACKET = 284,
+    T_RBRACKET = 285,
+    T_SEMICOLON = 286,
+    T_PLUS = 287,
+    T_MINUS = 288,
+    T_MULT = 289,
+    T_DIV = 290,
+    T_DOT = 291,
+    T_COMMA = 292
   };
 #endif
 
@@ -102,7 +103,7 @@ union YYSTYPE
     CodeBlockNode* block;
     VariableVec* varvec;
 
-#line 106 "grammar.hpp"
+#line 107 "grammar.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

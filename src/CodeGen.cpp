@@ -130,6 +130,9 @@ Type *CodeGenContext::getTypeOf(IdentifierNode &node)
     {
         return Type::getVoidTy(llvmContext);
     }
+    if(typestr=="string"){
+        return Type::getInt8PtrTy(llvmContext);
+    }
     //TODO:支持其他加入的类型以及结构体
 
     return nullptr;

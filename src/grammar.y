@@ -23,7 +23,7 @@ void yyerror(const char* msg){
     VariableVec* varvec;
 }
 
-%token <string> T_TINT T_TDOUBLE T_TFLOAT T_TCHAR T_TBOOL T_TVOID T_EXTERN T_RETURN
+%token <string> T_TINT T_TDOUBLE T_TFLOAT T_TCHAR T_TBOOL T_TVOID T_TSTRING T_EXTERN T_RETURN 
 
 %token <string> T_IDENTIFIER T_INTEGER T_DOUBLE T_LITERAL
 
@@ -85,8 +85,10 @@ var_dec     :   typename ident  { $$=new VariableDeclaration(shared_ptr<Identifi
 ident       :   T_IDENTIFIER    { $$=new IdentifierNode(*$1);cout<<"ident"<<endl; delete $1;}
             ;
 
-typename    :   T_TINT  { $$ = new IdentifierNode(*$1);cout<<"type int"<<endl; delete $1;}
+typename    :   T_TINT  { $$ = new IdentifierNode(*$1); delete $1;}
             |   T_TDOUBLE   { $$ = new IdentifierNode(*$1); delete $1; }
+            |   T_TVOID  {$$ = new IdentifierNode(*$1); delete $1; }
+            |   T_TSTRING {$$ = new IdentifierNode(*$1); delete $1;}
             ;  
 assignmemt  :   ident T_ASSIGN expr { $$=new AssignmentNode(shared_ptr<IdentifierNode>($1),shared_ptr<ExpressionNode>($3));}
             ;

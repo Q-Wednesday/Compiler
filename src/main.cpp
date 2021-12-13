@@ -11,6 +11,11 @@ int main(){
       yydebug = 0;
     #endif
     yyparse();
+    ofstream fout("AST.dot");
+    fout << "#@startdot\ndigraph AST{" << endl;
+    programBlock->graphGen(fout);
+    fout << "}\n#@enddot";
+    fout.close();
     CodeGenContext codeGenContext;
     codeGenContext.generateCode(*programBlock);
     codeGenContext.generateObject("test.o");
