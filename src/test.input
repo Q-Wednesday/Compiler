@@ -1,5 +1,9 @@
-int main(){
-    int a;
-    a=a+b;
-    return 0;
+int func(int num){
+    return num;
 }
+
+int testFunc(int num){
+    int a=num*func(num);
+    return a;
+}
+

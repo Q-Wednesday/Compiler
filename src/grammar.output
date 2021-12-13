@@ -15,8 +15,8 @@ Terminals unused in grammar
     T_DOT
 
 
-State 16 conflicts: 1 shift/reduce
-State 39 conflicts: 4 shift/reduce
+State 17 conflicts: 1 shift/reduce
+State 47 conflicts: 4 shift/reduce
 
 
 Grammar
@@ -32,132 +32,152 @@ Grammar
     5     | func_dec
     6     | expr T_SEMICOLON
     7     | T_RETURN expr T_SEMICOLON
-    8     | T_SEMICOLON
+    8     | for_stm
+    9     | while_stm
 
-    9 block: T_LBRACE stats T_RBRACE
+   10 block: T_LBRACE stats T_RBRACE
 
-   10 func_dec: typename ident T_LPAREN varvec T_RPAREN block
-   11         | T_EXTERN typename ident T_LPAREN varvec T_RPAREN T_SEMICOLON
+   11 func_dec: typename ident T_LPAREN varvec T_RPAREN block
+   12         | T_EXTERN typename ident T_LPAREN varvec T_RPAREN T_SEMICOLON
 
-   12 varvec: varvec T_COMMA var_dec
-   13       | var_dec
-   14       | %empty
+   13 varvec: varvec T_COMMA var_dec
+   14       | var_dec
+   15       | %empty
 
-   15 var_dec: typename ident
-   16        | typename ident T_ASSIGN expr
+   16 var_dec: typename ident
+   17        | typename ident T_ASSIGN expr
 
-   17 ident: T_IDENTIFIER
+   18 ident: T_IDENTIFIER
 
-   18 typename: T_TINT
-   19         | T_TDOUBLE
+   19 typename: T_TINT
+   20         | T_TDOUBLE
 
-   20 assignmemt: ident T_ASSIGN expr
+   21 assignmemt: ident T_ASSIGN expr
 
-   21 expr: assignmemt
-   22     | number
-   23     | ident
-   24     | expr T_PLUS expr
-   25     | expr T_MINUS expr
-   26     | expr T_MULT expr
-   27     | expr T_DIV expr
-   28     | T_LPAREN expr T_LPAREN
-   29     | T_LITERAL
-   30     | call
+   22 expr: assignmemt
+   23     | number
+   24     | ident
+   25     | expr T_PLUS expr
+   26     | expr T_MINUS expr
+   27     | expr T_MULT expr
+   28     | expr T_DIV expr
+   29     | T_LPAREN expr T_LPAREN
+   30     | T_LITERAL
+   31     | call
 
-   31 number: T_INTEGER
-   32       | T_DOUBLE
+   32 number: T_INTEGER
+   33       | T_DOUBLE
 
-   33 call: ident T_LPAREN call_args T_RPAREN
+   34 call: ident T_LPAREN call_args T_RPAREN
 
-   34 call_args: call_args T_COMMA expr
-   35          | expr
-   36          | %empty
+   35 call_args: call_args T_COMMA expr
+   36          | expr
+   37          | %empty
+
+   38 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   39        | T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN block
+   40        | T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   41        | T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   42        | T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   43        | T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   44        | T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   45        | T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN block
+
+   46 while_stm: T_TWHILE T_LPAREN expr T_RPAREN block
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    T_TINT <string> (258) 18
-    T_TDOUBLE <string> (259) 19
+    T_TINT <string> (258) 19
+    T_TDOUBLE <string> (259) 20
     T_TFLOAT <string> (260)
     T_TCHAR <string> (261)
     T_TBOOL <string> (262)
     T_TVOID <string> (263)
-    T_EXTERN <string> (264) 11
+    T_EXTERN <string> (264) 12
     T_RETURN <string> (265) 7
-    T_IDENTIFIER <string> (266) 17
-    T_INTEGER <string> (267) 31
-    T_DOUBLE <string> (268) 32
-    T_LITERAL <string> (269) 29
-    T_ASSIGN <token> (270) 16 20
+    T_IDENTIFIER <string> (266) 18
+    T_INTEGER <string> (267) 32
+    T_DOUBLE <string> (268) 33
+    T_LITERAL <string> (269) 30
+    T_ASSIGN <token> (270) 17 21
     T_CEQUAL <token> (271)
     T_CNEQUAL <token> (272)
     T_CLT <token> (273)
     T_CLE <token> (274)
     T_CGT <token> (275)
     T_CGE <token> (276)
-    T_LPAREN <token> (277) 10 11 28 33
-    T_RPAREN <token> (278) 10 11 33
-    T_LBRACE <token> (279) 9
-    T_RBRACE <token> (280) 9
-    T_LBRACKET <token> (281)
-    T_RBRACKET <token> (282)
-    T_SEMICOLON <token> (283) 4 6 7 8 11
-    T_PLUS <token> (284) 24
-    T_MINUS <token> (285) 25
-    T_MULT <token> (286) 26
-    T_DIV <token> (287) 27
-    T_DOT <token> (288)
-    T_COMMA <token> (289) 12 34
+    T_TFOR <token> (277) 38 39 40 41 42 43 44 45
+    T_TWHILE <token> (278) 46
+    T_LPAREN <token> (279) 11 12 29 34 38 39 40 41 42 43 44 45 46
+    T_RPAREN <token> (280) 11 12 34 38 39 40 41 42 43 44 45 46
+    T_LBRACE <token> (281) 10
+    T_RBRACE <token> (282) 10
+    T_LBRACKET <token> (283)
+    T_RBRACKET <token> (284)
+    T_SEMICOLON <token> (285) 4 6 7 12 38 39 40 41 42 43 44 45
+    T_PLUS <token> (286) 25
+    T_MINUS <token> (287) 26
+    T_MULT <token> (288) 27
+    T_DIV <token> (289) 28
+    T_DOT <token> (290)
+    T_COMMA <token> (291) 13 35
 
 
 Nonterminals, with rules where they appear
 
-    $accept (35)
+    $accept (37)
         on left: 0
-    program <block> (36)
+    program <block> (38)
         on left: 1
         on right: 0
-    stats <block> (37)
+    stats <block> (39)
         on left: 2 3
-        on right: 1 3 9
-    stat <stat> (38)
-        on left: 4 5 6 7 8
+        on right: 1 3 10
+    stat <stat> (40)
+        on left: 4 5 6 7 8 9
         on right: 2 3
-    block <block> (39)
-        on left: 9
-        on right: 10
-    func_dec <stat> (40)
-        on left: 10 11
+    block <block> (41)
+        on left: 10
+        on right: 11 38 39 40 41 42 43 44 45 46
+    func_dec <stat> (42)
+        on left: 11 12
         on right: 5
-    varvec <varvec> (41)
-        on left: 12 13 14
-        on right: 10 11 12
-    var_dec <stat> (42)
-        on left: 15 16
-        on right: 4 12 13
-    ident <ident> (43)
-        on left: 17
-        on right: 10 11 15 16 20 23 33
-    typename <ident> (44)
-        on left: 18 19
-        on right: 10 11 15 16
-    assignmemt <expr> (45)
-        on left: 20
-        on right: 21
-    expr <expr> (46)
-        on left: 21 22 23 24 25 26 27 28 29 30
-        on right: 6 7 16 20 24 25 26 27 28 34 35
-    number <expr> (47)
-        on left: 31 32
+    varvec <varvec> (43)
+        on left: 13 14 15
+        on right: 11 12 13
+    var_dec <stat> (44)
+        on left: 16 17
+        on right: 4 13 14
+    ident <ident> (45)
+        on left: 18
+        on right: 11 12 16 17 21 24 34
+    typename <ident> (46)
+        on left: 19 20
+        on right: 11 12 16 17
+    assignmemt <expr> (47)
+        on left: 21
         on right: 22
-    call <expr> (48)
-        on left: 33
-        on right: 30
-    call_args <exprvec> (49)
-        on left: 34 35 36
-        on right: 33 34
+    expr <expr> (48)
+        on left: 22 23 24 25 26 27 28 29 30 31
+        on right: 6 7 17 21 25 26 27 28 29 35 36 38 39 40 41 42 43 44 46
+    number <expr> (49)
+        on left: 32 33
+        on right: 23
+    call <expr> (50)
+        on left: 34
+        on right: 31
+    call_args <exprvec> (51)
+        on left: 35 36 37
+        on right: 34 35
+    for_stm <stat> (52)
+        on left: 38 39 40 41 42 43 44 45
+        on right: 8
+    while_stm <stat> (53)
+        on left: 46
+        on right: 9
 
 
 State 0
@@ -172,44 +192,47 @@ State 0
     T_INTEGER     shift, and go to state 6
     T_DOUBLE      shift, and go to state 7
     T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
-    T_SEMICOLON   shift, and go to state 10
+    T_TFOR        shift, and go to state 9
+    T_TWHILE      shift, and go to state 10
+    T_LPAREN      shift, and go to state 11
 
-    program     go to state 11
-    stats       go to state 12
-    stat        go to state 13
-    func_dec    go to state 14
-    var_dec     go to state 15
-    ident       go to state 16
-    typename    go to state 17
-    assignmemt  go to state 18
-    expr        go to state 19
-    number      go to state 20
-    call        go to state 21
+    program     go to state 12
+    stats       go to state 13
+    stat        go to state 14
+    func_dec    go to state 15
+    var_dec     go to state 16
+    ident       go to state 17
+    typename    go to state 18
+    assignmemt  go to state 19
+    expr        go to state 20
+    number      go to state 21
+    call        go to state 22
+    for_stm     go to state 23
+    while_stm   go to state 24
 
 
 State 1
 
-   18 typename: T_TINT .
-
-    $default  reduce using rule 18 (typename)
-
-
-State 2
-
-   19 typename: T_TDOUBLE .
+   19 typename: T_TINT .
 
     $default  reduce using rule 19 (typename)
 
 
+State 2
+
+   20 typename: T_TDOUBLE .
+
+    $default  reduce using rule 20 (typename)
+
+
 State 3
 
-   11 func_dec: T_EXTERN . typename ident T_LPAREN varvec T_RPAREN T_SEMICOLON
+   12 func_dec: T_EXTERN . typename ident T_LPAREN varvec T_RPAREN T_SEMICOLON
 
     T_TINT     shift, and go to state 1
     T_TDOUBLE  shift, and go to state 2
 
-    typename  go to state 22
+    typename  go to state 25
 
 
 State 4
@@ -220,75 +243,89 @@ State 4
     T_INTEGER     shift, and go to state 6
     T_DOUBLE      shift, and go to state 7
     T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
+    T_LPAREN      shift, and go to state 11
 
-    ident       go to state 16
-    assignmemt  go to state 18
-    expr        go to state 23
-    number      go to state 20
-    call        go to state 21
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 26
+    number      go to state 21
+    call        go to state 22
 
 
 State 5
 
-   17 ident: T_IDENTIFIER .
+   18 ident: T_IDENTIFIER .
 
-    $default  reduce using rule 17 (ident)
+    $default  reduce using rule 18 (ident)
 
 
 State 6
 
-   31 number: T_INTEGER .
-
-    $default  reduce using rule 31 (number)
-
-
-State 7
-
-   32 number: T_DOUBLE .
+   32 number: T_INTEGER .
 
     $default  reduce using rule 32 (number)
 
 
+State 7
+
+   33 number: T_DOUBLE .
+
+    $default  reduce using rule 33 (number)
+
+
 State 8
 
-   29 expr: T_LITERAL .
+   30 expr: T_LITERAL .
 
-    $default  reduce using rule 29 (expr)
+    $default  reduce using rule 30 (expr)
 
 
 State 9
 
-   28 expr: T_LPAREN . expr T_LPAREN
+   38 for_stm: T_TFOR . T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   39        | T_TFOR . T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN block
+   40        | T_TFOR . T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   41        | T_TFOR . T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   42        | T_TFOR . T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   43        | T_TFOR . T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   44        | T_TFOR . T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   45        | T_TFOR . T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN block
+
+    T_LPAREN  shift, and go to state 27
+
+
+State 10
+
+   46 while_stm: T_TWHILE . T_LPAREN expr T_RPAREN block
+
+    T_LPAREN  shift, and go to state 28
+
+
+State 11
+
+   29 expr: T_LPAREN . expr T_LPAREN
 
     T_IDENTIFIER  shift, and go to state 5
     T_INTEGER     shift, and go to state 6
     T_DOUBLE      shift, and go to state 7
     T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
+    T_LPAREN      shift, and go to state 11
 
-    ident       go to state 16
-    assignmemt  go to state 18
-    expr        go to state 24
-    number      go to state 20
-    call        go to state 21
-
-
-State 10
-
-    8 stat: T_SEMICOLON .
-
-    $default  reduce using rule 8 (stat)
-
-
-State 11
-
-    0 $accept: program . $end
-
-    $end  shift, and go to state 25
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 29
+    number      go to state 21
+    call        go to state 22
 
 
 State 12
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 30
+
+
+State 13
 
     1 program: stats .
     3 stats: stats . stat
@@ -301,628 +338,782 @@ State 12
     T_INTEGER     shift, and go to state 6
     T_DOUBLE      shift, and go to state 7
     T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
-    T_SEMICOLON   shift, and go to state 10
+    T_TFOR        shift, and go to state 9
+    T_TWHILE      shift, and go to state 10
+    T_LPAREN      shift, and go to state 11
 
     $default  reduce using rule 1 (program)
 
-    stat        go to state 26
-    func_dec    go to state 14
-    var_dec     go to state 15
-    ident       go to state 16
-    typename    go to state 17
-    assignmemt  go to state 18
-    expr        go to state 19
-    number      go to state 20
-    call        go to state 21
+    stat        go to state 31
+    func_dec    go to state 15
+    var_dec     go to state 16
+    ident       go to state 17
+    typename    go to state 18
+    assignmemt  go to state 19
+    expr        go to state 20
+    number      go to state 21
+    call        go to state 22
+    for_stm     go to state 23
+    while_stm   go to state 24
 
 
-State 13
+State 14
 
     2 stats: stat .
 
     $default  reduce using rule 2 (stats)
 
 
-State 14
+State 15
 
     5 stat: func_dec .
 
     $default  reduce using rule 5 (stat)
 
 
-State 15
+State 16
 
     4 stat: var_dec . T_SEMICOLON
 
-    T_SEMICOLON  shift, and go to state 27
-
-
-State 16
-
-   20 assignmemt: ident . T_ASSIGN expr
-   23 expr: ident .
-   33 call: ident . T_LPAREN call_args T_RPAREN
-
-    T_ASSIGN  shift, and go to state 28
-    T_LPAREN  shift, and go to state 29
-
-    T_LPAREN  [reduce using rule 23 (expr)]
-    $default  reduce using rule 23 (expr)
+    T_SEMICOLON  shift, and go to state 32
 
 
 State 17
 
-   10 func_dec: typename . ident T_LPAREN varvec T_RPAREN block
-   15 var_dec: typename . ident
-   16        | typename . ident T_ASSIGN expr
+   21 assignmemt: ident . T_ASSIGN expr
+   24 expr: ident .
+   34 call: ident . T_LPAREN call_args T_RPAREN
 
-    T_IDENTIFIER  shift, and go to state 5
+    T_ASSIGN  shift, and go to state 33
+    T_LPAREN  shift, and go to state 34
 
-    ident  go to state 30
+    T_LPAREN  [reduce using rule 24 (expr)]
+    $default  reduce using rule 24 (expr)
 
 
 State 18
 
-   21 expr: assignmemt .
+   11 func_dec: typename . ident T_LPAREN varvec T_RPAREN block
+   16 var_dec: typename . ident
+   17        | typename . ident T_ASSIGN expr
 
-    $default  reduce using rule 21 (expr)
+    T_IDENTIFIER  shift, and go to state 5
+
+    ident  go to state 35
 
 
 State 19
 
-    6 stat: expr . T_SEMICOLON
-   24 expr: expr . T_PLUS expr
-   25     | expr . T_MINUS expr
-   26     | expr . T_MULT expr
-   27     | expr . T_DIV expr
-
-    T_SEMICOLON  shift, and go to state 31
-    T_PLUS       shift, and go to state 32
-    T_MINUS      shift, and go to state 33
-    T_MULT       shift, and go to state 34
-    T_DIV        shift, and go to state 35
-
-
-State 20
-
-   22 expr: number .
+   22 expr: assignmemt .
 
     $default  reduce using rule 22 (expr)
 
 
+State 20
+
+    6 stat: expr . T_SEMICOLON
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+
+    T_SEMICOLON  shift, and go to state 36
+    T_PLUS       shift, and go to state 37
+    T_MINUS      shift, and go to state 38
+    T_MULT       shift, and go to state 39
+    T_DIV        shift, and go to state 40
+
+
 State 21
 
-   30 expr: call .
+   23 expr: number .
 
-    $default  reduce using rule 30 (expr)
+    $default  reduce using rule 23 (expr)
 
 
 State 22
 
-   11 func_dec: T_EXTERN typename . ident T_LPAREN varvec T_RPAREN T_SEMICOLON
+   31 expr: call .
 
-    T_IDENTIFIER  shift, and go to state 5
-
-    ident  go to state 36
+    $default  reduce using rule 31 (expr)
 
 
 State 23
 
-    7 stat: T_RETURN expr . T_SEMICOLON
-   24 expr: expr . T_PLUS expr
-   25     | expr . T_MINUS expr
-   26     | expr . T_MULT expr
-   27     | expr . T_DIV expr
+    8 stat: for_stm .
 
-    T_SEMICOLON  shift, and go to state 37
-    T_PLUS       shift, and go to state 32
-    T_MINUS      shift, and go to state 33
-    T_MULT       shift, and go to state 34
-    T_DIV        shift, and go to state 35
+    $default  reduce using rule 8 (stat)
 
 
 State 24
 
-   24 expr: expr . T_PLUS expr
-   25     | expr . T_MINUS expr
-   26     | expr . T_MULT expr
-   27     | expr . T_DIV expr
-   28     | T_LPAREN expr . T_LPAREN
+    9 stat: while_stm .
 
-    T_LPAREN  shift, and go to state 38
-    T_PLUS    shift, and go to state 32
-    T_MINUS   shift, and go to state 33
-    T_MULT    shift, and go to state 34
-    T_DIV     shift, and go to state 35
+    $default  reduce using rule 9 (stat)
 
 
 State 25
+
+   12 func_dec: T_EXTERN typename . ident T_LPAREN varvec T_RPAREN T_SEMICOLON
+
+    T_IDENTIFIER  shift, and go to state 5
+
+    ident  go to state 41
+
+
+State 26
+
+    7 stat: T_RETURN expr . T_SEMICOLON
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+
+    T_SEMICOLON  shift, and go to state 42
+    T_PLUS       shift, and go to state 37
+    T_MINUS      shift, and go to state 38
+    T_MULT       shift, and go to state 39
+    T_DIV        shift, and go to state 40
+
+
+State 27
+
+   38 for_stm: T_TFOR T_LPAREN . expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   39        | T_TFOR T_LPAREN . expr T_SEMICOLON T_SEMICOLON T_RPAREN block
+   40        | T_TFOR T_LPAREN . T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   41        | T_TFOR T_LPAREN . T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   42        | T_TFOR T_LPAREN . expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   43        | T_TFOR T_LPAREN . expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   44        | T_TFOR T_LPAREN . T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   45        | T_TFOR T_LPAREN . T_SEMICOLON T_SEMICOLON T_RPAREN block
+
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+    T_SEMICOLON   shift, and go to state 43
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 44
+    number      go to state 21
+    call        go to state 22
+
+
+State 28
+
+   46 while_stm: T_TWHILE T_LPAREN . expr T_RPAREN block
+
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 45
+    number      go to state 21
+    call        go to state 22
+
+
+State 29
+
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   29     | T_LPAREN expr . T_LPAREN
+
+    T_LPAREN  shift, and go to state 46
+    T_PLUS    shift, and go to state 37
+    T_MINUS   shift, and go to state 38
+    T_MULT    shift, and go to state 39
+    T_DIV     shift, and go to state 40
+
+
+State 30
 
     0 $accept: program $end .
 
     $default  accept
 
 
-State 26
+State 31
 
     3 stats: stats stat .
 
     $default  reduce using rule 3 (stats)
 
 
-State 27
+State 32
 
     4 stat: var_dec T_SEMICOLON .
 
     $default  reduce using rule 4 (stat)
 
 
-State 28
+State 33
 
-   20 assignmemt: ident T_ASSIGN . expr
-
-    T_IDENTIFIER  shift, and go to state 5
-    T_INTEGER     shift, and go to state 6
-    T_DOUBLE      shift, and go to state 7
-    T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
-
-    ident       go to state 16
-    assignmemt  go to state 18
-    expr        go to state 39
-    number      go to state 20
-    call        go to state 21
-
-
-State 29
-
-   33 call: ident T_LPAREN . call_args T_RPAREN
+   21 assignmemt: ident T_ASSIGN . expr
 
     T_IDENTIFIER  shift, and go to state 5
     T_INTEGER     shift, and go to state 6
     T_DOUBLE      shift, and go to state 7
     T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
+    T_LPAREN      shift, and go to state 11
 
-    $default  reduce using rule 36 (call_args)
-
-    ident       go to state 16
-    assignmemt  go to state 18
-    expr        go to state 40
-    number      go to state 20
-    call        go to state 21
-    call_args   go to state 41
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 47
+    number      go to state 21
+    call        go to state 22
 
 
-State 30
+State 34
 
-   10 func_dec: typename ident . T_LPAREN varvec T_RPAREN block
-   15 var_dec: typename ident .
-   16        | typename ident . T_ASSIGN expr
+   34 call: ident T_LPAREN . call_args T_RPAREN
 
-    T_ASSIGN  shift, and go to state 42
-    T_LPAREN  shift, and go to state 43
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
 
-    $default  reduce using rule 15 (var_dec)
+    $default  reduce using rule 37 (call_args)
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 48
+    number      go to state 21
+    call        go to state 22
+    call_args   go to state 49
 
 
-State 31
+State 35
+
+   11 func_dec: typename ident . T_LPAREN varvec T_RPAREN block
+   16 var_dec: typename ident .
+   17        | typename ident . T_ASSIGN expr
+
+    T_ASSIGN  shift, and go to state 50
+    T_LPAREN  shift, and go to state 51
+
+    $default  reduce using rule 16 (var_dec)
+
+
+State 36
 
     6 stat: expr T_SEMICOLON .
 
     $default  reduce using rule 6 (stat)
 
 
-State 32
-
-   24 expr: expr T_PLUS . expr
-
-    T_IDENTIFIER  shift, and go to state 5
-    T_INTEGER     shift, and go to state 6
-    T_DOUBLE      shift, and go to state 7
-    T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
-
-    ident       go to state 16
-    assignmemt  go to state 18
-    expr        go to state 44
-    number      go to state 20
-    call        go to state 21
-
-
-State 33
-
-   25 expr: expr T_MINUS . expr
-
-    T_IDENTIFIER  shift, and go to state 5
-    T_INTEGER     shift, and go to state 6
-    T_DOUBLE      shift, and go to state 7
-    T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
-
-    ident       go to state 16
-    assignmemt  go to state 18
-    expr        go to state 45
-    number      go to state 20
-    call        go to state 21
-
-
-State 34
-
-   26 expr: expr T_MULT . expr
-
-    T_IDENTIFIER  shift, and go to state 5
-    T_INTEGER     shift, and go to state 6
-    T_DOUBLE      shift, and go to state 7
-    T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
-
-    ident       go to state 16
-    assignmemt  go to state 18
-    expr        go to state 46
-    number      go to state 20
-    call        go to state 21
-
-
-State 35
-
-   27 expr: expr T_DIV . expr
-
-    T_IDENTIFIER  shift, and go to state 5
-    T_INTEGER     shift, and go to state 6
-    T_DOUBLE      shift, and go to state 7
-    T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
-
-    ident       go to state 16
-    assignmemt  go to state 18
-    expr        go to state 47
-    number      go to state 20
-    call        go to state 21
-
-
-State 36
-
-   11 func_dec: T_EXTERN typename ident . T_LPAREN varvec T_RPAREN T_SEMICOLON
-
-    T_LPAREN  shift, and go to state 48
-
-
 State 37
+
+   25 expr: expr T_PLUS . expr
+
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 52
+    number      go to state 21
+    call        go to state 22
+
+
+State 38
+
+   26 expr: expr T_MINUS . expr
+
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 53
+    number      go to state 21
+    call        go to state 22
+
+
+State 39
+
+   27 expr: expr T_MULT . expr
+
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 54
+    number      go to state 21
+    call        go to state 22
+
+
+State 40
+
+   28 expr: expr T_DIV . expr
+
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 55
+    number      go to state 21
+    call        go to state 22
+
+
+State 41
+
+   12 func_dec: T_EXTERN typename ident . T_LPAREN varvec T_RPAREN T_SEMICOLON
+
+    T_LPAREN  shift, and go to state 56
+
+
+State 42
 
     7 stat: T_RETURN expr T_SEMICOLON .
 
     $default  reduce using rule 7 (stat)
 
 
-State 38
+State 43
 
-   28 expr: T_LPAREN expr T_LPAREN .
-
-    $default  reduce using rule 28 (expr)
-
-
-State 39
-
-   20 assignmemt: ident T_ASSIGN expr .
-   24 expr: expr . T_PLUS expr
-   25     | expr . T_MINUS expr
-   26     | expr . T_MULT expr
-   27     | expr . T_DIV expr
-
-    T_PLUS   shift, and go to state 32
-    T_MINUS  shift, and go to state 33
-    T_MULT   shift, and go to state 34
-    T_DIV    shift, and go to state 35
-
-    T_PLUS    [reduce using rule 20 (assignmemt)]
-    T_MINUS   [reduce using rule 20 (assignmemt)]
-    T_MULT    [reduce using rule 20 (assignmemt)]
-    T_DIV     [reduce using rule 20 (assignmemt)]
-    $default  reduce using rule 20 (assignmemt)
-
-
-State 40
-
-   24 expr: expr . T_PLUS expr
-   25     | expr . T_MINUS expr
-   26     | expr . T_MULT expr
-   27     | expr . T_DIV expr
-   35 call_args: expr .
-
-    T_PLUS   shift, and go to state 32
-    T_MINUS  shift, and go to state 33
-    T_MULT   shift, and go to state 34
-    T_DIV    shift, and go to state 35
-
-    $default  reduce using rule 35 (call_args)
-
-
-State 41
-
-   33 call: ident T_LPAREN call_args . T_RPAREN
-   34 call_args: call_args . T_COMMA expr
-
-    T_RPAREN  shift, and go to state 49
-    T_COMMA   shift, and go to state 50
-
-
-State 42
-
-   16 var_dec: typename ident T_ASSIGN . expr
+   40 for_stm: T_TFOR T_LPAREN T_SEMICOLON . expr T_SEMICOLON T_RPAREN block
+   41        | T_TFOR T_LPAREN T_SEMICOLON . T_SEMICOLON expr T_RPAREN block
+   44        | T_TFOR T_LPAREN T_SEMICOLON . expr T_SEMICOLON expr T_RPAREN block
+   45        | T_TFOR T_LPAREN T_SEMICOLON . T_SEMICOLON T_RPAREN block
 
     T_IDENTIFIER  shift, and go to state 5
     T_INTEGER     shift, and go to state 6
     T_DOUBLE      shift, and go to state 7
     T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
+    T_LPAREN      shift, and go to state 11
+    T_SEMICOLON   shift, and go to state 57
 
-    ident       go to state 16
-    assignmemt  go to state 18
-    expr        go to state 51
-    number      go to state 20
-    call        go to state 21
-
-
-State 43
-
-   10 func_dec: typename ident T_LPAREN . varvec T_RPAREN block
-
-    T_TINT     shift, and go to state 1
-    T_TDOUBLE  shift, and go to state 2
-
-    $default  reduce using rule 14 (varvec)
-
-    varvec    go to state 52
-    var_dec   go to state 53
-    typename  go to state 54
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 58
+    number      go to state 21
+    call        go to state 22
 
 
 State 44
 
-   24 expr: expr . T_PLUS expr
-   24     | expr T_PLUS expr .
-   25     | expr . T_MINUS expr
-   26     | expr . T_MULT expr
-   27     | expr . T_DIV expr
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   38 for_stm: T_TFOR T_LPAREN expr . T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   39        | T_TFOR T_LPAREN expr . T_SEMICOLON T_SEMICOLON T_RPAREN block
+   42        | T_TFOR T_LPAREN expr . T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   43        | T_TFOR T_LPAREN expr . T_SEMICOLON T_SEMICOLON expr T_RPAREN block
 
-    T_MULT  shift, and go to state 34
-    T_DIV   shift, and go to state 35
-
-    $default  reduce using rule 24 (expr)
+    T_SEMICOLON  shift, and go to state 59
+    T_PLUS       shift, and go to state 37
+    T_MINUS      shift, and go to state 38
+    T_MULT       shift, and go to state 39
+    T_DIV        shift, and go to state 40
 
 
 State 45
 
-   24 expr: expr . T_PLUS expr
-   25     | expr . T_MINUS expr
-   25     | expr T_MINUS expr .
-   26     | expr . T_MULT expr
-   27     | expr . T_DIV expr
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   46 while_stm: T_TWHILE T_LPAREN expr . T_RPAREN block
 
-    T_MULT  shift, and go to state 34
-    T_DIV   shift, and go to state 35
-
-    $default  reduce using rule 25 (expr)
+    T_RPAREN  shift, and go to state 60
+    T_PLUS    shift, and go to state 37
+    T_MINUS   shift, and go to state 38
+    T_MULT    shift, and go to state 39
+    T_DIV     shift, and go to state 40
 
 
 State 46
 
-   24 expr: expr . T_PLUS expr
-   25     | expr . T_MINUS expr
-   26     | expr . T_MULT expr
-   26     | expr T_MULT expr .
-   27     | expr . T_DIV expr
+   29 expr: T_LPAREN expr T_LPAREN .
 
-    $default  reduce using rule 26 (expr)
+    $default  reduce using rule 29 (expr)
 
 
 State 47
 
-   24 expr: expr . T_PLUS expr
-   25     | expr . T_MINUS expr
-   26     | expr . T_MULT expr
-   27     | expr . T_DIV expr
-   27     | expr T_DIV expr .
+   21 assignmemt: ident T_ASSIGN expr .
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
 
-    $default  reduce using rule 27 (expr)
+    T_PLUS   shift, and go to state 37
+    T_MINUS  shift, and go to state 38
+    T_MULT   shift, and go to state 39
+    T_DIV    shift, and go to state 40
+
+    T_PLUS    [reduce using rule 21 (assignmemt)]
+    T_MINUS   [reduce using rule 21 (assignmemt)]
+    T_MULT    [reduce using rule 21 (assignmemt)]
+    T_DIV     [reduce using rule 21 (assignmemt)]
+    $default  reduce using rule 21 (assignmemt)
 
 
 State 48
 
-   11 func_dec: T_EXTERN typename ident T_LPAREN . varvec T_RPAREN T_SEMICOLON
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   36 call_args: expr .
 
-    T_TINT     shift, and go to state 1
-    T_TDOUBLE  shift, and go to state 2
+    T_PLUS   shift, and go to state 37
+    T_MINUS  shift, and go to state 38
+    T_MULT   shift, and go to state 39
+    T_DIV    shift, and go to state 40
 
-    $default  reduce using rule 14 (varvec)
-
-    varvec    go to state 55
-    var_dec   go to state 53
-    typename  go to state 54
+    $default  reduce using rule 36 (call_args)
 
 
 State 49
 
-   33 call: ident T_LPAREN call_args T_RPAREN .
+   34 call: ident T_LPAREN call_args . T_RPAREN
+   35 call_args: call_args . T_COMMA expr
 
-    $default  reduce using rule 33 (call)
+    T_RPAREN  shift, and go to state 61
+    T_COMMA   shift, and go to state 62
 
 
 State 50
 
-   34 call_args: call_args T_COMMA . expr
+   17 var_dec: typename ident T_ASSIGN . expr
 
     T_IDENTIFIER  shift, and go to state 5
     T_INTEGER     shift, and go to state 6
     T_DOUBLE      shift, and go to state 7
     T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
+    T_LPAREN      shift, and go to state 11
 
-    ident       go to state 16
-    assignmemt  go to state 18
-    expr        go to state 56
-    number      go to state 20
-    call        go to state 21
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 63
+    number      go to state 21
+    call        go to state 22
 
 
 State 51
 
-   16 var_dec: typename ident T_ASSIGN expr .
-   24 expr: expr . T_PLUS expr
-   25     | expr . T_MINUS expr
-   26     | expr . T_MULT expr
-   27     | expr . T_DIV expr
-
-    T_PLUS   shift, and go to state 32
-    T_MINUS  shift, and go to state 33
-    T_MULT   shift, and go to state 34
-    T_DIV    shift, and go to state 35
-
-    $default  reduce using rule 16 (var_dec)
-
-
-State 52
-
-   10 func_dec: typename ident T_LPAREN varvec . T_RPAREN block
-   12 varvec: varvec . T_COMMA var_dec
-
-    T_RPAREN  shift, and go to state 57
-    T_COMMA   shift, and go to state 58
-
-
-State 53
-
-   13 varvec: var_dec .
-
-    $default  reduce using rule 13 (varvec)
-
-
-State 54
-
-   15 var_dec: typename . ident
-   16        | typename . ident T_ASSIGN expr
-
-    T_IDENTIFIER  shift, and go to state 5
-
-    ident  go to state 59
-
-
-State 55
-
-   11 func_dec: T_EXTERN typename ident T_LPAREN varvec . T_RPAREN T_SEMICOLON
-   12 varvec: varvec . T_COMMA var_dec
-
-    T_RPAREN  shift, and go to state 60
-    T_COMMA   shift, and go to state 58
-
-
-State 56
-
-   24 expr: expr . T_PLUS expr
-   25     | expr . T_MINUS expr
-   26     | expr . T_MULT expr
-   27     | expr . T_DIV expr
-   34 call_args: call_args T_COMMA expr .
-
-    T_PLUS   shift, and go to state 32
-    T_MINUS  shift, and go to state 33
-    T_MULT   shift, and go to state 34
-    T_DIV    shift, and go to state 35
-
-    $default  reduce using rule 34 (call_args)
-
-
-State 57
-
-   10 func_dec: typename ident T_LPAREN varvec T_RPAREN . block
-
-    T_LBRACE  shift, and go to state 61
-
-    block  go to state 62
-
-
-State 58
-
-   12 varvec: varvec T_COMMA . var_dec
+   11 func_dec: typename ident T_LPAREN . varvec T_RPAREN block
 
     T_TINT     shift, and go to state 1
     T_TDOUBLE  shift, and go to state 2
 
-    var_dec   go to state 63
-    typename  go to state 54
+    $default  reduce using rule 15 (varvec)
+
+    varvec    go to state 64
+    var_dec   go to state 65
+    typename  go to state 66
+
+
+State 52
+
+   25 expr: expr . T_PLUS expr
+   25     | expr T_PLUS expr .
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+
+    T_MULT  shift, and go to state 39
+    T_DIV   shift, and go to state 40
+
+    $default  reduce using rule 25 (expr)
+
+
+State 53
+
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   26     | expr T_MINUS expr .
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+
+    T_MULT  shift, and go to state 39
+    T_DIV   shift, and go to state 40
+
+    $default  reduce using rule 26 (expr)
+
+
+State 54
+
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   27     | expr T_MULT expr .
+   28     | expr . T_DIV expr
+
+    $default  reduce using rule 27 (expr)
+
+
+State 55
+
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   28     | expr T_DIV expr .
+
+    $default  reduce using rule 28 (expr)
+
+
+State 56
+
+   12 func_dec: T_EXTERN typename ident T_LPAREN . varvec T_RPAREN T_SEMICOLON
+
+    T_TINT     shift, and go to state 1
+    T_TDOUBLE  shift, and go to state 2
+
+    $default  reduce using rule 15 (varvec)
+
+    varvec    go to state 67
+    var_dec   go to state 65
+    typename  go to state 66
+
+
+State 57
+
+   41 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON . expr T_RPAREN block
+   45        | T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON . T_RPAREN block
+
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+    T_RPAREN      shift, and go to state 68
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 69
+    number      go to state 21
+    call        go to state 22
+
+
+State 58
+
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   40 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr . T_SEMICOLON T_RPAREN block
+   44        | T_TFOR T_LPAREN T_SEMICOLON expr . T_SEMICOLON expr T_RPAREN block
+
+    T_SEMICOLON  shift, and go to state 70
+    T_PLUS       shift, and go to state 37
+    T_MINUS      shift, and go to state 38
+    T_MULT       shift, and go to state 39
+    T_DIV        shift, and go to state 40
 
 
 State 59
 
-   15 var_dec: typename ident .
-   16        | typename ident . T_ASSIGN expr
+   38 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON . expr T_SEMICOLON expr T_RPAREN block
+   39        | T_TFOR T_LPAREN expr T_SEMICOLON . T_SEMICOLON T_RPAREN block
+   42        | T_TFOR T_LPAREN expr T_SEMICOLON . expr T_SEMICOLON T_RPAREN block
+   43        | T_TFOR T_LPAREN expr T_SEMICOLON . T_SEMICOLON expr T_RPAREN block
 
-    T_ASSIGN  shift, and go to state 42
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+    T_SEMICOLON   shift, and go to state 71
 
-    $default  reduce using rule 15 (var_dec)
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 72
+    number      go to state 21
+    call        go to state 22
 
 
 State 60
 
-   11 func_dec: T_EXTERN typename ident T_LPAREN varvec T_RPAREN . T_SEMICOLON
+   46 while_stm: T_TWHILE T_LPAREN expr T_RPAREN . block
 
-    T_SEMICOLON  shift, and go to state 64
+    T_LBRACE  shift, and go to state 73
+
+    block  go to state 74
 
 
 State 61
 
-    9 block: T_LBRACE . stats T_RBRACE
+   34 call: ident T_LPAREN call_args T_RPAREN .
 
-    T_TINT        shift, and go to state 1
-    T_TDOUBLE     shift, and go to state 2
-    T_EXTERN      shift, and go to state 3
-    T_RETURN      shift, and go to state 4
-    T_IDENTIFIER  shift, and go to state 5
-    T_INTEGER     shift, and go to state 6
-    T_DOUBLE      shift, and go to state 7
-    T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
-    T_SEMICOLON   shift, and go to state 10
-
-    stats       go to state 65
-    stat        go to state 13
-    func_dec    go to state 14
-    var_dec     go to state 15
-    ident       go to state 16
-    typename    go to state 17
-    assignmemt  go to state 18
-    expr        go to state 19
-    number      go to state 20
-    call        go to state 21
+    $default  reduce using rule 34 (call)
 
 
 State 62
 
-   10 func_dec: typename ident T_LPAREN varvec T_RPAREN block .
+   35 call_args: call_args T_COMMA . expr
 
-    $default  reduce using rule 10 (func_dec)
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 75
+    number      go to state 21
+    call        go to state 22
 
 
 State 63
 
-   12 varvec: varvec T_COMMA var_dec .
+   17 var_dec: typename ident T_ASSIGN expr .
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
 
-    $default  reduce using rule 12 (varvec)
+    T_PLUS   shift, and go to state 37
+    T_MINUS  shift, and go to state 38
+    T_MULT   shift, and go to state 39
+    T_DIV    shift, and go to state 40
+
+    $default  reduce using rule 17 (var_dec)
 
 
 State 64
 
-   11 func_dec: T_EXTERN typename ident T_LPAREN varvec T_RPAREN T_SEMICOLON .
+   11 func_dec: typename ident T_LPAREN varvec . T_RPAREN block
+   13 varvec: varvec . T_COMMA var_dec
 
-    $default  reduce using rule 11 (func_dec)
+    T_RPAREN  shift, and go to state 76
+    T_COMMA   shift, and go to state 77
 
 
 State 65
 
-    3 stats: stats . stat
-    9 block: T_LBRACE stats . T_RBRACE
+   14 varvec: var_dec .
+
+    $default  reduce using rule 14 (varvec)
+
+
+State 66
+
+   16 var_dec: typename . ident
+   17        | typename . ident T_ASSIGN expr
+
+    T_IDENTIFIER  shift, and go to state 5
+
+    ident  go to state 78
+
+
+State 67
+
+   12 func_dec: T_EXTERN typename ident T_LPAREN varvec . T_RPAREN T_SEMICOLON
+   13 varvec: varvec . T_COMMA var_dec
+
+    T_RPAREN  shift, and go to state 79
+    T_COMMA   shift, and go to state 77
+
+
+State 68
+
+   45 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 73
+
+    block  go to state 80
+
+
+State 69
+
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   41 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr . T_RPAREN block
+
+    T_RPAREN  shift, and go to state 81
+    T_PLUS    shift, and go to state 37
+    T_MINUS   shift, and go to state 38
+    T_MULT    shift, and go to state 39
+    T_DIV     shift, and go to state 40
+
+
+State 70
+
+   40 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON . T_RPAREN block
+   44        | T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON . expr T_RPAREN block
+
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+    T_RPAREN      shift, and go to state 82
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 83
+    number      go to state 21
+    call        go to state 22
+
+
+State 71
+
+   39 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON . T_RPAREN block
+   43        | T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON . expr T_RPAREN block
+
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+    T_RPAREN      shift, and go to state 84
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 85
+    number      go to state 21
+    call        go to state 22
+
+
+State 72
+
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   38 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr . T_SEMICOLON expr T_RPAREN block
+   42        | T_TFOR T_LPAREN expr T_SEMICOLON expr . T_SEMICOLON T_RPAREN block
+
+    T_SEMICOLON  shift, and go to state 86
+    T_PLUS       shift, and go to state 37
+    T_MINUS      shift, and go to state 38
+    T_MULT       shift, and go to state 39
+    T_DIV        shift, and go to state 40
+
+
+State 73
+
+   10 block: T_LBRACE . stats T_RBRACE
 
     T_TINT        shift, and go to state 1
     T_TDOUBLE     shift, and go to state 2
@@ -932,23 +1123,321 @@ State 65
     T_INTEGER     shift, and go to state 6
     T_DOUBLE      shift, and go to state 7
     T_LITERAL     shift, and go to state 8
-    T_LPAREN      shift, and go to state 9
-    T_RBRACE      shift, and go to state 66
-    T_SEMICOLON   shift, and go to state 10
+    T_TFOR        shift, and go to state 9
+    T_TWHILE      shift, and go to state 10
+    T_LPAREN      shift, and go to state 11
 
-    stat        go to state 26
-    func_dec    go to state 14
-    var_dec     go to state 15
-    ident       go to state 16
-    typename    go to state 17
-    assignmemt  go to state 18
-    expr        go to state 19
-    number      go to state 20
-    call        go to state 21
+    stats       go to state 87
+    stat        go to state 14
+    func_dec    go to state 15
+    var_dec     go to state 16
+    ident       go to state 17
+    typename    go to state 18
+    assignmemt  go to state 19
+    expr        go to state 20
+    number      go to state 21
+    call        go to state 22
+    for_stm     go to state 23
+    while_stm   go to state 24
 
 
-State 66
+State 74
 
-    9 block: T_LBRACE stats T_RBRACE .
+   46 while_stm: T_TWHILE T_LPAREN expr T_RPAREN block .
 
-    $default  reduce using rule 9 (block)
+    $default  reduce using rule 46 (while_stm)
+
+
+State 75
+
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   35 call_args: call_args T_COMMA expr .
+
+    T_PLUS   shift, and go to state 37
+    T_MINUS  shift, and go to state 38
+    T_MULT   shift, and go to state 39
+    T_DIV    shift, and go to state 40
+
+    $default  reduce using rule 35 (call_args)
+
+
+State 76
+
+   11 func_dec: typename ident T_LPAREN varvec T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 73
+
+    block  go to state 88
+
+
+State 77
+
+   13 varvec: varvec T_COMMA . var_dec
+
+    T_TINT     shift, and go to state 1
+    T_TDOUBLE  shift, and go to state 2
+
+    var_dec   go to state 89
+    typename  go to state 66
+
+
+State 78
+
+   16 var_dec: typename ident .
+   17        | typename ident . T_ASSIGN expr
+
+    T_ASSIGN  shift, and go to state 50
+
+    $default  reduce using rule 16 (var_dec)
+
+
+State 79
+
+   12 func_dec: T_EXTERN typename ident T_LPAREN varvec T_RPAREN . T_SEMICOLON
+
+    T_SEMICOLON  shift, and go to state 90
+
+
+State 80
+
+   45 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN block .
+
+    $default  reduce using rule 45 (for_stm)
+
+
+State 81
+
+   41 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 73
+
+    block  go to state 91
+
+
+State 82
+
+   40 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 73
+
+    block  go to state 92
+
+
+State 83
+
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   44 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr . T_RPAREN block
+
+    T_RPAREN  shift, and go to state 93
+    T_PLUS    shift, and go to state 37
+    T_MINUS   shift, and go to state 38
+    T_MULT    shift, and go to state 39
+    T_DIV     shift, and go to state 40
+
+
+State 84
+
+   39 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 73
+
+    block  go to state 94
+
+
+State 85
+
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   43 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr . T_RPAREN block
+
+    T_RPAREN  shift, and go to state 95
+    T_PLUS    shift, and go to state 37
+    T_MINUS   shift, and go to state 38
+    T_MULT    shift, and go to state 39
+    T_DIV     shift, and go to state 40
+
+
+State 86
+
+   38 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON . expr T_RPAREN block
+   42        | T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON . T_RPAREN block
+
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_LPAREN      shift, and go to state 11
+    T_RPAREN      shift, and go to state 96
+
+    ident       go to state 17
+    assignmemt  go to state 19
+    expr        go to state 97
+    number      go to state 21
+    call        go to state 22
+
+
+State 87
+
+    3 stats: stats . stat
+   10 block: T_LBRACE stats . T_RBRACE
+
+    T_TINT        shift, and go to state 1
+    T_TDOUBLE     shift, and go to state 2
+    T_EXTERN      shift, and go to state 3
+    T_RETURN      shift, and go to state 4
+    T_IDENTIFIER  shift, and go to state 5
+    T_INTEGER     shift, and go to state 6
+    T_DOUBLE      shift, and go to state 7
+    T_LITERAL     shift, and go to state 8
+    T_TFOR        shift, and go to state 9
+    T_TWHILE      shift, and go to state 10
+    T_LPAREN      shift, and go to state 11
+    T_RBRACE      shift, and go to state 98
+
+    stat        go to state 31
+    func_dec    go to state 15
+    var_dec     go to state 16
+    ident       go to state 17
+    typename    go to state 18
+    assignmemt  go to state 19
+    expr        go to state 20
+    number      go to state 21
+    call        go to state 22
+    for_stm     go to state 23
+    while_stm   go to state 24
+
+
+State 88
+
+   11 func_dec: typename ident T_LPAREN varvec T_RPAREN block .
+
+    $default  reduce using rule 11 (func_dec)
+
+
+State 89
+
+   13 varvec: varvec T_COMMA var_dec .
+
+    $default  reduce using rule 13 (varvec)
+
+
+State 90
+
+   12 func_dec: T_EXTERN typename ident T_LPAREN varvec T_RPAREN T_SEMICOLON .
+
+    $default  reduce using rule 12 (func_dec)
+
+
+State 91
+
+   41 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN block .
+
+    $default  reduce using rule 41 (for_stm)
+
+
+State 92
+
+   40 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN block .
+
+    $default  reduce using rule 40 (for_stm)
+
+
+State 93
+
+   44 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 73
+
+    block  go to state 99
+
+
+State 94
+
+   39 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN block .
+
+    $default  reduce using rule 39 (for_stm)
+
+
+State 95
+
+   43 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 73
+
+    block  go to state 100
+
+
+State 96
+
+   42 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 73
+
+    block  go to state 101
+
+
+State 97
+
+   25 expr: expr . T_PLUS expr
+   26     | expr . T_MINUS expr
+   27     | expr . T_MULT expr
+   28     | expr . T_DIV expr
+   38 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr . T_RPAREN block
+
+    T_RPAREN  shift, and go to state 102
+    T_PLUS    shift, and go to state 37
+    T_MINUS   shift, and go to state 38
+    T_MULT    shift, and go to state 39
+    T_DIV     shift, and go to state 40
+
+
+State 98
+
+   10 block: T_LBRACE stats T_RBRACE .
+
+    $default  reduce using rule 10 (block)
+
+
+State 99
+
+   44 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block .
+
+    $default  reduce using rule 44 (for_stm)
+
+
+State 100
+
+   43 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block .
+
+    $default  reduce using rule 43 (for_stm)
+
+
+State 101
+
+   42 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block .
+
+    $default  reduce using rule 42 (for_stm)
+
+
+State 102
+
+   38 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 73
+
+    block  go to state 103
+
+
+State 103
+
+   38 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block .
+
+    $default  reduce using rule 38 (for_stm)

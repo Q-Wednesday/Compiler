@@ -351,6 +351,7 @@ public:
             << "->"
             << "node" << to_string(funcName->nodeID) << endl;
     }
+    Value *codeGen(CodeGenContext &) override;
 };
 // for 语句 for(initval;termval;increval)
 class ForNode : public StatementNode

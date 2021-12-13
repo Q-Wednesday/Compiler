@@ -68,19 +68,21 @@ extern int yydebug;
     T_CLE = 274,
     T_CGT = 275,
     T_CGE = 276,
-    T_LPAREN = 277,
-    T_RPAREN = 278,
-    T_LBRACE = 279,
-    T_RBRACE = 280,
-    T_LBRACKET = 281,
-    T_RBRACKET = 282,
-    T_SEMICOLON = 283,
-    T_PLUS = 284,
-    T_MINUS = 285,
-    T_MULT = 286,
-    T_DIV = 287,
-    T_DOT = 288,
-    T_COMMA = 289
+    T_TFOR = 277,
+    T_TWHILE = 278,
+    T_LPAREN = 279,
+    T_RPAREN = 280,
+    T_LBRACE = 281,
+    T_RBRACE = 282,
+    T_LBRACKET = 283,
+    T_RBRACKET = 284,
+    T_SEMICOLON = 285,
+    T_PLUS = 286,
+    T_MINUS = 287,
+    T_MULT = 288,
+    T_DIV = 289,
+    T_DOT = 290,
+    T_COMMA = 291
   };
 #endif
 
@@ -100,7 +102,7 @@ union YYSTYPE
     CodeBlockNode* block;
     VariableVec* varvec;
 
-#line 104 "grammar.hpp"
+#line 106 "grammar.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

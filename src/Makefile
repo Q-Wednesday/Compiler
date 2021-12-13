@@ -2,8 +2,10 @@ all: parser
 
 OBJECTS = grammar.o \
 		 token.o \
-		 graphGen.o \
 		 CodeGen.o \
+		 main.o \
+		 #graphGen.o \
+		 
 
 LLVMCONFIG = llvm-config
 CPPFLAGS = `$(LLVMCONFIG) --cppflags` -std=c++14
@@ -37,3 +39,5 @@ test: parser
 viz: AST.dot
 	dot AST.dot -T png -o AST.png
 
+testlink: testlink.c test
+	$(CC) testlink.c test.o -o testlink

@@ -55,7 +55,8 @@ stat        :   var_dec T_SEMICOLON     {$$=$1;}
             |   func_dec                {$$=$1;}
             |   expr T_SEMICOLON        {$$=new ExpressionStatement(shared_ptr<ExpressionNode>($1));}
             |   T_RETURN expr T_SEMICOLON {$$=new ReturnNode(shared_ptr<ExpressionNode>($2));}
-            |   for_stm
+            |   for_stm                 {$$=$1;}
+            |   while_stm               {$$=$1;}
 //            |   for_stm1
 //            |   for_stm2
  //           |   for_stm3
@@ -127,6 +128,7 @@ for_stm :   T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN bloc
 
 
 while_stm : T_TWHILE T_LPAREN expr T_RPAREN block {$$ = new ForNode(shared_ptr<CodeBlockNode>($5),nullptr,shared_ptr<ExpressionNode>($3),nullptr);}
+          ;
 %%
 
 // int main(){

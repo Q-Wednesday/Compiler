@@ -146,19 +146,21 @@ extern int yydebug;
     T_CLE = 274,
     T_CGT = 275,
     T_CGE = 276,
-    T_LPAREN = 277,
-    T_RPAREN = 278,
-    T_LBRACE = 279,
-    T_RBRACE = 280,
-    T_LBRACKET = 281,
-    T_RBRACKET = 282,
-    T_SEMICOLON = 283,
-    T_PLUS = 284,
-    T_MINUS = 285,
-    T_MULT = 286,
-    T_DIV = 287,
-    T_DOT = 288,
-    T_COMMA = 289
+    T_TFOR = 277,
+    T_TWHILE = 278,
+    T_LPAREN = 279,
+    T_RPAREN = 280,
+    T_LBRACE = 281,
+    T_RBRACE = 282,
+    T_LBRACKET = 283,
+    T_RBRACKET = 284,
+    T_SEMICOLON = 285,
+    T_PLUS = 286,
+    T_MINUS = 287,
+    T_MULT = 288,
+    T_DIV = 289,
+    T_DOT = 290,
+    T_COMMA = 291
   };
 #endif
 
@@ -178,7 +180,7 @@ union YYSTYPE
     CodeBlockNode* block;
     VariableVec* varvec;
 
-#line 182 "grammar.cpp"
+#line 184 "grammar.cpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -495,21 +497,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  25
+#define YYFINAL  30
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   94
+#define YYLAST   222
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  35
+#define YYNTOKENS  37
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  15
+#define YYNNTS  17
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  37
+#define YYNRULES  47
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  67
+#define YYNSTATES  104
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   289
+#define YYMAXUTOK   291
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -549,17 +551,19 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    33,    34
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_int8 yyrline[] =
+static const yytype_uint8 yyrline[] =
 {
        0,    47,    47,    50,    51,    54,    55,    56,    57,    58,
-      61,    64,    65,    67,    68,    69,    72,    73,    76,    79,
-      80,    82,    85,    86,    87,    88,    89,    90,    91,    92,
-      93,    94,    97,    98,   101,   104,   105,   106
+      59,    70,    73,    74,    76,    77,    78,    81,    82,    85,
+      88,    89,    91,    95,    96,    97,    98,    99,   100,   101,
+     102,   103,   104,   107,   108,   111,   114,   115,   116,   119,
+     120,   121,   122,   123,   124,   125,   126,   130
 };
 #endif
 
@@ -571,11 +575,12 @@ static const char *const yytname[] =
   "$end", "error", "$undefined", "T_TINT", "T_TDOUBLE", "T_TFLOAT",
   "T_TCHAR", "T_TBOOL", "T_TVOID", "T_EXTERN", "T_RETURN", "T_IDENTIFIER",
   "T_INTEGER", "T_DOUBLE", "T_LITERAL", "T_ASSIGN", "T_CEQUAL",
-  "T_CNEQUAL", "T_CLT", "T_CLE", "T_CGT", "T_CGE", "T_LPAREN", "T_RPAREN",
-  "T_LBRACE", "T_RBRACE", "T_LBRACKET", "T_RBRACKET", "T_SEMICOLON",
-  "T_PLUS", "T_MINUS", "T_MULT", "T_DIV", "T_DOT", "T_COMMA", "$accept",
-  "program", "stats", "stat", "block", "func_dec", "varvec", "var_dec",
-  "ident", "typename", "assignmemt", "expr", "number", "call", "call_args", YY_NULLPTR
+  "T_CNEQUAL", "T_CLT", "T_CLE", "T_CGT", "T_CGE", "T_TFOR", "T_TWHILE",
+  "T_LPAREN", "T_RPAREN", "T_LBRACE", "T_RBRACE", "T_LBRACKET",
+  "T_RBRACKET", "T_SEMICOLON", "T_PLUS", "T_MINUS", "T_MULT", "T_DIV",
+  "T_DOT", "T_COMMA", "$accept", "program", "stats", "stat", "block",
+  "func_dec", "varvec", "var_dec", "ident", "typename", "assignmemt",
+  "expr", "number", "call", "call_args", "for_stm", "while_stm", YY_NULLPTR
 };
 #endif
 
@@ -587,11 +592,11 @@ static const yytype_int16 yytoknum[] =
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286,   287,   288,   289
+     285,   286,   287,   288,   289,   290,   291
 };
 # endif
 
-#define YYPACT_NINF (-24)
+#define YYPACT_NINF (-46)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -603,15 +608,19 @@ static const yytype_int16 yytoknum[] =
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
      STATE-NUM.  */
-static const yytype_int8 yypact[] =
+static const yytype_int16 yypact[] =
 {
-      47,   -24,   -24,    18,    51,   -24,   -24,   -24,   -24,    51,
-     -24,    24,    47,   -24,   -24,   -10,    -6,    27,   -24,    53,
-     -24,   -24,    27,    58,    48,   -24,   -24,   -24,    51,    51,
-      22,   -24,    51,    51,    51,    51,    26,   -24,   -24,    62,
-      62,   -17,    51,    18,    11,    11,   -24,   -24,    18,   -24,
-      51,    62,    -4,   -24,    27,    13,    62,    28,    18,    31,
-      25,    47,   -24,   -24,   -24,     1,   -24
+     104,   -46,   -46,    18,   143,   -46,   -46,   -46,   -46,    21,
+      23,   143,    28,   104,   -46,   -46,   -26,     2,    37,   -46,
+      10,   -46,   -46,   -46,   -46,    37,   169,     1,   143,   139,
+     -46,   -46,   -46,   143,   143,     3,   -46,   143,   143,   143,
+     143,    26,   -46,    49,   174,   144,   -46,   188,   188,   -20,
+     143,    18,     4,     4,   -46,   -46,    18,    86,   179,   108,
+      31,   -46,   143,   188,   -17,   -46,    37,   -16,    31,   149,
+     122,   128,   184,   104,   -46,   188,    31,    18,    44,    22,
+     -46,    31,    31,   154,    31,   159,   137,    82,   -46,   -46,
+     -46,   -46,   -46,    31,   -46,    31,    31,   164,   -46,   -46,
+     -46,   -46,    31,   -46
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -619,27 +628,31 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,    19,    20,     0,     0,    18,    32,    33,    30,     0,
-       9,     0,     2,     3,     6,     0,    24,     0,    22,     0,
-      23,    31,     0,     0,     0,     1,     4,     5,     0,    37,
-      16,     7,     0,     0,     0,     0,     0,     8,    29,    21,
-      36,     0,     0,    15,    25,    26,    27,    28,    15,    34,
-       0,    17,     0,    14,     0,     0,    35,     0,     0,    16,
-       0,     0,    11,    13,    12,     0,    10
+       0,    20,    21,     0,     0,    19,    33,    34,    31,     0,
+       0,     0,     0,     2,     3,     6,     0,    25,     0,    23,
+       0,    24,    32,     9,    10,     0,     0,     0,     0,     0,
+       1,     4,     5,     0,    38,    17,     7,     0,     0,     0,
+       0,     0,     8,     0,     0,     0,    30,    22,    37,     0,
+       0,    16,    26,    27,    28,    29,    16,     0,     0,     0,
+       0,    35,     0,    18,     0,    15,     0,     0,     0,     0,
+       0,     0,     0,     0,    47,    36,     0,     0,    17,     0,
+      46,     0,     0,     0,     0,     0,     0,     0,    12,    14,
+      13,    42,    41,     0,    40,     0,     0,     0,    11,    45,
+      44,    43,     0,    39
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -24,   -24,     5,   -11,   -24,   -24,    19,   -23,   -15,    -3,
-     -24,    -1,   -24,   -24,   -24
+     -46,   -46,    -8,   -11,   -12,   -46,    12,   -45,   -15,    -2,
+     -46,    -4,   -46,   -46,   -46,   -46,   -46
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,    11,    12,    13,    62,    14,    52,    15,    16,    17,
-      18,    19,    20,    21,    41
+      -1,    12,    13,    14,    74,    15,    64,    16,    17,    18,
+      19,    20,    21,    22,    49,    23,    24
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -647,30 +660,56 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      22,    26,    30,    23,     1,     2,    49,    36,    24,    28,
-       3,     4,     5,     6,     7,     8,    29,    50,    27,    57,
-      53,     1,     2,     9,    25,    53,    66,    39,    40,    10,
-      58,    44,    45,    46,    47,    63,    60,    42,     5,    59,
-      54,    51,    34,    35,    43,    54,    42,    58,    48,    56,
-       1,     2,    61,    64,    26,    54,     3,     4,     5,     6,
-       7,     8,     5,     6,     7,     8,    65,    55,     0,     9,
-      38,     0,     0,     9,     0,    10,     0,    32,    33,    34,
-      35,    31,    32,    33,    34,    35,    37,    32,    33,    34,
-      35,    32,    33,    34,    35
+      26,    25,    31,    35,    32,    61,    65,    29,    76,    79,
+      41,    65,     5,     6,     7,     8,    62,    33,    50,    77,
+      77,     1,     2,    44,    45,    11,    34,    51,    30,    47,
+      48,    43,    89,    52,    53,    54,    55,    39,    40,    58,
+      36,    37,    38,    39,    40,    27,    63,    28,     5,    66,
+      56,    78,    90,    69,    66,    72,    80,    73,    75,    50,
+       5,     6,     7,     8,    88,    87,    83,    85,    67,    91,
+      92,     0,    94,    11,     0,    66,    31,     0,     0,    57,
+       0,    99,    97,   100,   101,     1,     2,     0,     0,     0,
+     103,     3,     4,     5,     6,     7,     8,     5,     6,     7,
+       8,     0,     0,     0,     9,    10,    11,     1,     2,    98,
+      11,    68,     0,     3,     4,     5,     6,     7,     8,     5,
+       6,     7,     8,     0,     0,     0,     9,    10,    11,     0,
+       0,     0,    11,     5,     6,     7,     8,     0,    71,     5,
+       6,     7,     8,     0,     0,     0,    11,    82,     5,     6,
+       7,     8,    11,    84,     5,     6,     7,     8,     0,     0,
+       0,    11,    96,    46,     0,     0,     0,    11,     0,    60,
+      37,    38,    39,    40,    81,    37,    38,    39,    40,    93,
+      37,    38,    39,    40,    95,    37,    38,    39,    40,   102,
+      37,    38,    39,    40,     0,    37,    38,    39,    40,    42,
+      37,    38,    39,    40,    59,    37,    38,    39,    40,    70,
+      37,    38,    39,    40,    86,    37,    38,    39,    40,    37,
+      38,    39,    40
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,    12,    17,     4,     3,     4,    23,    22,     9,    15,
-       9,    10,    11,    12,    13,    14,    22,    34,    28,    23,
-      43,     3,     4,    22,     0,    48,    25,    28,    29,    28,
-      34,    32,    33,    34,    35,    58,    23,    15,    11,    54,
-      43,    42,    31,    32,    22,    48,    15,    34,    22,    50,
-       3,     4,    24,    28,    65,    58,     9,    10,    11,    12,
-      13,    14,    11,    12,    13,    14,    61,    48,    -1,    22,
-      22,    -1,    -1,    22,    -1,    28,    -1,    29,    30,    31,
-      32,    28,    29,    30,    31,    32,    28,    29,    30,    31,
-      32,    29,    30,    31,    32
+       4,     3,    13,    18,    30,    25,    51,    11,    25,    25,
+      25,    56,    11,    12,    13,    14,    36,    15,    15,    36,
+      36,     3,     4,    27,    28,    24,    24,    24,     0,    33,
+      34,    30,    77,    37,    38,    39,    40,    33,    34,    43,
+      30,    31,    32,    33,    34,    24,    50,    24,    11,    51,
+      24,    66,    30,    57,    56,    59,    68,    26,    62,    15,
+      11,    12,    13,    14,    76,    73,    70,    71,    56,    81,
+      82,    -1,    84,    24,    -1,    77,    87,    -1,    -1,    30,
+      -1,    93,    86,    95,    96,     3,     4,    -1,    -1,    -1,
+     102,     9,    10,    11,    12,    13,    14,    11,    12,    13,
+      14,    -1,    -1,    -1,    22,    23,    24,     3,     4,    27,
+      24,    25,    -1,     9,    10,    11,    12,    13,    14,    11,
+      12,    13,    14,    -1,    -1,    -1,    22,    23,    24,    -1,
+      -1,    -1,    24,    11,    12,    13,    14,    -1,    30,    11,
+      12,    13,    14,    -1,    -1,    -1,    24,    25,    11,    12,
+      13,    14,    24,    25,    11,    12,    13,    14,    -1,    -1,
+      -1,    24,    25,    24,    -1,    -1,    -1,    24,    -1,    25,
+      31,    32,    33,    34,    25,    31,    32,    33,    34,    25,
+      31,    32,    33,    34,    25,    31,    32,    33,    34,    25,
+      31,    32,    33,    34,    -1,    31,    32,    33,    34,    30,
+      31,    32,    33,    34,    30,    31,    32,    33,    34,    30,
+      31,    32,    33,    34,    30,    31,    32,    33,    34,    31,
+      32,    33,    34
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -678,30 +717,36 @@ static const yytype_int8 yycheck[] =
 static const yytype_int8 yystos[] =
 {
        0,     3,     4,     9,    10,    11,    12,    13,    14,    22,
-      28,    36,    37,    38,    40,    42,    43,    44,    45,    46,
-      47,    48,    44,    46,    46,     0,    38,    28,    15,    22,
-      43,    28,    29,    30,    31,    32,    43,    28,    22,    46,
-      46,    49,    15,    22,    46,    46,    46,    46,    22,    23,
-      34,    46,    41,    42,    44,    41,    46,    23,    34,    43,
-      23,    24,    39,    42,    28,    37,    25
+      23,    24,    38,    39,    40,    42,    44,    45,    46,    47,
+      48,    49,    50,    52,    53,    46,    48,    24,    24,    48,
+       0,    40,    30,    15,    24,    45,    30,    31,    32,    33,
+      34,    45,    30,    30,    48,    48,    24,    48,    48,    51,
+      15,    24,    48,    48,    48,    48,    24,    30,    48,    30,
+      25,    25,    36,    48,    43,    44,    46,    43,    25,    48,
+      30,    30,    48,    26,    41,    48,    25,    36,    45,    25,
+      41,    25,    25,    48,    25,    48,    30,    39,    41,    44,
+      30,    41,    41,    25,    41,    25,    25,    48,    27,    41,
+      41,    41,    25,    41
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    35,    36,    37,    37,    38,    38,    38,    38,    38,
-      39,    40,    40,    41,    41,    41,    42,    42,    43,    44,
-      44,    45,    46,    46,    46,    46,    46,    46,    46,    46,
-      46,    46,    47,    47,    48,    49,    49,    49
+       0,    37,    38,    39,    39,    40,    40,    40,    40,    40,
+      40,    41,    42,    42,    43,    43,    43,    44,    44,    45,
+      46,    46,    47,    48,    48,    48,    48,    48,    48,    48,
+      48,    48,    48,    49,    49,    50,    51,    51,    51,    52,
+      52,    52,    52,    52,    52,    52,    52,    53
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     1,     2,     2,     1,     2,     3,     1,
-       3,     6,     7,     3,     1,     0,     2,     4,     1,     1,
-       1,     3,     1,     1,     1,     3,     3,     3,     3,     3,
-       1,     1,     1,     1,     4,     3,     1,     0
+       1,     3,     6,     7,     3,     1,     0,     2,     4,     1,
+       1,     1,     3,     1,     1,     1,     3,     3,     3,     3,
+       3,     1,     1,     1,     1,     4,     3,     1,     0,     9,
+       7,     7,     7,     8,     8,     8,     6,     5
 };
 
 
@@ -1399,221 +1444,281 @@ yyreduce:
   case 2:
 #line 47 "grammar.y"
                     { programBlock = (yyvsp[0].block);}
-#line 1403 "grammar.cpp"
+#line 1448 "grammar.cpp"
     break;
 
   case 3:
 #line 50 "grammar.y"
                    { (yyval.block) = new CodeBlockNode(); (yyval.block)->statements->push_back(shared_ptr<StatementNode>((yyvsp[0].stat)));}
-#line 1409 "grammar.cpp"
+#line 1454 "grammar.cpp"
     break;
 
   case 4:
 #line 51 "grammar.y"
                          { (yyval.block)->statements->push_back(shared_ptr<StatementNode>((yyvsp[0].stat)));}
-#line 1415 "grammar.cpp"
+#line 1460 "grammar.cpp"
     break;
 
   case 5:
 #line 54 "grammar.y"
                                         {(yyval.stat)=(yyvsp[-1].stat);}
-#line 1421 "grammar.cpp"
+#line 1466 "grammar.cpp"
     break;
 
   case 6:
 #line 55 "grammar.y"
                                         {(yyval.stat)=(yyvsp[0].stat);}
-#line 1427 "grammar.cpp"
+#line 1472 "grammar.cpp"
     break;
 
   case 7:
 #line 56 "grammar.y"
                                         {(yyval.stat)=new ExpressionStatement(shared_ptr<ExpressionNode>((yyvsp[-1].expr)));}
-#line 1433 "grammar.cpp"
+#line 1478 "grammar.cpp"
     break;
 
   case 8:
 #line 57 "grammar.y"
                                           {(yyval.stat)=new ReturnNode(shared_ptr<ExpressionNode>((yyvsp[-1].expr)));}
-#line 1439 "grammar.cpp"
+#line 1484 "grammar.cpp"
     break;
 
   case 9:
 #line 58 "grammar.y"
-                             {(yyval.stat)=new ExpressionStatement(nullptr);}
-#line 1445 "grammar.cpp"
+                                        {(yyval.stat)=(yyvsp[0].stat);}
+#line 1490 "grammar.cpp"
     break;
 
   case 10:
-#line 61 "grammar.y"
-                                        { (yyval.block) = (yyvsp[-1].block);}
-#line 1451 "grammar.cpp"
+#line 59 "grammar.y"
+                                        {(yyval.stat)=(yyvsp[0].stat);}
+#line 1496 "grammar.cpp"
     break;
 
   case 11:
-#line 64 "grammar.y"
-                                                             { (yyval.stat) = new FunctionDeclaration(shared_ptr<IdentifierNode>((yyvsp[-5].ident)),shared_ptr<IdentifierNode>((yyvsp[-4].ident)),shared_ptr<VariableVec>((yyvsp[-2].varvec)),shared_ptr<CodeBlockNode>((yyvsp[0].block)));}
-#line 1457 "grammar.cpp"
+#line 70 "grammar.y"
+                                        { (yyval.block) = (yyvsp[-1].block);}
+#line 1502 "grammar.cpp"
     break;
 
   case 12:
-#line 65 "grammar.y"
-                                                                            { (yyval.stat) = new FunctionDeclaration(shared_ptr<IdentifierNode>((yyvsp[-5].ident)),shared_ptr<IdentifierNode>((yyvsp[-4].ident)),shared_ptr<VariableVec>((yyvsp[-2].varvec)),nullptr,true);}
-#line 1463 "grammar.cpp"
+#line 73 "grammar.y"
+                                                             { (yyval.stat) = new FunctionDeclaration(shared_ptr<IdentifierNode>((yyvsp[-5].ident)),shared_ptr<IdentifierNode>((yyvsp[-4].ident)),shared_ptr<VariableVec>((yyvsp[-2].varvec)),shared_ptr<CodeBlockNode>((yyvsp[0].block)));}
+#line 1508 "grammar.cpp"
     break;
 
   case 13:
-#line 67 "grammar.y"
-                                       {(yyval.varvec)->push_back(shared_ptr<VariableDeclaration>((yyvsp[0].var_dec)));}
-#line 1469 "grammar.cpp"
+#line 74 "grammar.y"
+                                                                            { (yyval.stat) = new FunctionDeclaration(shared_ptr<IdentifierNode>((yyvsp[-5].ident)),shared_ptr<IdentifierNode>((yyvsp[-4].ident)),shared_ptr<VariableVec>((yyvsp[-2].varvec)),nullptr,true);}
+#line 1514 "grammar.cpp"
     break;
 
   case 14:
-#line 68 "grammar.y"
-                        {(yyval.varvec) = new VariableVec(); (yyval.varvec)->push_back(shared_ptr<VariableDeclaration>((yyvsp[0].var_dec)));}
-#line 1475 "grammar.cpp"
+#line 76 "grammar.y"
+                                       {(yyval.varvec)->push_back(shared_ptr<VariableDeclaration>((yyvsp[0].var_dec)));}
+#line 1520 "grammar.cpp"
     break;
 
   case 15:
-#line 69 "grammar.y"
-                              {(yyval.varvec) = new VariableVec();}
-#line 1481 "grammar.cpp"
+#line 77 "grammar.y"
+                        {(yyval.varvec) = new VariableVec(); (yyval.varvec)->push_back(shared_ptr<VariableDeclaration>((yyvsp[0].var_dec)));}
+#line 1526 "grammar.cpp"
     break;
 
   case 16:
-#line 72 "grammar.y"
-                                { (yyval.stat)=new VariableDeclaration(shared_ptr<IdentifierNode>((yyvsp[-1].ident)),shared_ptr<IdentifierNode>((yyvsp[0].ident)));}
-#line 1487 "grammar.cpp"
+#line 78 "grammar.y"
+                              {(yyval.varvec) = new VariableVec();}
+#line 1532 "grammar.cpp"
     break;
 
   case 17:
-#line 73 "grammar.y"
-                                            { (yyval.stat)=new VariableDeclaration(shared_ptr<IdentifierNode>((yyvsp[-3].ident)),shared_ptr<IdentifierNode>((yyvsp[-2].ident)),shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
-#line 1493 "grammar.cpp"
+#line 81 "grammar.y"
+                                { (yyval.stat)=new VariableDeclaration(shared_ptr<IdentifierNode>((yyvsp[-1].ident)),shared_ptr<IdentifierNode>((yyvsp[0].ident)));}
+#line 1538 "grammar.cpp"
     break;
 
   case 18:
-#line 76 "grammar.y"
-                                { (yyval.ident)=new IdentifierNode(*(yyvsp[0].string));cout<<"ident"<<endl; delete (yyvsp[0].string);}
-#line 1499 "grammar.cpp"
+#line 82 "grammar.y"
+                                            { (yyval.stat)=new VariableDeclaration(shared_ptr<IdentifierNode>((yyvsp[-3].ident)),shared_ptr<IdentifierNode>((yyvsp[-2].ident)),shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
+#line 1544 "grammar.cpp"
     break;
 
   case 19:
-#line 79 "grammar.y"
-                        { (yyval.ident) = new IdentifierNode(*(yyvsp[0].string));cout<<"type int"<<endl; delete (yyvsp[0].string);}
-#line 1505 "grammar.cpp"
+#line 85 "grammar.y"
+                                { (yyval.ident)=new IdentifierNode(*(yyvsp[0].string));cout<<"ident"<<endl; delete (yyvsp[0].string);}
+#line 1550 "grammar.cpp"
     break;
 
   case 20:
-#line 80 "grammar.y"
-                            { (yyval.ident) = new IdentifierNode(*(yyvsp[0].string)); delete (yyvsp[0].string); }
-#line 1511 "grammar.cpp"
+#line 88 "grammar.y"
+                        { (yyval.ident) = new IdentifierNode(*(yyvsp[0].string));cout<<"type int"<<endl; delete (yyvsp[0].string);}
+#line 1556 "grammar.cpp"
     break;
 
   case 21:
-#line 82 "grammar.y"
-                                    { (yyval.expr)=new AssignmentNode(shared_ptr<IdentifierNode>((yyvsp[-2].ident)),shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
-#line 1517 "grammar.cpp"
+#line 89 "grammar.y"
+                            { (yyval.ident) = new IdentifierNode(*(yyvsp[0].string)); delete (yyvsp[0].string); }
+#line 1562 "grammar.cpp"
     break;
 
   case 22:
-#line 85 "grammar.y"
-                            {(yyval.expr)=(yyvsp[0].expr); }
-#line 1523 "grammar.cpp"
+#line 91 "grammar.y"
+                                    { (yyval.expr)=new AssignmentNode(shared_ptr<IdentifierNode>((yyvsp[-2].ident)),shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
+#line 1568 "grammar.cpp"
     break;
 
   case 23:
-#line 86 "grammar.y"
-                        {(yyval.expr)=(yyvsp[0].expr);}
-#line 1529 "grammar.cpp"
+#line 95 "grammar.y"
+                            {(yyval.expr)=(yyvsp[0].expr); }
+#line 1574 "grammar.cpp"
     break;
 
   case 24:
-#line 87 "grammar.y"
-                        {(yyval.expr)=(yyvsp[0].ident);}
-#line 1535 "grammar.cpp"
+#line 96 "grammar.y"
+                        {(yyval.expr)=(yyvsp[0].expr);}
+#line 1580 "grammar.cpp"
     break;
 
   case 25:
-#line 88 "grammar.y"
-                                 {(yyval.expr)=new BinaryOperationNode(shared_ptr<ExpressionNode>((yyvsp[-2].expr)), (yyvsp[-1].token), shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
-#line 1541 "grammar.cpp"
+#line 97 "grammar.y"
+                        {(yyval.expr)=(yyvsp[0].ident);}
+#line 1586 "grammar.cpp"
     break;
 
   case 26:
-#line 89 "grammar.y"
-                                  {(yyval.expr)=new BinaryOperationNode(shared_ptr<ExpressionNode>((yyvsp[-2].expr)), (yyvsp[-1].token), shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
-#line 1547 "grammar.cpp"
+#line 98 "grammar.y"
+                                 {(yyval.expr)=new BinaryOperationNode(shared_ptr<ExpressionNode>((yyvsp[-2].expr)), (yyvsp[-1].token), shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
+#line 1592 "grammar.cpp"
     break;
 
   case 27:
-#line 90 "grammar.y"
-                                 {(yyval.expr)=new BinaryOperationNode(shared_ptr<ExpressionNode>((yyvsp[-2].expr)), (yyvsp[-1].token), shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
-#line 1553 "grammar.cpp"
+#line 99 "grammar.y"
+                                  {(yyval.expr)=new BinaryOperationNode(shared_ptr<ExpressionNode>((yyvsp[-2].expr)), (yyvsp[-1].token), shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
+#line 1598 "grammar.cpp"
     break;
 
   case 28:
-#line 91 "grammar.y"
-                                {(yyval.expr)=new BinaryOperationNode(shared_ptr<ExpressionNode>((yyvsp[-2].expr)), (yyvsp[-1].token), shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
-#line 1559 "grammar.cpp"
+#line 100 "grammar.y"
+                                 {(yyval.expr)=new BinaryOperationNode(shared_ptr<ExpressionNode>((yyvsp[-2].expr)), (yyvsp[-1].token), shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
+#line 1604 "grammar.cpp"
     break;
 
   case 29:
-#line 92 "grammar.y"
-                                       {(yyval.expr)=(yyvsp[-1].expr);}
-#line 1565 "grammar.cpp"
+#line 101 "grammar.y"
+                                {(yyval.expr)=new BinaryOperationNode(shared_ptr<ExpressionNode>((yyvsp[-2].expr)), (yyvsp[-1].token), shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
+#line 1610 "grammar.cpp"
     break;
 
   case 30:
-#line 93 "grammar.y"
-                            {(yyval.expr)=new LiteralNode(*(yyvsp[0].string));delete (yyvsp[0].string);}
-#line 1571 "grammar.cpp"
+#line 102 "grammar.y"
+                                       {(yyval.expr)=(yyvsp[-1].expr);}
+#line 1616 "grammar.cpp"
     break;
 
   case 31:
-#line 94 "grammar.y"
-                     {(yyval.expr)=(yyvsp[0].expr);}
-#line 1577 "grammar.cpp"
+#line 103 "grammar.y"
+                            {(yyval.expr)=new LiteralNode(*(yyvsp[0].string));delete (yyvsp[0].string);}
+#line 1622 "grammar.cpp"
     break;
 
   case 32:
-#line 97 "grammar.y"
-                          {(yyval.expr)=new IntegerNode(stoi(*(yyvsp[0].string)));delete (yyvsp[0].string);}
-#line 1583 "grammar.cpp"
+#line 104 "grammar.y"
+                     {(yyval.expr)=(yyvsp[0].expr);}
+#line 1628 "grammar.cpp"
     break;
 
   case 33:
-#line 98 "grammar.y"
-                          {(yyval.expr)=new DoubleNode(stod(*(yyvsp[0].string)));delete (yyvsp[0].string);}
-#line 1589 "grammar.cpp"
+#line 107 "grammar.y"
+                          {(yyval.expr)=new IntegerNode(stoi(*(yyvsp[0].string)));delete (yyvsp[0].string);}
+#line 1634 "grammar.cpp"
     break;
 
   case 34:
-#line 101 "grammar.y"
-                                                  {(yyval.expr)= new CallFunctionNode(shared_ptr<IdentifierNode>((yyvsp[-3].ident)),shared_ptr<ExprVec>((yyvsp[-1].exprvec)));}
-#line 1595 "grammar.cpp"
+#line 108 "grammar.y"
+                          {(yyval.expr)=new DoubleNode(stod(*(yyvsp[0].string)));delete (yyvsp[0].string);}
+#line 1640 "grammar.cpp"
     break;
 
   case 35:
-#line 104 "grammar.y"
-                                       {(yyval.exprvec)->push_back(shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
-#line 1601 "grammar.cpp"
+#line 111 "grammar.y"
+                                                  {(yyval.expr)= new CallFunctionNode(shared_ptr<IdentifierNode>((yyvsp[-3].ident)),shared_ptr<ExprVec>((yyvsp[-1].exprvec)));}
+#line 1646 "grammar.cpp"
     break;
 
   case 36:
-#line 105 "grammar.y"
-                        {(yyval.exprvec)= new ExprVec();(yyval.exprvec)->push_back(shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
-#line 1607 "grammar.cpp"
+#line 114 "grammar.y"
+                                       {(yyval.exprvec)->push_back(shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
+#line 1652 "grammar.cpp"
     break;
 
   case 37:
-#line 106 "grammar.y"
+#line 115 "grammar.y"
+                        {(yyval.exprvec)= new ExprVec();(yyval.exprvec)->push_back(shared_ptr<ExpressionNode>((yyvsp[0].expr)));}
+#line 1658 "grammar.cpp"
+    break;
+
+  case 38:
+#line 116 "grammar.y"
                              {(yyval.exprvec)= new ExprVec();}
-#line 1613 "grammar.cpp"
+#line 1664 "grammar.cpp"
+    break;
+
+  case 39:
+#line 119 "grammar.y"
+                                                                                  {(yyval.stat) = new ForNode(shared_ptr<CodeBlockNode>((yyvsp[0].block)),shared_ptr<ExpressionNode>((yyvsp[-6].expr)),shared_ptr<ExpressionNode>((yyvsp[-4].expr)),shared_ptr<ExpressionNode>((yyvsp[-2].expr)));}
+#line 1670 "grammar.cpp"
+    break;
+
+  case 40:
+#line 120 "grammar.y"
+                                                                        {(yyval.stat) = new ForNode(shared_ptr<CodeBlockNode>((yyvsp[0].block)),shared_ptr<ExpressionNode>((yyvsp[-4].expr)),nullptr,nullptr);}
+#line 1676 "grammar.cpp"
+    break;
+
+  case 41:
+#line 121 "grammar.y"
+                                                                        {(yyval.stat) = new ForNode(shared_ptr<CodeBlockNode>((yyvsp[0].block)),nullptr,shared_ptr<ExpressionNode>((yyvsp[-3].expr)),nullptr);}
+#line 1682 "grammar.cpp"
+    break;
+
+  case 42:
+#line 122 "grammar.y"
+                                                                        {(yyval.stat) = new ForNode(shared_ptr<CodeBlockNode>((yyvsp[0].block)),nullptr,nullptr,shared_ptr<ExpressionNode>((yyvsp[-2].expr)));}
+#line 1688 "grammar.cpp"
+    break;
+
+  case 43:
+#line 123 "grammar.y"
+                                                                             {(yyval.stat) = new ForNode(shared_ptr<CodeBlockNode>((yyvsp[0].block)),shared_ptr<ExpressionNode>((yyvsp[-5].expr)),shared_ptr<ExpressionNode>((yyvsp[-3].expr)),nullptr);}
+#line 1694 "grammar.cpp"
+    break;
+
+  case 44:
+#line 124 "grammar.y"
+                                                                             {(yyval.stat) = new ForNode(shared_ptr<CodeBlockNode>((yyvsp[0].block)),shared_ptr<ExpressionNode>((yyvsp[-5].expr)),nullptr,shared_ptr<ExpressionNode>((yyvsp[-2].expr)));}
+#line 1700 "grammar.cpp"
+    break;
+
+  case 45:
+#line 125 "grammar.y"
+                                                                             {(yyval.stat) = new ForNode(shared_ptr<CodeBlockNode>((yyvsp[0].block)),nullptr,shared_ptr<ExpressionNode>((yyvsp[-4].expr)),shared_ptr<ExpressionNode>((yyvsp[-2].expr)));}
+#line 1706 "grammar.cpp"
+    break;
+
+  case 46:
+#line 126 "grammar.y"
+                                                                   {(yyval.stat) = new ForNode(shared_ptr<CodeBlockNode>((yyvsp[0].block)),nullptr,nullptr,nullptr);}
+#line 1712 "grammar.cpp"
+    break;
+
+  case 47:
+#line 130 "grammar.y"
+                                                  {(yyval.stat) = new ForNode(shared_ptr<CodeBlockNode>((yyvsp[0].block)),nullptr,shared_ptr<ExpressionNode>((yyvsp[-2].expr)),nullptr);}
+#line 1718 "grammar.cpp"
     break;
 
 
-#line 1617 "grammar.cpp"
+#line 1722 "grammar.cpp"
 
       default: break;
     }
@@ -1845,7 +1950,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 109 "grammar.y"
+#line 132 "grammar.y"
 
 
 // int main(){

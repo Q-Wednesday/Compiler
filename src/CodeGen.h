@@ -11,9 +11,8 @@
 #include "ASTNodes.h"
 #include "grammar.hpp"
 
-
-using namespace llvm;
 using namespace std;
+using namespace llvm;
 
 //用于存放生成过程中的代码块，该代码块表示一个作用域
 class CodeGenBlock{
@@ -28,6 +27,7 @@ class CodeGenBlock{
 //该类用于存放生成代码的上下文相关的信息，
 class CodeGenContext{
     private:
+        bool codeGenerated = false;
         vector<CodeGenBlock *> blockStack;//代码块，用于实现作用域
     public:
         LLVMContext llvmContext;//llvm的上下文
@@ -71,6 +71,9 @@ class CodeGenContext{
         void setReturnValue(Value* value){
             blockStack.back()->returnValue = value;
         }
+
+        void generateCode(CodeBlockNode &);
+        int generateObject(const string& filename);
 };
 
 #endif
