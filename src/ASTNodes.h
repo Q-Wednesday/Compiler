@@ -434,6 +434,7 @@ public:
             << "->"
             << "node" << to_string(block->nodeID) << endl;
     }
+    Value *codeGen(CodeGenContext &) override;
 };
 // if 语句 if(cond) block
 class IfNode : public StatementNode

@@ -364,7 +364,7 @@ Value *CallFunctionNode::codeGen(CodeGenContext &context)
     return context.builder.CreateCall(calledFunc, arguments, "calltemp");
 }
 
-value *ForNode::codeGen(CodeGenContext &context)
+Value *ForNode::codeGen(CodeGenContext &context)
 {
     Function *calledFunc = context.builder.GetInsertBlock()->getParent();
     
@@ -373,16 +373,16 @@ value *ForNode::codeGen(CodeGenContext &context)
     if (this->initval){
         this->initval->codeGen(context);
     }
-        
-    value* termValue = this->termval->codeGen(context)
+
+    Value *termValue = this->termval->codeGen(context);
     if (!termValue)
         {
-            return nullptr
+            return nullptr;
         }
     termValue = ToBoolean(context,termValue);
 
     context.builder.CreateCondBr(termValue,block,count);
-    context.builder.SetInsretPoint(block);
+    context.builder.SetInsertPoint(block);
     context.pushBlock(block);
     this->block->codeGen(context);
     context.popBlock();
