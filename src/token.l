@@ -29,6 +29,8 @@ COMMENT         ("//"[^\n]*)
 "string"        {SAVE_TOKEN; return T_TSTRING;}
 "bool"          {SAVE_TOKEN; return T_TBOOL;}
 "void"          {SAVE_TOKEN; return T_TVOID;}
+"if"            {SAVE_TOKEN; return T_IF;}
+"else"          {SAVE_TOKEN; return T_ELSE;}
 "for"           {SAVE_TOKEN; return T_TFOR;}
 "while"         {SAVE_TOKEN; return T_TWHILE;}
 "extern"        {SAVE_TOKEN; return T_EXTERN;}

@@ -16,9 +16,9 @@ using namespace llvm;
 class StatementNode;
 class VariableDeclaration;
 class ExpressionNode;
-using StatementVec = vector<shared_ptr<StatementNode>>;
-using VariableVec = vector<shared_ptr<VariableDeclaration>>;
-using ExprVec = vector<shared_ptr<ExpressionNode>>;
+using StatementVec = vector<shared_ptr<StatementNode> >;
+using VariableVec = vector<shared_ptr<VariableDeclaration> >;
+using ExprVec = vector<shared_ptr<ExpressionNode> >;
 //TODO: 对可视化函数进行重构，简化代码
 
 class CodeGenContext;
@@ -39,7 +39,8 @@ public:
         out << "node" << to_string(nodeID)
             << "[label=\"" << getNodeType() << "\"]" << endl;
     }
-    virtual Value* codeGen(CodeGenContext&){
+    virtual Value *codeGen(CodeGenContext &)
+    {
         return nullptr;
     }
 };
@@ -86,7 +87,7 @@ public:
             << "node" << to_string(expression->nodeID) << endl;
     }
 
-    Value* codeGen(CodeGenContext &) override;
+    Value *codeGen(CodeGenContext &) override;
 };
 
 class CodeBlockNode : public ExpressionNode
@@ -110,13 +111,15 @@ public:
                 << "node" << to_string(state->nodeID) << endl;
         }
     }
-    Value* codeGen(CodeGenContext &) override;
+    Value *codeGen(CodeGenContext &) override;
 };
 
 class IdentifierNode : public ExpressionNode
 {
 public:
     string name;
+    bool isArray = false;
+    int array_size = 0;
 
     IdentifierNode() {}
 
@@ -127,6 +130,23 @@ public:
         return "Identifier";
     }
     Value *codeGen(CodeGenContext &context) override;
+};
+
+class ArrayElem : public ExpressionNode
+{
+public:
+    shared_ptr<IdentifierNode> array;
+    shared_ptr<ExpressionNode> index_expr;
+
+    ArrayElem() {}
+
+    ArrayElem(shared_ptr<IdentifierNode> array_in, shared_ptr<ExpressionNode> index_expr_in)
+        : array(array_in), index_expr(index_expr_in) {}
+
+    string getNodeType() const override
+    {
+        return "ArrayElem";
+    }
 };
 
 class DoubleNode : public ExpressionNode
@@ -165,7 +185,7 @@ class LiteralNode : public ExpressionNode
 public:
     string value;
     LiteralNode() {}
-    LiteralNode(string v) : value(v.begin()+1,v.end()-1) {}
+    LiteralNode(string v) : value(v.begin() + 1, v.end() - 1) {}
 
     string getNodeType() const override
     {
@@ -241,14 +261,14 @@ class FunctionDeclaration : public StatementNode
 {
 public:
     shared_ptr<IdentifierNode> type;
-    shared_ptr<IdentifierNode>funcName;
+    shared_ptr<IdentifierNode> funcName;
     shared_ptr<VariableVec> variables;
     shared_ptr<CodeBlockNode> body;
     bool isExtern;
     FunctionDeclaration() {}
     FunctionDeclaration(shared_ptr<IdentifierNode> type, shared_ptr<IdentifierNode> name,
                         shared_ptr<VariableVec> variables, shared_ptr<CodeBlockNode> body,
-                        bool isExtern=false) : type(type), funcName(name), variables(variables), body(body),isExtern(isExtern) {}
+                        bool isExtern = false) : type(type), funcName(name), variables(variables), body(body), isExtern(isExtern) {}
 
     string getNodeType() const override
     {
@@ -260,13 +280,14 @@ public:
         ASTNode::graphGen(out);
         type->graphGen(out);
         funcName->graphGen(out);
-        if(body){
-            body->graphGen(out);        
+        if (body)
+        {
+            body->graphGen(out);
             out << "node" << to_string(nodeID)
-            << "->"
-            << "node" << to_string(body->nodeID) << endl;
+                << "->"
+                << "node" << to_string(body->nodeID) << endl;
         }
-        
+
         //TODO: 暂时没有对变量进行处理
         out << "node" << to_string(nodeID)
             << "->"
@@ -274,7 +295,6 @@ public:
         out << "node" << to_string(nodeID)
             << "->"
             << "node" << to_string(funcName->nodeID) << endl;
-
     }
 
     Value *codeGen(CodeGenContext &) override;
@@ -359,24 +379,22 @@ class ForNode : public StatementNode
 public:
     shared_ptr<CodeBlockNode> block;
     shared_ptr<ExpressionNode> initval, termval, increval;
-    
 
-    ForNode(shared_ptr<CodeBlockNode> bin,shared_ptr<ExpressionNode> initin=nullptr,shared_ptr<ExpressionNode> termin=nullptr,shared_ptr<ExpressionNode> increin=nullptr)
-    :block(bin), initval(initin),termval(termin),increval(increin)  
+    ForNode(shared_ptr<CodeBlockNode> bin, shared_ptr<ExpressionNode> initin = nullptr, shared_ptr<ExpressionNode> termin = nullptr, shared_ptr<ExpressionNode> increin = nullptr)
+        : block(bin), initval(initin), termval(termin), increval(increin)
     {
 
-
-        if (initval==nullptr) //一直跑下去
+        if (initval == nullptr) //一直跑下去
         {
             initval = make_shared<IntegerNode>(1);
         }
 
-        if (termval==nullptr) //一直跑下去
+        if (termval == nullptr) //一直跑下去
         {
             termval = make_shared<IntegerNode>(1);
         }
-        
-        if (increval==nullptr) //一直跑下去
+
+        if (increval == nullptr) //一直跑下去
         {
             increval = make_shared<IntegerNode>(1);
         }
@@ -390,34 +408,67 @@ public:
     void graphGen(ostream &out) const override
     {
         ASTNode::graphGen(out);
-        if(initval!=nullptr)
+        if (initval != nullptr)
         {
             initval->graphGen(out);
             out << "node" << to_string(nodeID)
-            << "->"
-            << "node" << to_string(initval->nodeID) << endl;
+                << "->"
+                << "node" << to_string(initval->nodeID) << endl;
         }
-        if(termval!=nullptr)
+        if (termval != nullptr)
         {
             termval->graphGen(out);
             out << "node" << to_string(nodeID)
-            << "->"
-            << "node" << to_string(termval->nodeID) << endl;
+                << "->"
+                << "node" << to_string(termval->nodeID) << endl;
         }
-        if (increval!=nullptr)
+        if (increval != nullptr)
         {
             increval->graphGen(out);
             out << "node" << to_string(nodeID)
-            << "->"
-            << "node" << to_string(increval->nodeID) << endl;
+                << "->"
+                << "node" << to_string(increval->nodeID) << endl;
         }
-        block->graphGen(out);      
+        block->graphGen(out);
         out << "node" << to_string(nodeID)
             << "->"
             << "node" << to_string(block->nodeID) << endl;
     }
-
 };
+// if 语句 if(cond) block
+class IfNode : public StatementNode
+{
+public:
+    shared_ptr<CodeBlockNode> matched_block, unmatched_block;
+    shared_ptr<ExpressionNode> cond;
 
+    IfNode(shared_ptr<ExpressionNode> cond_in, shared_ptr<CodeBlockNode> matched_block_in, shared_ptr<CodeBlockNode> unmatched_block_in = nullptr)
+        : matched_block(matched_block_in), unmatched_block(unmatched_block_in), cond(cond_in) {}
+
+    string getNodeType() const override
+    {
+        return "IfNode";
+    }
+
+    void graphGen(ostream &out) const override
+    {
+        ASTNode::graphGen(out);
+        cond->graphGen(out);
+        out << "node" << to_string(nodeID)
+            << "->"
+            << "node" << to_string(cond->nodeID) << endl;
+        matched_block->graphGen(out);
+        out << "node" << to_string(nodeID)
+            << "->"
+            << "node" << to_string(matched_block->nodeID) << endl;
+        if (unmatched_block != nullptr)
+        {
+            unmatched_block->graphGen(out);
+            out << "node" << to_string(nodeID)
+                << "->"
+                << "node" << to_string(unmatched_block->nodeID) << endl;
+        }
+    }
+};
 
 #endif //SRC_ASTNODES_H
