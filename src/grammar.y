@@ -21,26 +21,30 @@ void yyerror(const char* msg){
     int token;
     CodeBlockNode* block;
     VariableVec* varvec;
+    ArrayElem* elem;
 }
 
 %token <string> T_TINT T_TDOUBLE T_TFLOAT T_TCHAR T_TBOOL T_TVOID T_TSTRING T_EXTERN T_RETURN 
 
 %token <string> T_IDENTIFIER T_INTEGER T_DOUBLE T_LITERAL
 
-%token <token>  T_ASSIGN T_CEQUAL T_CNEQUAL T_CLT T_CLE T_CGT T_CGE T_TFOR T_TWHILE
+%token <token>  T_ASSIGN T_CEQUAL T_CNEQUAL T_CLT T_CLE T_CGT T_CGE T_TFOR T_TWHILE T_IF T_ELSE
 
 %token <token>  T_LPAREN T_RPAREN  T_LBRACE T_RBRACE T_LBRACKET T_RBRACKET T_SEMICOLON
 
+%nonassoc LOWER_THAN_ELSE
+%nonassoc T_ELSE
 %left  <token> T_PLUS T_MINUS  //上下顺序表示优先级，left表示左结合
 %left  <token> T_MULT T_DIV  
 %left  <token> T_DOT T_COMMA 
 
 %type <expr> expr assignmemt number call
-%type <ident> ident typename 
-%type <stat> stat var_dec func_dec for_stm while_stm
+%type <ident> ident typename array_typename
+%type <stat> stat var_dec func_dec for_stm while_stm if_stat
 %type <block> stats program block
 %type <varvec> varvec
 %type <exprvec> call_args
+%type <elem> array_elem
 %start program
 
 %%
@@ -50,11 +54,13 @@ program     : stats { programBlock = $1;}
 stats       : stat { $$ = new CodeBlockNode(); $$->statements->push_back(shared_ptr<StatementNode>($1));}
             | stats stat { $$->statements->push_back(shared_ptr<StatementNode>($2));}
             ;
+            //TODO block 是否可以嵌套？
 
 stat        :   var_dec T_SEMICOLON     {$$=$1;}
             |   func_dec                {$$=$1;}
             |   expr T_SEMICOLON        {$$=new ExpressionStatement(shared_ptr<ExpressionNode>($1));}
             |   T_RETURN expr T_SEMICOLON {$$=new ReturnNode(shared_ptr<ExpressionNode>($2));}
+            |   if_stat
             |   for_stm                 {$$=$1;}
             |   while_stm               {$$=$1;}
 //            |   for_stm1
@@ -89,7 +95,16 @@ typename    :   T_TINT  { $$ = new IdentifierNode(*$1); delete $1;}
             |   T_TDOUBLE   { $$ = new IdentifierNode(*$1); delete $1; }
             |   T_TVOID  {$$ = new IdentifierNode(*$1); delete $1; }
             |   T_TSTRING {$$ = new IdentifierNode(*$1); delete $1;}
+            |   array_typename
             ;  
+
+array_typename : typename T_LBRACKET T_INTEGER T_RBRACKET {$1->isArray = true; $1->array_size = atol($3->c_str()); $$ = $1;}
+            ;
+
+array_elem : ident T_LBRACKET expr T_RBRACKET {$$ = new ArrayElem(shared_ptr<IdentifierNode>($1), shared_ptr<ExpressionNode>($3)); }
+            ;
+//TODO 仅支持ident数组，还需添加指针数组、结构体内数组、多维数组等
+
 assignmemt  :   ident T_ASSIGN expr { $$=new AssignmentNode(shared_ptr<IdentifierNode>($1),shared_ptr<ExpressionNode>($3));}
             ;
 
@@ -131,6 +146,11 @@ for_stm :   T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN bloc
 
 while_stm : T_TWHILE T_LPAREN expr T_RPAREN block {$$ = new ForNode(shared_ptr<CodeBlockNode>($5),nullptr,shared_ptr<ExpressionNode>($3),nullptr);}
           ;
+//TODO if, while, for, etc. need to support the syntax like - if(true) dosth();
+if_stat : T_IF T_LPAREN expr T_RPAREN block %prec LOWER_THAN_ELSE {$$ = new IfNode(shared_ptr<ExpressionNode>($3),shared_ptr<CodeBlockNode>($5),nullptr);}
+        | T_IF T_LPAREN expr T_RPAREN block T_ELSE block {$$ = new IfNode(shared_ptr<ExpressionNode>($3),shared_ptr<CodeBlockNode>($5),shared_ptr<CodeBlockNode>($7));}
+        ;
+
 %%
 
 // int main(){
