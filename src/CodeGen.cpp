@@ -41,8 +41,8 @@ static Value* ToBoolean(CodeGenContext& context, Value* termValue)
 {
     if( termValue->getType()->getTypeID()==Type::IntegerTyID )
     {
-        termValue = context.builder.CreateIntCast(termValue,Type::getInt1Ty(context.llvmContext),true);
-        return context.builder.CreateICmpNE(termValue,ConstantInt::get(Type::getInt1Ty(context.llvmContext),0,true));
+        termValue = context.builder.CreateIntCast(termValue,Type::getInt32Ty(context.llvmContext),true);
+        return context.builder.CreateICmpNE(termValue,ConstantInt::get(Type::getInt32Ty(context.llvmContext),0,true));
     }
     else if( termValue->getType()->getTypeID()==Type::DoubleTyID )
     {
