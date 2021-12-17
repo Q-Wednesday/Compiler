@@ -16,9 +16,9 @@ using namespace llvm;
 class StatementNode;
 class VariableDeclaration;
 class ExpressionNode;
-using StatementVec = vector<shared_ptr<StatementNode> >;
-using VariableVec = vector<shared_ptr<VariableDeclaration> >;
-using ExprVec = vector<shared_ptr<ExpressionNode> >;
+using StatementVec = vector<shared_ptr<StatementNode>>;
+using VariableVec = vector<shared_ptr<VariableDeclaration>>;
+using ExprVec = vector<shared_ptr<ExpressionNode>>;
 //TODO: 对可视化函数进行重构，简化代码
 
 class CodeGenContext;
@@ -470,6 +470,7 @@ public:
                 << "node" << to_string(unmatched_block->nodeID) << endl;
         }
     }
+    Value *codeGen(CodeGenContext &) override;
 };
 
 #endif //SRC_ASTNODES_H

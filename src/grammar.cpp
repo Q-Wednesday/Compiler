@@ -105,7 +105,7 @@
      T_CNEQUAL = 294,
      T_CEQUAL = 295,
      T_BITAND = 296,
-     T_BITNOR = 297,
+     T_BITXOR = 297,
      T_BITOR = 298,
      T_LOGICALAND = 299,
      T_LOGICALOR = 300,
@@ -153,7 +153,7 @@
 #define T_CNEQUAL 294
 #define T_CEQUAL 295
 #define T_BITAND 296
-#define T_BITNOR 297
+#define T_BITXOR 297
 #define T_BITOR 298
 #define T_LOGICALAND 299
 #define T_LOGICALOR 300
@@ -566,7 +566,7 @@ static const char *const yytname[] =
   "T_LBRACE", "T_RBRACE", "T_LBRACKET", "T_RBRACKET", "T_SEMICOLON",
   "LOWER_THAN_ELSE", "T_MINUS", "T_PLUS", "T_DIV", "T_MULT", "T_RSHIFT",
   "T_LSHIFT", "T_CGE", "T_CGT", "T_CLE", "T_CLT", "T_CNEQUAL", "T_CEQUAL",
-  "T_BITAND", "T_BITNOR", "T_BITOR", "T_LOGICALAND", "T_LOGICALOR",
+  "T_BITAND", "T_BITXOR", "T_BITOR", "T_LOGICALAND", "T_LOGICALOR",
   "T_COMMA", "T_DOT", "$accept", "program", "stats", "stat", "block",
   "func_dec", "varvec", "var_dec", "ident", "typename", "array_elem",
   "assignmemt", "expr", "number", "call", "call_args", "for_stm",

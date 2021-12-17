@@ -40,7 +40,7 @@ void yyerror(const char* msg){
 %left  <token> T_CLT T_CLE T_CGT T_CGE
 %left  <token> T_CEQUAL T_CNEQUAL
 %left  <token> T_BITAND
-%left  <token> T_BITNOR
+%left  <token> T_BITXOR
 %left  <token> T_BITOR
 %left  <token> T_LOGICALAND
 %left  <token> T_LOGICALOR
@@ -131,7 +131,7 @@ expr        :   assignmemt  {$$=$1; }
             |   expr T_CNEQUAL expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
             |   expr T_CEQUAL expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
             |   expr T_BITAND expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
-            |   expr T_BITNOR expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_BITXOR expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
             |   expr T_BITOR expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
             |   expr T_LOGICALAND expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
             |   expr T_LOGICALOR expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}

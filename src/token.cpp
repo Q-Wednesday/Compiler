@@ -1022,7 +1022,7 @@ YY_RULE_SETUP
 case 44:
 YY_RULE_SETUP
 #line 68 "token.l"
-{return MAKE_TOKEN(T_BITNOR);}
+{return MAKE_TOKEN(T_BITXOR);}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP

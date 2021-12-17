@@ -63,7 +63,7 @@ Grammar
    40     | expr T_CNEQUAL expr
    41     | expr T_CEQUAL expr
    42     | expr T_BITAND expr
-   43     | expr T_BITNOR expr
+   43     | expr T_BITXOR expr
    44     | expr T_BITOR expr
    45     | expr T_LOGICALAND expr
    46     | expr T_LOGICALOR expr
@@ -139,7 +139,7 @@ T_CLT (293) 39
 T_CNEQUAL (294) 40
 T_CEQUAL (295) 41
 T_BITAND (296) 42
-T_BITNOR (297) 43
+T_BITXOR (297) 43
 T_BITOR (298) 44
 T_LOGICALAND (299) 45
 T_LOGICALOR (300) 46
@@ -482,7 +482,7 @@ state 24
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -501,7 +501,7 @@ state 24
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -567,7 +567,7 @@ state 31
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -586,7 +586,7 @@ state 31
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -670,7 +670,7 @@ state 35
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -690,7 +690,7 @@ state 35
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1031,7 +1031,7 @@ state 56
 
 state 57
 
-   43 expr: expr T_BITNOR . expr
+   43 expr: expr T_BITXOR . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -1152,7 +1152,7 @@ state 64
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1175,7 +1175,7 @@ state 64
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1196,7 +1196,7 @@ state 65
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1216,7 +1216,7 @@ state 65
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1237,7 +1237,7 @@ state 66
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1258,7 +1258,7 @@ state 66
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1287,7 +1287,7 @@ state 68
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1310,7 +1310,7 @@ state 69
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1329,7 +1329,7 @@ state 69
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1362,7 +1362,7 @@ state 71
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1381,7 +1381,7 @@ state 71
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1444,7 +1444,7 @@ state 75
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1460,7 +1460,7 @@ state 75
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1484,7 +1484,7 @@ state 76
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1500,7 +1500,7 @@ state 76
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1524,7 +1524,7 @@ state 77
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1538,7 +1538,7 @@ state 77
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1562,7 +1562,7 @@ state 78
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1576,7 +1576,7 @@ state 78
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1600,7 +1600,7 @@ state 79
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1612,7 +1612,7 @@ state 79
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1636,7 +1636,7 @@ state 80
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1648,7 +1648,7 @@ state 80
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1672,7 +1672,7 @@ state 81
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1680,7 +1680,7 @@ state 81
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1704,7 +1704,7 @@ state 82
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1712,7 +1712,7 @@ state 82
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1736,7 +1736,7 @@ state 83
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1744,7 +1744,7 @@ state 83
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1768,7 +1768,7 @@ state 84
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1776,7 +1776,7 @@ state 84
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1800,13 +1800,13 @@ state 85
    40     | expr T_CNEQUAL expr .
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
 
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1830,13 +1830,13 @@ state 86
    41     | expr . T_CEQUAL expr
    41     | expr T_CEQUAL expr .
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
 
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1860,12 +1860,12 @@ state 87
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
    42     | expr T_BITAND expr .
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
 
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -1888,8 +1888,8 @@ state 88
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
-   43     | expr T_BITNOR expr .
+   43     | expr . T_BITXOR expr
+   43     | expr T_BITXOR expr .
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -1916,7 +1916,7 @@ state 89
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    44     | expr T_BITOR expr .
    45     | expr . T_LOGICALAND expr
@@ -1943,7 +1943,7 @@ state 90
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    45     | expr T_LOGICALAND expr .
@@ -1969,7 +1969,7 @@ state 91
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -2029,7 +2029,7 @@ state 94
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -2050,7 +2050,7 @@ state 94
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -2145,7 +2145,7 @@ state 101
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -2163,7 +2163,7 @@ state 101
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -2238,7 +2238,7 @@ state 108
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -2258,7 +2258,7 @@ state 108
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -2319,7 +2319,7 @@ state 111
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -2340,7 +2340,7 @@ state 111
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -2413,7 +2413,7 @@ state 115
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -2432,7 +2432,7 @@ state 115
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -2528,7 +2528,7 @@ state 124
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -2548,7 +2548,7 @@ state 124
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -2578,7 +2578,7 @@ state 126
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -2598,7 +2598,7 @@ state 126
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
@@ -2753,7 +2753,7 @@ state 139
    40     | expr . T_CNEQUAL expr
    41     | expr . T_CEQUAL expr
    42     | expr . T_BITAND expr
-   43     | expr . T_BITNOR expr
+   43     | expr . T_BITXOR expr
    44     | expr . T_BITOR expr
    45     | expr . T_LOGICALAND expr
    46     | expr . T_LOGICALOR expr
@@ -2773,7 +2773,7 @@ state 139
     T_CNEQUAL     shift, and go to state 54
     T_CEQUAL      shift, and go to state 55
     T_BITAND      shift, and go to state 56
-    T_BITNOR      shift, and go to state 57
+    T_BITXOR      shift, and go to state 57
     T_BITOR       shift, and go to state 58
     T_LOGICALAND  shift, and go to state 59
     T_LOGICALOR   shift, and go to state 60
