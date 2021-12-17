@@ -61,6 +61,13 @@ COMMENT         ("//"[^\n]*)
 "*"             {return MAKE_TOKEN(T_MULT);}
 "/"             {return MAKE_TOKEN(T_DIV);}
 ";"             {return MAKE_TOKEN(T_SEMICOLON);}
+"&"             {return MAKE_TOKEN(T_BITAND);}
+"&&"            {return MAKE_TOKEN(T_LOGICALAND);}
+"|"             {return MAKE_TOKEN(T_BITOR);}
+"||"            {return MAKE_TOKEN(T_LOGICALOR);}
+"^"             {return MAKE_TOKEN(T_BITNOR);}
+"<<"            {return MAKE_TOKEN(T_LSHIFT);}
+">>"            {return MAKE_TOKEN(T_RSHIFT);}
 
 %%
 // int main(){
