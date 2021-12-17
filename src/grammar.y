@@ -28,7 +28,7 @@ void yyerror(const char* msg){
 
 %token <string> T_IDENTIFIER T_INTEGER T_DOUBLE T_LITERAL
 
-%token <token>  T_ASSIGN T_CEQUAL T_CNEQUAL T_CLT T_CLE T_CGT T_CGE T_TFOR T_TWHILE T_IF T_ELSE
+%token <token>  T_ASSIGN T_TFOR T_TWHILE T_IF T_ELSE
 
 %token <token>  T_LPAREN T_RPAREN  T_LBRACE T_RBRACE T_LBRACKET T_RBRACKET T_SEMICOLON
 
@@ -36,10 +36,19 @@ void yyerror(const char* msg){
 %nonassoc T_ELSE
 %left  <token> T_PLUS T_MINUS  //上下顺序表示优先级，left表示左结合
 %left  <token> T_MULT T_DIV  
+%left  <token> T_LSHIFT T_RSHIFT
+%left  <token> T_CLT T_CLE T_CGT T_CGE
+%left  <token> T_CEQUAL T_CNEQUAL
+%left  <token> T_BITAND
+%left  <token> T_BITNOR
+%left  <token> T_BITOR
+%left  <token> T_LOGICALAND
+%left  <token> T_LOGICALOR
 %left  <token> T_DOT T_COMMA 
+%left  T_ASSIGN
 
 %type <expr> expr assignmemt number call
-%type <ident> ident typename array_typename
+%type <ident> ident typename
 %type <stat> stat var_dec func_dec for_stm while_stm if_stat
 %type <block> stats program block
 %type <varvec> varvec
@@ -86,6 +95,7 @@ varvec      :   varvec T_COMMA var_dec {$$->push_back(shared_ptr<VariableDeclara
 
 var_dec     :   typename ident  { $$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2));}
             |   typename ident T_ASSIGN expr{ $$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2),shared_ptr<ExpressionNode>($4));}
+            |   typename ident T_LBRACKET T_INTEGER T_RBRACKET {$$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2));$2->isArray=true; $2->array_size = atol($4->c_str()); }
             ;
 
 ident       :   T_IDENTIFIER    { $$=new IdentifierNode(*$1);cout<<"ident"<<endl; delete $1;}
@@ -95,11 +105,7 @@ typename    :   T_TINT  { $$ = new IdentifierNode(*$1); delete $1;}
             |   T_TDOUBLE   { $$ = new IdentifierNode(*$1); delete $1; }
             |   T_TVOID  {$$ = new IdentifierNode(*$1); delete $1; }
             |   T_TSTRING {$$ = new IdentifierNode(*$1); delete $1;}
-            |   array_typename
             ;  
-
-array_typename : typename T_LBRACKET T_INTEGER T_RBRACKET {$1->isArray = true; $1->array_size = atol($3->c_str()); $$ = $1;}
-            ;
 
 array_elem : ident T_LBRACKET expr T_RBRACKET {$$ = new ArrayElem(shared_ptr<IdentifierNode>($1), shared_ptr<ExpressionNode>($3)); }
             ;
@@ -116,8 +122,22 @@ expr        :   assignmemt  {$$=$1; }
             |   expr T_MINUS expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
             |   expr T_MULT expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
             |   expr T_DIV expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
-            |   T_LPAREN expr T_LPAREN {$$=$2;}
-            |   T_LITERAL   {$$=new LiteralNode(*$1);delete $1;}
+            |   expr T_RSHIFT expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_LSHIFT expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_CGE expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_CGT expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_CLE expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_CLT expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_CNEQUAL expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_CEQUAL expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_BITAND expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_BITNOR expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_BITOR expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_LOGICALAND expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   expr T_LOGICALOR expr {$$=new BinaryOperationNode(shared_ptr<ExpressionNode>($1), $2, shared_ptr<ExpressionNode>($3));}
+            |   T_LPAREN expr T_RPAREN {$$=$2;}
+            |   T_LITERAL  {$$=new LiteralNode(*$1);delete $1;}
+            |   array_elem {$$=$1;}
             |   call {$$=$1;}
             ;
 
