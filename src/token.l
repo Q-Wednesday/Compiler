@@ -65,7 +65,7 @@ COMMENT         ("//"[^\n]*)
 "&&"            {return MAKE_TOKEN(T_LOGICALAND);}
 "|"             {return MAKE_TOKEN(T_BITOR);}
 "||"            {return MAKE_TOKEN(T_LOGICALOR);}
-"^"             {return MAKE_TOKEN(T_BITNOR);}
+"^"             {return MAKE_TOKEN(T_BITXOR);}
 "<<"            {return MAKE_TOKEN(T_LSHIFT);}
 ">>"            {return MAKE_TOKEN(T_RSHIFT);}
 

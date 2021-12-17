@@ -78,7 +78,7 @@
      T_CNEQUAL = 294,
      T_CEQUAL = 295,
      T_BITAND = 296,
-     T_BITNOR = 297,
+     T_BITXOR = 297,
      T_BITOR = 298,
      T_LOGICALAND = 299,
      T_LOGICALOR = 300,
@@ -126,7 +126,7 @@
 #define T_CNEQUAL 294
 #define T_CEQUAL 295
 #define T_BITAND 296
-#define T_BITNOR 297
+#define T_BITXOR 297
 #define T_BITOR 298
 #define T_LOGICALAND 299
 #define T_LOGICALOR 300

@@ -340,9 +340,31 @@ Value *BinaryOperationNode::codeGen(CodeGenContext &context)
     case T_RSHIFT:
         return isFloat ? LogErrorV("invalid operands to >>") : context.builder.CreateAShr(lhsValue, rhsValue, "ashrtemp"); //TODO 支持无符号数
     case T_LSHIFT:
-        return isFloat ? LogErrorV("invalid operands to <<") : context.builder.CreateAShl(lhsValue, rhsValue, "ashltemp"); //TODO 支持无符号数
+        return isFloat ? LogErrorV("invalid operands to <<") : context.builder.CreateShl(lhsValue, rhsValue, "ashltemp");
     case T_CGE:
-        return case T_CGT : return case T_CLE : return case T_CLT : return case T_CNEQUAL : return case T_CEQUAL : return case T_BITAND : return case T_BITNOR : return case T_BITOR : return case T_LOGICALAND : return case T_LOGICALOR : return default : return LogErrorV("Unknown binary operator");
+        return isFloat ? context.builder.CreateFCmpOGE(lhsValue, rhsValue, "geftemp") : context.builder.CreateICmpSGE(lhsValue, rhsValue, "getemp"); //TODO 支持无符号数
+    case T_CGT:
+        return isFloat ? context.builder.CreateFCmpOGT(lhsValue, rhsValue, "gtftemp") : context.builder.CreateICmpSGT(lhsValue, rhsValue, "gttemp");
+    case T_CLE:
+        return isFloat ? context.builder.CreateFCmpOLE(lhsValue, rhsValue, "leftemp") : context.builder.CreateICmpSLE(lhsValue, rhsValue, "letemp");
+    case T_CLT:
+        return isFloat ? context.builder.CreateFCmpOLT(lhsValue, rhsValue, "ltftemp") : context.builder.CreateICmpSLT(lhsValue, rhsValue, "lttemp");
+    case T_CNEQUAL:
+        return isFloat ? context.builder.CreateFCmpONE(lhsValue, rhsValue, "neftemp") : context.builder.CreateICmpNE(lhsValue, rhsValue, "netemp");
+    case T_CEQUAL:
+        return isFloat ? context.builder.CreateFCmpOEQ(lhsValue, rhsValue, "eqftemp") : context.builder.CreateICmpEQ(lhsValue, rhsValue, "eqtemp");
+    case T_BITAND:
+        return isFloat ? LogErrorV("invalid operands to &") : context.builder.CreateAnd(lhsValue, rhsValue, "andtemp");
+    case T_BITXOR:
+        return isFloat ? LogErrorV("invalid operands to ^") : context.builder.CreateXor(lhsValue, rhsValue, "xortemp");
+    case T_BITOR:
+        return isFloat ? LogErrorV("invalid operands to |") : context.builder.CreateOr(lhsValue, rhsValue, "oetemp");
+    case T_LOGICALAND:
+        return isFloat ? LogErrorV("invalid operands to |") : context.builder.CreateLogicalAnd(lhsValue, rhsValue, "logicalandtemp");
+    case T_LOGICALOR:
+        return isFloat ? LogErrorV("invalid operands to |") : context.builder.CreateLogicalOr(lhsValue, rhsValue, "logicalortemp");
+    default:
+        return LogErrorV("Unknown binary operator");
     }
 }
 
@@ -406,4 +428,40 @@ Value *ForNode::codeGen(CodeGenContext &context)
     context.builder.SetInsertPoint(count);
 
     return nullptr;
+}
+
+Value *IfNode::codeGen(CodeGenContext &context)
+{
+    Value *CondV = cond->codeGen(context);
+    if (!CondV)
+        return nullptr;
+    CondV = ToBoolean(context, CondV);
+    Function *calledFunc = context.builder.GetInsertBlock()->getParent();
+
+    BasicBlock *then_bb = BasicBlock::Create(context.llvmContext, "then", calledFunc);
+    BasicBlock *else_bb = BasicBlock::Create(context.llvmContext, "else");
+    BasicBlock *merge_bb = BasicBlock::Create(context.llvmContext, "ifcont");
+
+    context.builder.CreateCondBr(CondV, then_bb, else_bb);
+
+    context.builder.SetInsertPoint(then_bb);
+    Value *ThenV = matched_block->codeGen(context);
+    if (!ThenV)
+        return nullptr;
+    context.builder.CreateBr(merge_bb);
+    then_bb = context.builder.GetInsertBlock();
+
+    calledFunc->getBasicBlockList().push_back(else_bb);
+    context.builder.SetInsertPoint(else_bb);
+    Value *ElseV = unmatched_block->codeGen(context);
+    if (!ElseV)
+        return nullptr;
+    context.builder.CreateBr(merge_bb);
+    else_bb = context.builder.GetInsertBlock();
+    calledFunc->getBasicBlockList().push_back(merge_bb);
+    context.builder.SetInsertPoint(merge_bb);
+    PHINode *PN = context.builder.CreatePHI(Type::getDoubleTy(context.llvmContext), 2, "iftmp");
+    PN->addIncoming(ThenV, then_bb);
+    PN->addIncoming(ElseV, else_bb);
+    return PN;
 }
