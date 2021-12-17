@@ -37,6 +37,23 @@ Value *LogErrorV(const char *str)
     return nullptr;
 }
 
+static Value* ToBoolean(CodeGenContext& context, Value* termValue)
+{
+    if( termValue->getType()->getTypeID()==Type::IntegerTyID )
+    {
+        termValue = context.builder.CreateIntCast(termValue,Type::getInt32Ty(context.llvmContext),true);
+        return context.builder.CreateICmpNE(termValue,ConstantInt::get(Type::getInt32Ty(context.llvmContext),0,true));
+    }
+    else if( termValue->getType()->getTypeID()==Type::DoubleTyID )
+    {
+        return context.builder.CreateFCmpONE(termValue,ConstantFP::get(context.llvmContext,APFloat(0.0)));
+    }
+    else
+    {
+        return termValue;
+    }
+}
+
 //从语法树根节点生成代码主逻辑
 void CodeGenContext::generateCode(CodeBlockNode &root)
 {
@@ -345,4 +362,41 @@ Value *CallFunctionNode::codeGen(CodeGenContext &context)
         }
     }
     return context.builder.CreateCall(calledFunc, arguments, "calltemp");
+}
+
+Value *ForNode::codeGen(CodeGenContext &context)
+{
+    Function *calledFunc = context.builder.GetInsertBlock()->getParent();
+    
+    BasicBlock *block = BasicBlock::Create(context.llvmContext,"For",calledFunc);
+    BasicBlock *count = BasicBlock::Create(context.llvmContext,"Forcount");
+    if (this->initval){
+        this->initval->codeGen(context);
+    }
+
+    Value *termValue = this->termval->codeGen(context);
+    if (!termValue)
+        {
+            return nullptr;
+        }
+    termValue = ToBoolean(context,termValue);
+
+    context.builder.CreateCondBr(termValue,block,count);
+    context.builder.SetInsertPoint(block);
+    context.pushBlock(block);
+    this->block->codeGen(context);
+    context.popBlock();
+
+    if(this->increval){
+        this->increval->codeGen(context);
+    }
+
+    termValue = this->termval->codeGen(context);
+    termValue = ToBoolean(context,termValue);
+    context.builder.CreateCondBr(termValue,block,count);
+
+    calledFunc->getBasicBlockList().push_back(count);
+    context.builder.SetInsertPoint(count);
+
+    return nullptr;
 }
