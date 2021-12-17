@@ -37,16 +37,16 @@ Value *LogErrorV(const char *str)
     return nullptr;
 }
 
-static Value* ToBoolean(CodeGenContext& context, Value* termValue)
+static Value *ToBoolean(CodeGenContext &context, Value *termValue)
 {
-    if( termValue->getType()->getTypeID()==Type::IntegerTyID )
+    if (termValue->getType()->getTypeID() == Type::IntegerTyID)
     {
-        termValue = context.builder.CreateIntCast(termValue,Type::getInt32Ty(context.llvmContext),true);
-        return context.builder.CreateICmpNE(termValue,ConstantInt::get(Type::getInt32Ty(context.llvmContext),0,true));
+        termValue = context.builder.CreateIntCast(termValue, Type::getInt32Ty(context.llvmContext), true);
+        return context.builder.CreateICmpNE(termValue, ConstantInt::get(Type::getInt32Ty(context.llvmContext), 0, true));
     }
-    else if( termValue->getType()->getTypeID()==Type::DoubleTyID )
+    else if (termValue->getType()->getTypeID() == Type::DoubleTyID)
     {
-        return context.builder.CreateFCmpONE(termValue,ConstantFP::get(context.llvmContext,APFloat(0.0)));
+        return context.builder.CreateFCmpONE(termValue, ConstantFP::get(context.llvmContext, APFloat(0.0)));
     }
     else
     {
@@ -147,7 +147,8 @@ Type *CodeGenContext::getTypeOf(IdentifierNode &node)
     {
         return Type::getVoidTy(llvmContext);
     }
-    if(typestr=="string"){
+    if (typestr == "string")
+    {
         return Type::getInt8PtrTy(llvmContext);
     }
     //TODO:支持其他加入的类型以及结构体
@@ -336,8 +337,12 @@ Value *BinaryOperationNode::codeGen(CodeGenContext &context)
         return isFloat ? context.builder.CreateFMul(lhsValue, rhsValue, "mulftemp") : context.builder.CreateMul(lhsValue, rhsValue, "multemp");
     case T_DIV:
         return isFloat ? context.builder.CreateFDiv(lhsValue, rhsValue, "divftemp") : context.builder.CreateSDiv(lhsValue, rhsValue, "divtemp");
-    default:
-        return LogErrorV("Unknown binary operator");
+    case T_RSHIFT:
+        return isFloat ? LogErrorV("invalid operands to >>") : context.builder.CreateAShr(lhsValue, rhsValue, "ashrtemp"); //TODO 支持无符号数
+    case T_LSHIFT:
+        return isFloat ? LogErrorV("invalid operands to <<") : context.builder.CreateAShl(lhsValue, rhsValue, "ashltemp"); //TODO 支持无符号数
+    case T_CGE:
+        return case T_CGT : return case T_CLE : return case T_CLT : return case T_CNEQUAL : return case T_CEQUAL : return case T_BITAND : return case T_BITNOR : return case T_BITOR : return case T_LOGICALAND : return case T_LOGICALOR : return default : return LogErrorV("Unknown binary operator");
     }
 }
 
@@ -367,33 +372,35 @@ Value *CallFunctionNode::codeGen(CodeGenContext &context)
 Value *ForNode::codeGen(CodeGenContext &context)
 {
     Function *calledFunc = context.builder.GetInsertBlock()->getParent();
-    
-    BasicBlock *block = BasicBlock::Create(context.llvmContext,"For",calledFunc);
-    BasicBlock *count = BasicBlock::Create(context.llvmContext,"Forcount");
-    if (this->initval){
+
+    BasicBlock *block = BasicBlock::Create(context.llvmContext, "For", calledFunc);
+    BasicBlock *count = BasicBlock::Create(context.llvmContext, "Forcount");
+    if (this->initval)
+    {
         this->initval->codeGen(context);
     }
 
     Value *termValue = this->termval->codeGen(context);
     if (!termValue)
-        {
-            return nullptr;
-        }
-    termValue = ToBoolean(context,termValue);
+    {
+        return nullptr;
+    }
+    termValue = ToBoolean(context, termValue);
 
-    context.builder.CreateCondBr(termValue,block,count);
+    context.builder.CreateCondBr(termValue, block, count);
     context.builder.SetInsertPoint(block);
     context.pushBlock(block);
     this->block->codeGen(context);
     context.popBlock();
 
-    if(this->increval){
+    if (this->increval)
+    {
         this->increval->codeGen(context);
     }
 
     termValue = this->termval->codeGen(context);
-    termValue = ToBoolean(context,termValue);
-    context.builder.CreateCondBr(termValue,block,count);
+    termValue = ToBoolean(context, termValue);
+    context.builder.CreateCondBr(termValue, block, count);
 
     calledFunc->getBasicBlockList().push_back(count);
     context.builder.SetInsertPoint(count);
