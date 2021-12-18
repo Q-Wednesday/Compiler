@@ -95,7 +95,7 @@ varvec      :   varvec T_COMMA var_dec {$$->push_back(shared_ptr<VariableDeclara
 
 var_dec     :   typename ident  { $$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2));}
             |   typename ident T_ASSIGN expr{ $$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2),shared_ptr<ExpressionNode>($4));}
-            |   typename ident T_LBRACKET T_INTEGER T_RBRACKET {$$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2));$2->isArray=true; $2->array_size = atol($4->c_str()); delete $4;}
+            |   typename ident T_LBRACKET T_INTEGER T_RBRACKET {$$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2));$2->isArray=true; $2->array_size = atol($4->c_str()); }
             ;
 
 ident       :   T_IDENTIFIER    { $$=new IdentifierNode(*$1);cout<<"ident"<<endl; delete $1;}

@@ -1709,7 +1709,7 @@ yyreduce:
 
   case 20:
 #line 98 "grammar.y"
-    {(yyval.stat)=new VariableDeclaration(shared_ptr<IdentifierNode>((yyvsp[(1) - (5)].ident)),shared_ptr<IdentifierNode>((yyvsp[(2) - (5)].ident)));(yyvsp[(2) - (5)].ident)->isArray=true; (yyvsp[(2) - (5)].ident)->array_size = atol((yyvsp[(4) - (5)].string)->c_str()); delete (yyvsp[(4) - (5)].string);;}
+    {(yyval.stat)=new VariableDeclaration(shared_ptr<IdentifierNode>((yyvsp[(1) - (5)].ident)),shared_ptr<IdentifierNode>((yyvsp[(2) - (5)].ident)));(yyvsp[(2) - (5)].ident)->isArray=true; (yyvsp[(2) - (5)].ident)->array_size = atol((yyvsp[(4) - (5)].string)->c_str()); ;}
     break;
 
   case 21:
