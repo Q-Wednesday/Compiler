@@ -39,43 +39,163 @@ node37->node30
 node37->node17
 node37->node18
 node7->node37
-node60[label="Function declaration"]
+node112[label="Function declaration"]
 node38[label="Identifier"]
 node39[label="Identifier"]
-node44[label="Code Block"]
-node43[label="Variable Declaration"]
-node40[label="Identifier"]
-node41[label="Identifier"]
-node43->node40
-node43->node41
-node44->node43
-node48[label="Variable Declaration"]
+node47[label="Code Block"]
+node46[label="Variable Declaration"]
+node44[label="Identifier"]
 node45[label="Identifier"]
-node46[label="Identifier"]
-node48->node45
-node48->node46
-node44->node48
-node57[label="IfNode"]
-node51[label="Binary Op"]
+node46->node44
+node46->node45
+node47->node46
+node50[label="Variable Declaration"]
+node48[label="Identifier"]
 node49[label="Identifier"]
-node50[label="Identifier"]
-node51->node49
-node51->node50
-node57->node51
-node56[label="Code Block"]
-node55[label="Expression Statement"]
-node54[label="Call Function"]
-node52[label="Identifier"]
-node54->node52
-node55->node54
+node50->node48
+node50->node49
+node47->node50
+node111[label="ForNode"]
+node53[label="Assignment"]
+node51[label="Identifier"]
+node52[label="Integer"]
+node53->node51
+node53->node52
+node111->node53
+node56[label="Binary Op"]
+node54[label="Identifier"]
+node55[label="Integer"]
+node56->node54
 node56->node55
-node57->node56
-node44->node57
-node59[label="Return"]
-node44->node59
-node60->node44
-node60->node38
-node60->node39
-node7->node60
+node111->node56
+node61[label="Assignment"]
+node57[label="Identifier"]
+node60[label="Binary Op"]
+node58[label="Identifier"]
+node59[label="Integer"]
+node60->node58
+node60->node59
+node61->node57
+node61->node60
+node111->node61
+node110[label="Code Block"]
+node109[label="ForNode"]
+node64[label="Assignment"]
+node62[label="Identifier"]
+node63[label="Integer"]
+node64->node62
+node64->node63
+node109->node64
+node67[label="Binary Op"]
+node65[label="Identifier"]
+node66[label="Identifier"]
+node67->node65
+node67->node66
+node109->node67
+node72[label="Assignment"]
+node68[label="Identifier"]
+node71[label="Binary Op"]
+node69[label="Identifier"]
+node70[label="Integer"]
+node71->node69
+node71->node70
+node72->node68
+node72->node71
+node109->node72
+node108[label="Code Block"]
+node107[label="IfNode"]
+node81[label="Binary Op"]
+node75[label="ArrayElem"]
+node80[label="ArrayElem"]
+node81->node75
+node81->node80
+node107->node81
+node88[label="Code Block"]
+node87[label="Variable Declaration"]
+node82[label="Identifier"]
+node83[label="Identifier"]
+node87->node82
+node87->node83
+node88->node87
+node98[label="Expression Statement"]
+node97[label="ArrayAssignment"]
+node98->node97
+node88->node98
+node106[label="Expression Statement"]
+node105[label="ArrayAssignment"]
+node106->node105
+node88->node106
+node107->node88
+node108->node107
+node109->node108
+node110->node109
+node111->node110
+node47->node111
+node112->node47
+node112->node38
+node112->node39
+node7->node112
+node158[label="Function declaration"]
+node113[label="Identifier"]
+node114[label="Identifier"]
+node118[label="Code Block"]
+node117[label="Variable Declaration"]
+node115[label="Identifier"]
+node116[label="Identifier"]
+node117->node115
+node117->node116
+node118->node117
+node121[label="Variable Declaration"]
+node119[label="Identifier"]
+node120[label="Identifier"]
+node121->node119
+node121->node120
+node118->node121
+node131[label="ArrayInitialization"]
+node118->node131
+node135[label="Expression Statement"]
+node134[label="Call Function"]
+node132[label="Identifier"]
+node134->node132
+node135->node134
+node118->node135
+node155[label="ForNode"]
+node138[label="Assignment"]
+node136[label="Identifier"]
+node137[label="Integer"]
+node138->node136
+node138->node137
+node155->node138
+node141[label="Binary Op"]
+node139[label="Identifier"]
+node140[label="Integer"]
+node141->node139
+node141->node140
+node155->node141
+node146[label="Assignment"]
+node142[label="Identifier"]
+node145[label="Binary Op"]
+node143[label="Identifier"]
+node144[label="Integer"]
+node145->node143
+node145->node144
+node146->node142
+node146->node145
+node155->node146
+node154[label="Code Block"]
+node153[label="Expression Statement"]
+node152[label="Call Function"]
+node147[label="Identifier"]
+node152->node147
+node153->node152
+node154->node153
+node155->node154
+node118->node155
+node157[label="Return"]
+node118->node157
+node158->node118
+node158->node113
+node158->node114
+node7->node158
 }
 #@enddot

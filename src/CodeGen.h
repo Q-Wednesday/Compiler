@@ -43,13 +43,14 @@ public:
     }
 
     Value *getIdent(string name) const;
-    Type *getTypeOf(IdentifierNode &node);
+    Type *getTypeOf(const IdentifierNode &node);
     shared_ptr<IdentifierNode> getSymbolType(string name) const;
 
     void setSymbolValue(string name, Value *value)
     {
         blockStack.back()->locals[name] = value;
     }
+
     void setSymbolType(string name, shared_ptr<IdentifierNode> type)
     {
         blockStack.back()->types[name] = type;
