@@ -35,116 +35,118 @@ Grammar
    17 var_dec: typename ident
    18        | typename ident T_ASSIGN expr
    19        | typename ident T_LBRACKET T_INTEGER T_RBRACKET
+   20        | typename ident T_LBRACKET T_INTEGER T_RBRACKET T_ASSIGN T_LBRACE call_args T_RBRACE
 
-   20 ident: T_IDENTIFIER
+   21 ident: T_IDENTIFIER
 
-   21 typename: T_TINT
-   22         | T_TDOUBLE
-   23         | T_TVOID
-   24         | T_TSTRING
+   22 typename: T_TINT
+   23         | T_TDOUBLE
+   24         | T_TVOID
+   25         | T_TSTRING
 
-   25 array_elem: ident T_LBRACKET expr T_RBRACKET
+   26 array_elem: ident T_LBRACKET expr T_RBRACKET
 
-   26 assignmemt: ident T_ASSIGN expr
+   27 assignmemt: ident T_ASSIGN expr
+   28           | array_elem T_ASSIGN expr
 
-   27 expr: assignmemt
-   28     | number
-   29     | ident
-   30     | expr T_PLUS expr
-   31     | expr T_MINUS expr
-   32     | expr T_MULT expr
-   33     | expr T_DIV expr
-   34     | expr T_RSHIFT expr
-   35     | expr T_LSHIFT expr
-   36     | expr T_CGE expr
-   37     | expr T_CGT expr
-   38     | expr T_CLE expr
-   39     | expr T_CLT expr
-   40     | expr T_CNEQUAL expr
-   41     | expr T_CEQUAL expr
-   42     | expr T_BITAND expr
-   43     | expr T_BITXOR expr
-   44     | expr T_BITOR expr
-   45     | expr T_LOGICALAND expr
-   46     | expr T_LOGICALOR expr
-   47     | T_LPAREN expr T_RPAREN
-   48     | T_LITERAL
-   49     | array_elem
-   50     | call
+   29 expr: assignmemt
+   30     | number
+   31     | ident
+   32     | expr T_PLUS expr
+   33     | expr T_MINUS expr
+   34     | expr T_MULT expr
+   35     | expr T_DIV expr
+   36     | expr T_RSHIFT expr
+   37     | expr T_LSHIFT expr
+   38     | expr T_CGE expr
+   39     | expr T_CGT expr
+   40     | expr T_CLE expr
+   41     | expr T_CLT expr
+   42     | expr T_CNEQUAL expr
+   43     | expr T_CEQUAL expr
+   44     | expr T_BITAND expr
+   45     | expr T_BITXOR expr
+   46     | expr T_BITOR expr
+   47     | expr T_LOGICALAND expr
+   48     | expr T_LOGICALOR expr
+   49     | T_LPAREN expr T_RPAREN
+   50     | T_LITERAL
+   51     | array_elem
+   52     | call
 
-   51 number: T_INTEGER
-   52       | T_DOUBLE
+   53 number: T_INTEGER
+   54       | T_DOUBLE
 
-   53 call: ident T_LPAREN call_args T_RPAREN
+   55 call: ident T_LPAREN call_args T_RPAREN
 
-   54 call_args: call_args T_COMMA expr
-   55          | expr
-   56          | %empty
+   56 call_args: call_args T_COMMA expr
+   57          | expr
+   58          | %empty
 
-   57 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
-   58        | T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN block
-   59        | T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN block
-   60        | T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN block
-   61        | T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block
-   62        | T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block
-   63        | T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
-   64        | T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN block
+   59 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   60        | T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN block
+   61        | T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   62        | T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   63        | T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   64        | T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   65        | T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   66        | T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN block
 
-   65 while_stm: T_TWHILE T_LPAREN expr T_RPAREN block
+   67 while_stm: T_TWHILE T_LPAREN expr T_RPAREN block
 
-   66 if_stat: T_IF T_LPAREN expr T_RPAREN block
-   67        | T_IF T_LPAREN expr T_RPAREN block T_ELSE block
+   68 if_stat: T_IF T_LPAREN expr T_RPAREN block
+   69        | T_IF T_LPAREN expr T_RPAREN block T_ELSE block
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    T_TINT <string> (258) 21
-    T_TDOUBLE <string> (259) 22
+    T_TINT <string> (258) 22
+    T_TDOUBLE <string> (259) 23
     T_TFLOAT <string> (260)
     T_TCHAR <string> (261)
     T_TBOOL <string> (262)
-    T_TVOID <string> (263) 23
-    T_TSTRING <string> (264) 24
+    T_TVOID <string> (263) 24
+    T_TSTRING <string> (264) 25
     T_EXTERN <string> (265) 13
     T_RETURN <string> (266) 7
-    T_IDENTIFIER <string> (267) 20
-    T_INTEGER <string> (268) 19 51
-    T_DOUBLE <string> (269) 52
-    T_LITERAL <string> (270) 48
-    T_ASSIGN <token> (271) 18 26
-    T_TFOR <token> (272) 57 58 59 60 61 62 63 64
-    T_TWHILE <token> (273) 65
-    T_IF <token> (274) 66 67
-    T_ELSE <token> (275) 67
-    T_LPAREN <token> (276) 12 13 47 53 57 58 59 60 61 62 63 64 65 66 67
-    T_RPAREN <token> (277) 12 13 47 53 57 58 59 60 61 62 63 64 65 66 67
-    T_LBRACE <token> (278) 11
-    T_RBRACE <token> (279) 11
-    T_LBRACKET <token> (280) 19 25
-    T_RBRACKET <token> (281) 19 25
-    T_SEMICOLON <token> (282) 4 6 7 13 57 58 59 60 61 62 63 64
+    T_IDENTIFIER <string> (267) 21
+    T_INTEGER <string> (268) 19 20 53
+    T_DOUBLE <string> (269) 54
+    T_LITERAL <string> (270) 50
+    T_ASSIGN <token> (271) 18 20 27 28
+    T_TFOR <token> (272) 59 60 61 62 63 64 65 66
+    T_TWHILE <token> (273) 67
+    T_IF <token> (274) 68 69
+    T_ELSE <token> (275) 69
+    T_LPAREN <token> (276) 12 13 49 55 59 60 61 62 63 64 65 66 67 68 69
+    T_RPAREN <token> (277) 12 13 49 55 59 60 61 62 63 64 65 66 67 68 69
+    T_LBRACE <token> (278) 11 20
+    T_RBRACE <token> (279) 11 20
+    T_LBRACKET <token> (280) 19 20 26
+    T_RBRACKET <token> (281) 19 20 26
+    T_SEMICOLON <token> (282) 4 6 7 13 59 60 61 62 63 64 65 66
     LOWER_THAN_ELSE (283)
-    T_PLUS <token> (284) 30
-    T_MINUS <token> (285) 31
-    T_MULT <token> (286) 32
-    T_DIV <token> (287) 33
-    T_LSHIFT <token> (288) 35
-    T_RSHIFT <token> (289) 34
-    T_CLT <token> (290) 39
-    T_CLE <token> (291) 38
-    T_CGT <token> (292) 37
-    T_CGE <token> (293) 36
-    T_CEQUAL <token> (294) 41
-    T_CNEQUAL <token> (295) 40
-    T_BITAND <token> (296) 42
-    T_BITXOR <token> (297) 43
-    T_BITOR <token> (298) 44
-    T_LOGICALAND <token> (299) 45
-    T_LOGICALOR <token> (300) 46
+    T_PLUS <token> (284) 32
+    T_MINUS <token> (285) 33
+    T_MULT <token> (286) 34
+    T_DIV <token> (287) 35
+    T_LSHIFT <token> (288) 37
+    T_RSHIFT <token> (289) 36
+    T_CLT <token> (290) 41
+    T_CLE <token> (291) 40
+    T_CGT <token> (292) 39
+    T_CGE <token> (293) 38
+    T_CEQUAL <token> (294) 43
+    T_CNEQUAL <token> (295) 42
+    T_BITAND <token> (296) 44
+    T_BITXOR <token> (297) 45
+    T_BITOR <token> (298) 46
+    T_LOGICALAND <token> (299) 47
+    T_LOGICALOR <token> (300) 48
     T_DOT <token> (301)
-    T_COMMA <token> (302) 14 54
+    T_COMMA <token> (302) 14 56
 
 
 Nonterminals, with rules where they appear
@@ -162,7 +164,7 @@ Nonterminals, with rules where they appear
         on right: 2 3
     block <block> (52)
         on left: 11
-        on right: 12 57 58 59 60 61 62 63 64 65 66 67
+        on right: 12 59 60 61 62 63 64 65 66 67 68 69
     func_dec <stat> (53)
         on left: 12 13
         on right: 5
@@ -170,40 +172,40 @@ Nonterminals, with rules where they appear
         on left: 14 15 16
         on right: 12 13 14
     var_dec <stat> (55)
-        on left: 17 18 19
+        on left: 17 18 19 20
         on right: 4 14 15
     ident <ident> (56)
-        on left: 20
-        on right: 12 13 17 18 19 25 26 29 53
+        on left: 21
+        on right: 12 13 17 18 19 20 26 27 31 55
     typename <ident> (57)
-        on left: 21 22 23 24
-        on right: 12 13 17 18 19
+        on left: 22 23 24 25
+        on right: 12 13 17 18 19 20
     array_elem <elem> (58)
-        on left: 25
-        on right: 49
-    assignmemt <expr> (59)
         on left: 26
-        on right: 27
+        on right: 28 51
+    assignmemt <expr> (59)
+        on left: 27 28
+        on right: 29
     expr <expr> (60)
-        on left: 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50
-        on right: 6 7 18 25 26 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 54 55 57 58 59 60 61 62 63 65 66 67
+        on left: 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+        on right: 6 7 18 26 27 28 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 56 57 59 60 61 62 63 64 65 67 68 69
     number <expr> (61)
-        on left: 51 52
-        on right: 28
+        on left: 53 54
+        on right: 30
     call <expr> (62)
-        on left: 53
-        on right: 50
+        on left: 55
+        on right: 52
     call_args <exprvec> (63)
-        on left: 54 55 56
-        on right: 53 54
+        on left: 56 57 58
+        on right: 20 55 56
     for_stm <stat> (64)
-        on left: 57 58 59 60 61 62 63 64
+        on left: 59 60 61 62 63 64 65 66
         on right: 9
     while_stm <stat> (65)
-        on left: 65
+        on left: 67
         on right: 10
     if_stat <stat> (66)
-        on left: 66 67
+        on left: 68 69
         on right: 8
 
 
@@ -245,30 +247,30 @@ State 0
 
 State 1
 
-   21 typename: T_TINT .
-
-    $default  reduce using rule 21 (typename)
-
-
-State 2
-
-   22 typename: T_TDOUBLE .
+   22 typename: T_TINT .
 
     $default  reduce using rule 22 (typename)
 
 
-State 3
+State 2
 
-   23 typename: T_TVOID .
+   23 typename: T_TDOUBLE .
 
     $default  reduce using rule 23 (typename)
 
 
-State 4
+State 3
 
-   24 typename: T_TSTRING .
+   24 typename: T_TVOID .
 
     $default  reduce using rule 24 (typename)
+
+
+State 4
+
+   25 typename: T_TSTRING .
+
+    $default  reduce using rule 25 (typename)
 
 
 State 5
@@ -303,64 +305,64 @@ State 6
 
 State 7
 
-   20 ident: T_IDENTIFIER .
+   21 ident: T_IDENTIFIER .
 
-    $default  reduce using rule 20 (ident)
+    $default  reduce using rule 21 (ident)
 
 
 State 8
 
-   51 number: T_INTEGER .
+   53 number: T_INTEGER .
 
-    $default  reduce using rule 51 (number)
+    $default  reduce using rule 53 (number)
 
 
 State 9
 
-   52 number: T_DOUBLE .
+   54 number: T_DOUBLE .
 
-    $default  reduce using rule 52 (number)
+    $default  reduce using rule 54 (number)
 
 
 State 10
 
-   48 expr: T_LITERAL .
+   50 expr: T_LITERAL .
 
-    $default  reduce using rule 48 (expr)
+    $default  reduce using rule 50 (expr)
 
 
 State 11
 
-   57 for_stm: T_TFOR . T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
-   58        | T_TFOR . T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN block
-   59        | T_TFOR . T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN block
-   60        | T_TFOR . T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN block
-   61        | T_TFOR . T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block
-   62        | T_TFOR . T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block
-   63        | T_TFOR . T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
-   64        | T_TFOR . T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN block
+   59 for_stm: T_TFOR . T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   60        | T_TFOR . T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN block
+   61        | T_TFOR . T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   62        | T_TFOR . T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   63        | T_TFOR . T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   64        | T_TFOR . T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   65        | T_TFOR . T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   66        | T_TFOR . T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN block
 
     T_LPAREN  shift, and go to state 32
 
 
 State 12
 
-   65 while_stm: T_TWHILE . T_LPAREN expr T_RPAREN block
+   67 while_stm: T_TWHILE . T_LPAREN expr T_RPAREN block
 
     T_LPAREN  shift, and go to state 33
 
 
 State 13
 
-   66 if_stat: T_IF . T_LPAREN expr T_RPAREN block
-   67        | T_IF . T_LPAREN expr T_RPAREN block T_ELSE block
+   68 if_stat: T_IF . T_LPAREN expr T_RPAREN block
+   69        | T_IF . T_LPAREN expr T_RPAREN block T_ELSE block
 
     T_LPAREN  shift, and go to state 34
 
 
 State 14
 
-   47 expr: T_LPAREN . expr T_RPAREN
+   49 expr: T_LPAREN . expr T_RPAREN
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -443,16 +445,16 @@ State 19
 
 State 20
 
-   25 array_elem: ident . T_LBRACKET expr T_RBRACKET
-   26 assignmemt: ident . T_ASSIGN expr
-   29 expr: ident .
-   53 call: ident . T_LPAREN call_args T_RPAREN
+   26 array_elem: ident . T_LBRACKET expr T_RBRACKET
+   27 assignmemt: ident . T_ASSIGN expr
+   31 expr: ident .
+   55 call: ident . T_LPAREN call_args T_RPAREN
 
     T_ASSIGN    shift, and go to state 39
     T_LPAREN    shift, and go to state 40
     T_LBRACKET  shift, and go to state 41
 
-    $default  reduce using rule 29 (expr)
+    $default  reduce using rule 31 (expr)
 
 
 State 21
@@ -461,6 +463,7 @@ State 21
    17 var_dec: typename . ident
    18        | typename . ident T_ASSIGN expr
    19        | typename . ident T_LBRACKET T_INTEGER T_RBRACKET
+   20        | typename . ident T_LBRACKET T_INTEGER T_RBRACKET T_ASSIGN T_LBRACE call_args T_RBRACE
 
     T_IDENTIFIER  shift, and go to state 7
 
@@ -469,71 +472,74 @@ State 21
 
 State 22
 
-   49 expr: array_elem .
+   28 assignmemt: array_elem . T_ASSIGN expr
+   51 expr: array_elem .
 
-    $default  reduce using rule 49 (expr)
+    T_ASSIGN  shift, and go to state 43
+
+    $default  reduce using rule 51 (expr)
 
 
 State 23
 
-   27 expr: assignmemt .
+   29 expr: assignmemt .
 
-    $default  reduce using rule 27 (expr)
+    $default  reduce using rule 29 (expr)
 
 
 State 24
 
     6 stat: expr . T_SEMICOLON
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_SEMICOLON   shift, and go to state 43
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_SEMICOLON   shift, and go to state 44
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
 
 State 25
 
-   28 expr: number .
+   30 expr: number .
 
-    $default  reduce using rule 28 (expr)
+    $default  reduce using rule 30 (expr)
 
 
 State 26
 
-   50 expr: call .
+   52 expr: call .
 
-    $default  reduce using rule 50 (expr)
+    $default  reduce using rule 52 (expr)
 
 
 State 27
@@ -563,85 +569,67 @@ State 30
 
     T_IDENTIFIER  shift, and go to state 7
 
-    ident  go to state 61
+    ident  go to state 62
 
 
 State 31
 
     7 stat: T_RETURN expr . T_SEMICOLON
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_SEMICOLON   shift, and go to state 62
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_SEMICOLON   shift, and go to state 63
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
 
 State 32
 
-   57 for_stm: T_TFOR T_LPAREN . expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
-   58        | T_TFOR T_LPAREN . expr T_SEMICOLON T_SEMICOLON T_RPAREN block
-   59        | T_TFOR T_LPAREN . T_SEMICOLON expr T_SEMICOLON T_RPAREN block
-   60        | T_TFOR T_LPAREN . T_SEMICOLON T_SEMICOLON expr T_RPAREN block
-   61        | T_TFOR T_LPAREN . expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block
-   62        | T_TFOR T_LPAREN . expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block
-   63        | T_TFOR T_LPAREN . T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
-   64        | T_TFOR T_LPAREN . T_SEMICOLON T_SEMICOLON T_RPAREN block
+   59 for_stm: T_TFOR T_LPAREN . expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   60        | T_TFOR T_LPAREN . expr T_SEMICOLON T_SEMICOLON T_RPAREN block
+   61        | T_TFOR T_LPAREN . T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   62        | T_TFOR T_LPAREN . T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   63        | T_TFOR T_LPAREN . expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   64        | T_TFOR T_LPAREN . expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   65        | T_TFOR T_LPAREN . T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   66        | T_TFOR T_LPAREN . T_SEMICOLON T_SEMICOLON T_RPAREN block
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
     T_DOUBLE      shift, and go to state 9
     T_LITERAL     shift, and go to state 10
     T_LPAREN      shift, and go to state 14
-    T_SEMICOLON   shift, and go to state 63
-
-    ident       go to state 20
-    array_elem  go to state 22
-    assignmemt  go to state 23
-    expr        go to state 64
-    number      go to state 25
-    call        go to state 26
-
-
-State 33
-
-   65 while_stm: T_TWHILE T_LPAREN . expr T_RPAREN block
-
-    T_IDENTIFIER  shift, and go to state 7
-    T_INTEGER     shift, and go to state 8
-    T_DOUBLE      shift, and go to state 9
-    T_LITERAL     shift, and go to state 10
-    T_LPAREN      shift, and go to state 14
+    T_SEMICOLON   shift, and go to state 64
 
     ident       go to state 20
     array_elem  go to state 22
@@ -651,10 +639,9 @@ State 33
     call        go to state 26
 
 
-State 34
+State 33
 
-   66 if_stat: T_IF T_LPAREN . expr T_RPAREN block
-   67        | T_IF T_LPAREN . expr T_RPAREN block T_ELSE block
+   67 while_stm: T_TWHILE T_LPAREN . expr T_RPAREN block
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -670,45 +657,64 @@ State 34
     call        go to state 26
 
 
+State 34
+
+   68 if_stat: T_IF T_LPAREN . expr T_RPAREN block
+   69        | T_IF T_LPAREN . expr T_RPAREN block T_ELSE block
+
+    T_IDENTIFIER  shift, and go to state 7
+    T_INTEGER     shift, and go to state 8
+    T_DOUBLE      shift, and go to state 9
+    T_LITERAL     shift, and go to state 10
+    T_LPAREN      shift, and go to state 14
+
+    ident       go to state 20
+    array_elem  go to state 22
+    assignmemt  go to state 23
+    expr        go to state 67
+    number      go to state 25
+    call        go to state 26
+
+
 State 35
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   47     | T_LPAREN expr . T_RPAREN
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   49     | T_LPAREN expr . T_RPAREN
 
-    T_RPAREN      shift, and go to state 67
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_RPAREN      shift, and go to state 68
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
 
 State 36
@@ -734,33 +740,13 @@ State 38
 
 State 39
 
-   26 assignmemt: ident T_ASSIGN . expr
+   27 assignmemt: ident T_ASSIGN . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
     T_DOUBLE      shift, and go to state 9
     T_LITERAL     shift, and go to state 10
     T_LPAREN      shift, and go to state 14
-
-    ident       go to state 20
-    array_elem  go to state 22
-    assignmemt  go to state 23
-    expr        go to state 68
-    number      go to state 25
-    call        go to state 26
-
-
-State 40
-
-   53 call: ident T_LPAREN . call_args T_RPAREN
-
-    T_IDENTIFIER  shift, and go to state 7
-    T_INTEGER     shift, and go to state 8
-    T_DOUBLE      shift, and go to state 9
-    T_LITERAL     shift, and go to state 10
-    T_LPAREN      shift, and go to state 14
-
-    $default  reduce using rule 56 (call_args)
 
     ident       go to state 20
     array_elem  go to state 22
@@ -768,12 +754,32 @@ State 40
     expr        go to state 69
     number      go to state 25
     call        go to state 26
-    call_args   go to state 70
+
+
+State 40
+
+   55 call: ident T_LPAREN . call_args T_RPAREN
+
+    T_IDENTIFIER  shift, and go to state 7
+    T_INTEGER     shift, and go to state 8
+    T_DOUBLE      shift, and go to state 9
+    T_LITERAL     shift, and go to state 10
+    T_LPAREN      shift, and go to state 14
+
+    $default  reduce using rule 58 (call_args)
+
+    ident       go to state 20
+    array_elem  go to state 22
+    assignmemt  go to state 23
+    expr        go to state 70
+    number      go to state 25
+    call        go to state 26
+    call_args   go to state 71
 
 
 State 41
 
-   25 array_elem: ident T_LBRACKET . expr T_RBRACKET
+   26 array_elem: ident T_LBRACKET . expr T_RBRACKET
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -784,7 +790,7 @@ State 41
     ident       go to state 20
     array_elem  go to state 22
     assignmemt  go to state 23
-    expr        go to state 71
+    expr        go to state 72
     number      go to state 25
     call        go to state 26
 
@@ -795,42 +801,18 @@ State 42
    17 var_dec: typename ident .
    18        | typename ident . T_ASSIGN expr
    19        | typename ident . T_LBRACKET T_INTEGER T_RBRACKET
+   20        | typename ident . T_LBRACKET T_INTEGER T_RBRACKET T_ASSIGN T_LBRACE call_args T_RBRACE
 
-    T_ASSIGN    shift, and go to state 72
-    T_LPAREN    shift, and go to state 73
-    T_LBRACKET  shift, and go to state 74
+    T_ASSIGN    shift, and go to state 73
+    T_LPAREN    shift, and go to state 74
+    T_LBRACKET  shift, and go to state 75
 
     $default  reduce using rule 17 (var_dec)
 
 
 State 43
 
-    6 stat: expr T_SEMICOLON .
-
-    $default  reduce using rule 6 (stat)
-
-
-State 44
-
-   30 expr: expr T_PLUS . expr
-
-    T_IDENTIFIER  shift, and go to state 7
-    T_INTEGER     shift, and go to state 8
-    T_DOUBLE      shift, and go to state 9
-    T_LITERAL     shift, and go to state 10
-    T_LPAREN      shift, and go to state 14
-
-    ident       go to state 20
-    array_elem  go to state 22
-    assignmemt  go to state 23
-    expr        go to state 75
-    number      go to state 25
-    call        go to state 26
-
-
-State 45
-
-   31 expr: expr T_MINUS . expr
+   28 assignmemt: array_elem T_ASSIGN . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -846,9 +828,16 @@ State 45
     call        go to state 26
 
 
-State 46
+State 44
 
-   32 expr: expr T_MULT . expr
+    6 stat: expr T_SEMICOLON .
+
+    $default  reduce using rule 6 (stat)
+
+
+State 45
+
+   32 expr: expr T_PLUS . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -864,9 +853,9 @@ State 46
     call        go to state 26
 
 
-State 47
+State 46
 
-   33 expr: expr T_DIV . expr
+   33 expr: expr T_MINUS . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -882,9 +871,9 @@ State 47
     call        go to state 26
 
 
-State 48
+State 47
 
-   35 expr: expr T_LSHIFT . expr
+   34 expr: expr T_MULT . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -900,9 +889,9 @@ State 48
     call        go to state 26
 
 
-State 49
+State 48
 
-   34 expr: expr T_RSHIFT . expr
+   35 expr: expr T_DIV . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -918,9 +907,9 @@ State 49
     call        go to state 26
 
 
-State 50
+State 49
 
-   39 expr: expr T_CLT . expr
+   37 expr: expr T_LSHIFT . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -936,9 +925,9 @@ State 50
     call        go to state 26
 
 
-State 51
+State 50
 
-   38 expr: expr T_CLE . expr
+   36 expr: expr T_RSHIFT . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -954,9 +943,9 @@ State 51
     call        go to state 26
 
 
-State 52
+State 51
 
-   37 expr: expr T_CGT . expr
+   41 expr: expr T_CLT . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -972,9 +961,9 @@ State 52
     call        go to state 26
 
 
-State 53
+State 52
 
-   36 expr: expr T_CGE . expr
+   40 expr: expr T_CLE . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -990,9 +979,9 @@ State 53
     call        go to state 26
 
 
-State 54
+State 53
 
-   41 expr: expr T_CEQUAL . expr
+   39 expr: expr T_CGT . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -1008,9 +997,9 @@ State 54
     call        go to state 26
 
 
-State 55
+State 54
 
-   40 expr: expr T_CNEQUAL . expr
+   38 expr: expr T_CGE . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -1026,9 +1015,9 @@ State 55
     call        go to state 26
 
 
-State 56
+State 55
 
-   42 expr: expr T_BITAND . expr
+   43 expr: expr T_CEQUAL . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -1044,9 +1033,9 @@ State 56
     call        go to state 26
 
 
-State 57
+State 56
 
-   43 expr: expr T_BITXOR . expr
+   42 expr: expr T_CNEQUAL . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -1062,9 +1051,9 @@ State 57
     call        go to state 26
 
 
-State 58
+State 57
 
-   44 expr: expr T_BITOR . expr
+   44 expr: expr T_BITAND . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -1080,9 +1069,9 @@ State 58
     call        go to state 26
 
 
-State 59
+State 58
 
-   45 expr: expr T_LOGICALAND . expr
+   45 expr: expr T_BITXOR . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -1098,9 +1087,9 @@ State 59
     call        go to state 26
 
 
-State 60
+State 59
 
-   46 expr: expr T_LOGICALOR . expr
+   46 expr: expr T_BITOR . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -1116,293 +1105,347 @@ State 60
     call        go to state 26
 
 
-State 61
+State 60
 
-   13 func_dec: T_EXTERN typename ident . T_LPAREN varvec T_RPAREN T_SEMICOLON
-
-    T_LPAREN  shift, and go to state 92
-
-
-State 62
-
-    7 stat: T_RETURN expr T_SEMICOLON .
-
-    $default  reduce using rule 7 (stat)
-
-
-State 63
-
-   59 for_stm: T_TFOR T_LPAREN T_SEMICOLON . expr T_SEMICOLON T_RPAREN block
-   60        | T_TFOR T_LPAREN T_SEMICOLON . T_SEMICOLON expr T_RPAREN block
-   63        | T_TFOR T_LPAREN T_SEMICOLON . expr T_SEMICOLON expr T_RPAREN block
-   64        | T_TFOR T_LPAREN T_SEMICOLON . T_SEMICOLON T_RPAREN block
+   47 expr: expr T_LOGICALAND . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
     T_DOUBLE      shift, and go to state 9
     T_LITERAL     shift, and go to state 10
     T_LPAREN      shift, and go to state 14
-    T_SEMICOLON   shift, and go to state 93
 
     ident       go to state 20
     array_elem  go to state 22
     assignmemt  go to state 23
-    expr        go to state 94
+    expr        go to state 92
     number      go to state 25
     call        go to state 26
 
 
+State 61
+
+   48 expr: expr T_LOGICALOR . expr
+
+    T_IDENTIFIER  shift, and go to state 7
+    T_INTEGER     shift, and go to state 8
+    T_DOUBLE      shift, and go to state 9
+    T_LITERAL     shift, and go to state 10
+    T_LPAREN      shift, and go to state 14
+
+    ident       go to state 20
+    array_elem  go to state 22
+    assignmemt  go to state 23
+    expr        go to state 93
+    number      go to state 25
+    call        go to state 26
+
+
+State 62
+
+   13 func_dec: T_EXTERN typename ident . T_LPAREN varvec T_RPAREN T_SEMICOLON
+
+    T_LPAREN  shift, and go to state 94
+
+
+State 63
+
+    7 stat: T_RETURN expr T_SEMICOLON .
+
+    $default  reduce using rule 7 (stat)
+
+
 State 64
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   57 for_stm: T_TFOR T_LPAREN expr . T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
-   58        | T_TFOR T_LPAREN expr . T_SEMICOLON T_SEMICOLON T_RPAREN block
-   61        | T_TFOR T_LPAREN expr . T_SEMICOLON expr T_SEMICOLON T_RPAREN block
-   62        | T_TFOR T_LPAREN expr . T_SEMICOLON T_SEMICOLON expr T_RPAREN block
+   61 for_stm: T_TFOR T_LPAREN T_SEMICOLON . expr T_SEMICOLON T_RPAREN block
+   62        | T_TFOR T_LPAREN T_SEMICOLON . T_SEMICOLON expr T_RPAREN block
+   65        | T_TFOR T_LPAREN T_SEMICOLON . expr T_SEMICOLON expr T_RPAREN block
+   66        | T_TFOR T_LPAREN T_SEMICOLON . T_SEMICOLON T_RPAREN block
 
+    T_IDENTIFIER  shift, and go to state 7
+    T_INTEGER     shift, and go to state 8
+    T_DOUBLE      shift, and go to state 9
+    T_LITERAL     shift, and go to state 10
+    T_LPAREN      shift, and go to state 14
     T_SEMICOLON   shift, and go to state 95
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+
+    ident       go to state 20
+    array_elem  go to state 22
+    assignmemt  go to state 23
+    expr        go to state 96
+    number      go to state 25
+    call        go to state 26
 
 
 State 65
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   65 while_stm: T_TWHILE T_LPAREN expr . T_RPAREN block
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   59 for_stm: T_TFOR T_LPAREN expr . T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block
+   60        | T_TFOR T_LPAREN expr . T_SEMICOLON T_SEMICOLON T_RPAREN block
+   63        | T_TFOR T_LPAREN expr . T_SEMICOLON expr T_SEMICOLON T_RPAREN block
+   64        | T_TFOR T_LPAREN expr . T_SEMICOLON T_SEMICOLON expr T_RPAREN block
 
-    T_RPAREN      shift, and go to state 96
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_SEMICOLON   shift, and go to state 97
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
 
 State 66
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   66 if_stat: T_IF T_LPAREN expr . T_RPAREN block
-   67        | T_IF T_LPAREN expr . T_RPAREN block T_ELSE block
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   67 while_stm: T_TWHILE T_LPAREN expr . T_RPAREN block
 
-    T_RPAREN      shift, and go to state 97
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_RPAREN      shift, and go to state 98
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
 
 State 67
 
-   47 expr: T_LPAREN expr T_RPAREN .
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   68 if_stat: T_IF T_LPAREN expr . T_RPAREN block
+   69        | T_IF T_LPAREN expr . T_RPAREN block T_ELSE block
 
-    $default  reduce using rule 47 (expr)
+    T_RPAREN      shift, and go to state 99
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
 
 State 68
 
-   26 assignmemt: ident T_ASSIGN expr .
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   49 expr: T_LPAREN expr T_RPAREN .
 
-    $default  reduce using rule 26 (assignmemt)
+    $default  reduce using rule 49 (expr)
 
 
 State 69
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   55 call_args: expr .
+   27 assignmemt: ident T_ASSIGN expr .
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
-    $default  reduce using rule 55 (call_args)
+    $default  reduce using rule 27 (assignmemt)
 
 
 State 70
 
-   53 call: ident T_LPAREN call_args . T_RPAREN
-   54 call_args: call_args . T_COMMA expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   57 call_args: expr .
 
-    T_RPAREN  shift, and go to state 98
-    T_COMMA   shift, and go to state 99
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
+
+    $default  reduce using rule 57 (call_args)
 
 
 State 71
 
-   25 array_elem: ident T_LBRACKET expr . T_RBRACKET
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   55 call: ident T_LPAREN call_args . T_RPAREN
+   56 call_args: call_args . T_COMMA expr
 
-    T_RBRACKET    shift, and go to state 100
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_RPAREN  shift, and go to state 100
+    T_COMMA   shift, and go to state 101
 
 
 State 72
+
+   26 array_elem: ident T_LBRACKET expr . T_RBRACKET
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+
+    T_RBRACKET    shift, and go to state 102
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
+
+
+State 73
 
    18 var_dec: typename ident T_ASSIGN . expr
 
@@ -1415,12 +1458,12 @@ State 72
     ident       go to state 20
     array_elem  go to state 22
     assignmemt  go to state 23
-    expr        go to state 101
+    expr        go to state 103
     number      go to state 25
     call        go to state 26
 
 
-State 73
+State 74
 
    12 func_dec: typename ident T_LPAREN . varvec T_RPAREN block
 
@@ -1431,569 +1474,612 @@ State 73
 
     $default  reduce using rule 16 (varvec)
 
-    varvec    go to state 102
-    var_dec   go to state 103
-    typename  go to state 104
-
-
-State 74
-
-   19 var_dec: typename ident T_LBRACKET . T_INTEGER T_RBRACKET
-
-    T_INTEGER  shift, and go to state 105
+    varvec    go to state 104
+    var_dec   go to state 105
+    typename  go to state 106
 
 
 State 75
 
-   30 expr: expr . T_PLUS expr
-   30     | expr T_PLUS expr .
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   19 var_dec: typename ident T_LBRACKET . T_INTEGER T_RBRACKET
+   20        | typename ident T_LBRACKET . T_INTEGER T_RBRACKET T_ASSIGN T_LBRACE call_args T_RBRACE
 
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
-
-    $default  reduce using rule 30 (expr)
+    T_INTEGER  shift, and go to state 107
 
 
 State 76
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   31     | expr T_MINUS expr .
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   28 assignmemt: array_elem T_ASSIGN expr .
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
-    $default  reduce using rule 31 (expr)
+    $default  reduce using rule 28 (assignmemt)
 
 
 State 77
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   32     | expr T_MULT expr .
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   32     | expr T_PLUS expr .
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 32 (expr)
 
 
 State 78
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   33     | expr T_DIV expr .
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   33     | expr T_MINUS expr .
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 33 (expr)
 
 
 State 79
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   35     | expr T_LSHIFT expr .
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   34     | expr T_MULT expr .
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
-
-    $default  reduce using rule 35 (expr)
-
-
-State 80
-
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   34     | expr T_RSHIFT expr .
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 34 (expr)
 
 
+State 80
+
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   35     | expr T_DIV expr .
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
+
+    $default  reduce using rule 35 (expr)
+
+
 State 81
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   39     | expr T_CLT expr .
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   37     | expr T_LSHIFT expr .
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
-
-    $default  reduce using rule 39 (expr)
-
-
-State 82
-
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   38     | expr T_CLE expr .
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
-
-    $default  reduce using rule 38 (expr)
-
-
-State 83
-
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   37     | expr T_CGT expr .
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 37 (expr)
 
 
-State 84
+State 82
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   36     | expr T_CGE expr .
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   36     | expr T_RSHIFT expr .
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 36 (expr)
 
 
-State 85
+State 83
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   41     | expr T_CEQUAL expr .
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   41     | expr T_CLT expr .
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 41 (expr)
 
 
-State 86
+State 84
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   40     | expr T_CNEQUAL expr .
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   40     | expr T_CLE expr .
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 40 (expr)
 
 
+State 85
+
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   39     | expr T_CGT expr .
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
+
+    $default  reduce using rule 39 (expr)
+
+
+State 86
+
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   38     | expr T_CGE expr .
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
+
+    $default  reduce using rule 38 (expr)
+
+
 State 87
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   42     | expr T_BITAND expr .
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   43     | expr T_CEQUAL expr .
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
-
-    $default  reduce using rule 42 (expr)
-
-
-State 88
-
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   43     | expr T_BITXOR expr .
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 43 (expr)
 
 
+State 88
+
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   42     | expr T_CNEQUAL expr .
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
+
+    $default  reduce using rule 42 (expr)
+
+
 State 89
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   44     | expr T_BITOR expr .
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   44     | expr T_BITAND expr .
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 44 (expr)
 
 
 State 90
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   45     | expr T_LOGICALAND expr .
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   45     | expr T_BITXOR expr .
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_LOGICALOR  shift, and go to state 60
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 45 (expr)
 
 
 State 91
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   46     | expr T_LOGICALOR expr .
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   46     | expr T_BITOR expr .
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 46 (expr)
 
 
 State 92
+
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   47     | expr T_LOGICALAND expr .
+   48     | expr . T_LOGICALOR expr
+
+    T_LOGICALOR  shift, and go to state 61
+
+    $default  reduce using rule 47 (expr)
+
+
+State 93
+
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   48     | expr T_LOGICALOR expr .
+
+    $default  reduce using rule 48 (expr)
+
+
+State 94
 
    13 func_dec: T_EXTERN typename ident T_LPAREN . varvec T_RPAREN T_SEMICOLON
 
@@ -2004,124 +2090,124 @@ State 92
 
     $default  reduce using rule 16 (varvec)
 
-    varvec    go to state 106
-    var_dec   go to state 103
-    typename  go to state 104
-
-
-State 93
-
-   60 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON . expr T_RPAREN block
-   64        | T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON . T_RPAREN block
-
-    T_IDENTIFIER  shift, and go to state 7
-    T_INTEGER     shift, and go to state 8
-    T_DOUBLE      shift, and go to state 9
-    T_LITERAL     shift, and go to state 10
-    T_LPAREN      shift, and go to state 14
-    T_RPAREN      shift, and go to state 107
-
-    ident       go to state 20
-    array_elem  go to state 22
-    assignmemt  go to state 23
-    expr        go to state 108
-    number      go to state 25
-    call        go to state 26
-
-
-State 94
-
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   59 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr . T_SEMICOLON T_RPAREN block
-   63        | T_TFOR T_LPAREN T_SEMICOLON expr . T_SEMICOLON expr T_RPAREN block
-
-    T_SEMICOLON   shift, and go to state 109
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    varvec    go to state 108
+    var_dec   go to state 105
+    typename  go to state 106
 
 
 State 95
 
-   57 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON . expr T_SEMICOLON expr T_RPAREN block
-   58        | T_TFOR T_LPAREN expr T_SEMICOLON . T_SEMICOLON T_RPAREN block
-   61        | T_TFOR T_LPAREN expr T_SEMICOLON . expr T_SEMICOLON T_RPAREN block
-   62        | T_TFOR T_LPAREN expr T_SEMICOLON . T_SEMICOLON expr T_RPAREN block
+   62 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON . expr T_RPAREN block
+   66        | T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON . T_RPAREN block
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
     T_DOUBLE      shift, and go to state 9
     T_LITERAL     shift, and go to state 10
     T_LPAREN      shift, and go to state 14
-    T_SEMICOLON   shift, and go to state 110
+    T_RPAREN      shift, and go to state 109
 
     ident       go to state 20
     array_elem  go to state 22
     assignmemt  go to state 23
-    expr        go to state 111
+    expr        go to state 110
     number      go to state 25
     call        go to state 26
 
 
 State 96
 
-   65 while_stm: T_TWHILE T_LPAREN expr T_RPAREN . block
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   61 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr . T_SEMICOLON T_RPAREN block
+   65        | T_TFOR T_LPAREN T_SEMICOLON expr . T_SEMICOLON expr T_RPAREN block
 
-    T_LBRACE  shift, and go to state 112
-
-    block  go to state 113
+    T_SEMICOLON   shift, and go to state 111
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
 
 State 97
 
-   66 if_stat: T_IF T_LPAREN expr T_RPAREN . block
-   67        | T_IF T_LPAREN expr T_RPAREN . block T_ELSE block
+   59 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON . expr T_SEMICOLON expr T_RPAREN block
+   60        | T_TFOR T_LPAREN expr T_SEMICOLON . T_SEMICOLON T_RPAREN block
+   63        | T_TFOR T_LPAREN expr T_SEMICOLON . expr T_SEMICOLON T_RPAREN block
+   64        | T_TFOR T_LPAREN expr T_SEMICOLON . T_SEMICOLON expr T_RPAREN block
 
-    T_LBRACE  shift, and go to state 112
+    T_IDENTIFIER  shift, and go to state 7
+    T_INTEGER     shift, and go to state 8
+    T_DOUBLE      shift, and go to state 9
+    T_LITERAL     shift, and go to state 10
+    T_LPAREN      shift, and go to state 14
+    T_SEMICOLON   shift, and go to state 112
 
-    block  go to state 114
+    ident       go to state 20
+    array_elem  go to state 22
+    assignmemt  go to state 23
+    expr        go to state 113
+    number      go to state 25
+    call        go to state 26
 
 
 State 98
 
-   53 call: ident T_LPAREN call_args T_RPAREN .
+   67 while_stm: T_TWHILE T_LPAREN expr T_RPAREN . block
 
-    $default  reduce using rule 53 (call)
+    T_LBRACE  shift, and go to state 114
+
+    block  go to state 115
 
 
 State 99
 
-   54 call_args: call_args T_COMMA . expr
+   68 if_stat: T_IF T_LPAREN expr T_RPAREN . block
+   69        | T_IF T_LPAREN expr T_RPAREN . block T_ELSE block
+
+    T_LBRACE  shift, and go to state 114
+
+    block  go to state 116
+
+
+State 100
+
+   55 call: ident T_LPAREN call_args T_RPAREN .
+
+    $default  reduce using rule 55 (call)
+
+
+State 101
+
+   56 call_args: call_args T_COMMA . expr
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -2132,177 +2218,159 @@ State 99
     ident       go to state 20
     array_elem  go to state 22
     assignmemt  go to state 23
-    expr        go to state 115
+    expr        go to state 117
     number      go to state 25
     call        go to state 26
 
 
-State 100
+State 102
 
-   25 array_elem: ident T_LBRACKET expr T_RBRACKET .
+   26 array_elem: ident T_LBRACKET expr T_RBRACKET .
 
-    $default  reduce using rule 25 (array_elem)
+    $default  reduce using rule 26 (array_elem)
 
 
-State 101
+State 103
 
    18 var_dec: typename ident T_ASSIGN expr .
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
 
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
     $default  reduce using rule 18 (var_dec)
 
 
-State 102
+State 104
 
    12 func_dec: typename ident T_LPAREN varvec . T_RPAREN block
    14 varvec: varvec . T_COMMA var_dec
 
-    T_RPAREN  shift, and go to state 116
-    T_COMMA   shift, and go to state 117
+    T_RPAREN  shift, and go to state 118
+    T_COMMA   shift, and go to state 119
 
 
-State 103
+State 105
 
    15 varvec: var_dec .
 
     $default  reduce using rule 15 (varvec)
 
 
-State 104
+State 106
 
    17 var_dec: typename . ident
    18        | typename . ident T_ASSIGN expr
    19        | typename . ident T_LBRACKET T_INTEGER T_RBRACKET
+   20        | typename . ident T_LBRACKET T_INTEGER T_RBRACKET T_ASSIGN T_LBRACE call_args T_RBRACE
 
     T_IDENTIFIER  shift, and go to state 7
 
-    ident  go to state 118
-
-
-State 105
-
-   19 var_dec: typename ident T_LBRACKET T_INTEGER . T_RBRACKET
-
-    T_RBRACKET  shift, and go to state 119
-
-
-State 106
-
-   13 func_dec: T_EXTERN typename ident T_LPAREN varvec . T_RPAREN T_SEMICOLON
-   14 varvec: varvec . T_COMMA var_dec
-
-    T_RPAREN  shift, and go to state 120
-    T_COMMA   shift, and go to state 117
+    ident  go to state 120
 
 
 State 107
 
-   64 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN . block
+   19 var_dec: typename ident T_LBRACKET T_INTEGER . T_RBRACKET
+   20        | typename ident T_LBRACKET T_INTEGER . T_RBRACKET T_ASSIGN T_LBRACE call_args T_RBRACE
 
-    T_LBRACE  shift, and go to state 112
-
-    block  go to state 121
+    T_RBRACKET  shift, and go to state 121
 
 
 State 108
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   60 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr . T_RPAREN block
+   13 func_dec: T_EXTERN typename ident T_LPAREN varvec . T_RPAREN T_SEMICOLON
+   14 varvec: varvec . T_COMMA var_dec
 
-    T_RPAREN      shift, and go to state 122
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_RPAREN  shift, and go to state 122
+    T_COMMA   shift, and go to state 119
 
 
 State 109
 
-   59 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON . T_RPAREN block
-   63        | T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON . expr T_RPAREN block
+   66 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN . block
 
-    T_IDENTIFIER  shift, and go to state 7
-    T_INTEGER     shift, and go to state 8
-    T_DOUBLE      shift, and go to state 9
-    T_LITERAL     shift, and go to state 10
-    T_LPAREN      shift, and go to state 14
-    T_RPAREN      shift, and go to state 123
+    T_LBRACE  shift, and go to state 114
 
-    ident       go to state 20
-    array_elem  go to state 22
-    assignmemt  go to state 23
-    expr        go to state 124
-    number      go to state 25
-    call        go to state 26
+    block  go to state 123
 
 
 State 110
 
-   58 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON . T_RPAREN block
-   62        | T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON . expr T_RPAREN block
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   62 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr . T_RPAREN block
+
+    T_RPAREN      shift, and go to state 124
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
+
+
+State 111
+
+   61 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON . T_RPAREN block
+   65        | T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON . expr T_RPAREN block
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
@@ -2319,49 +2387,69 @@ State 110
     call        go to state 26
 
 
-State 111
-
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   57 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr . T_SEMICOLON expr T_RPAREN block
-   61        | T_TFOR T_LPAREN expr T_SEMICOLON expr . T_SEMICOLON T_RPAREN block
-
-    T_SEMICOLON   shift, and go to state 127
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
-
-
 State 112
+
+   60 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON . T_RPAREN block
+   64        | T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON . expr T_RPAREN block
+
+    T_IDENTIFIER  shift, and go to state 7
+    T_INTEGER     shift, and go to state 8
+    T_DOUBLE      shift, and go to state 9
+    T_LITERAL     shift, and go to state 10
+    T_LPAREN      shift, and go to state 14
+    T_RPAREN      shift, and go to state 127
+
+    ident       go to state 20
+    array_elem  go to state 22
+    assignmemt  go to state 23
+    expr        go to state 128
+    number      go to state 25
+    call        go to state 26
+
+
+State 113
+
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   59 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr . T_SEMICOLON expr T_RPAREN block
+   63        | T_TFOR T_LPAREN expr T_SEMICOLON expr . T_SEMICOLON T_RPAREN block
+
+    T_SEMICOLON   shift, and go to state 129
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
+
+
+State 114
 
    11 block: T_LBRACE . stats T_RBRACE
 
@@ -2380,7 +2468,7 @@ State 112
     T_IF          shift, and go to state 13
     T_LPAREN      shift, and go to state 14
 
-    stats       go to state 128
+    stats       go to state 130
     stat        go to state 17
     func_dec    go to state 18
     var_dec     go to state 19
@@ -2396,75 +2484,75 @@ State 112
     if_stat     go to state 29
 
 
-State 113
-
-   65 while_stm: T_TWHILE T_LPAREN expr T_RPAREN block .
-
-    $default  reduce using rule 65 (while_stm)
-
-
-State 114
-
-   66 if_stat: T_IF T_LPAREN expr T_RPAREN block .
-   67        | T_IF T_LPAREN expr T_RPAREN block . T_ELSE block
-
-    T_ELSE  shift, and go to state 129
-
-    $default  reduce using rule 66 (if_stat)
-
-
 State 115
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   54 call_args: call_args T_COMMA expr .
+   67 while_stm: T_TWHILE T_LPAREN expr T_RPAREN block .
 
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
-
-    $default  reduce using rule 54 (call_args)
+    $default  reduce using rule 67 (while_stm)
 
 
 State 116
 
-   12 func_dec: typename ident T_LPAREN varvec T_RPAREN . block
+   68 if_stat: T_IF T_LPAREN expr T_RPAREN block .
+   69        | T_IF T_LPAREN expr T_RPAREN block . T_ELSE block
 
-    T_LBRACE  shift, and go to state 112
+    T_ELSE  shift, and go to state 131
 
-    block  go to state 130
+    $default  reduce using rule 68 (if_stat)
 
 
 State 117
+
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   56 call_args: call_args T_COMMA expr .
+
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
+
+    $default  reduce using rule 56 (call_args)
+
+
+State 118
+
+   12 func_dec: typename ident T_LPAREN varvec T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 114
+
+    block  go to state 132
+
+
+State 119
 
    14 varvec: varvec T_COMMA . var_dec
 
@@ -2473,173 +2561,177 @@ State 117
     T_TVOID    shift, and go to state 3
     T_TSTRING  shift, and go to state 4
 
-    var_dec   go to state 131
-    typename  go to state 104
-
-
-State 118
-
-   17 var_dec: typename ident .
-   18        | typename ident . T_ASSIGN expr
-   19        | typename ident . T_LBRACKET T_INTEGER T_RBRACKET
-
-    T_ASSIGN    shift, and go to state 72
-    T_LBRACKET  shift, and go to state 74
-
-    $default  reduce using rule 17 (var_dec)
-
-
-State 119
-
-   19 var_dec: typename ident T_LBRACKET T_INTEGER T_RBRACKET .
-
-    $default  reduce using rule 19 (var_dec)
+    var_dec   go to state 133
+    typename  go to state 106
 
 
 State 120
 
-   13 func_dec: T_EXTERN typename ident T_LPAREN varvec T_RPAREN . T_SEMICOLON
+   17 var_dec: typename ident .
+   18        | typename ident . T_ASSIGN expr
+   19        | typename ident . T_LBRACKET T_INTEGER T_RBRACKET
+   20        | typename ident . T_LBRACKET T_INTEGER T_RBRACKET T_ASSIGN T_LBRACE call_args T_RBRACE
 
-    T_SEMICOLON  shift, and go to state 132
+    T_ASSIGN    shift, and go to state 73
+    T_LBRACKET  shift, and go to state 75
+
+    $default  reduce using rule 17 (var_dec)
 
 
 State 121
 
-   64 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN block .
+   19 var_dec: typename ident T_LBRACKET T_INTEGER T_RBRACKET .
+   20        | typename ident T_LBRACKET T_INTEGER T_RBRACKET . T_ASSIGN T_LBRACE call_args T_RBRACE
 
-    $default  reduce using rule 64 (for_stm)
+    T_ASSIGN  shift, and go to state 134
+
+    $default  reduce using rule 19 (var_dec)
 
 
 State 122
 
-   60 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN . block
+   13 func_dec: T_EXTERN typename ident T_LPAREN varvec T_RPAREN . T_SEMICOLON
 
-    T_LBRACE  shift, and go to state 112
-
-    block  go to state 133
+    T_SEMICOLON  shift, and go to state 135
 
 
 State 123
 
-   59 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN . block
+   66 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON T_RPAREN block .
 
-    T_LBRACE  shift, and go to state 112
-
-    block  go to state 134
+    $default  reduce using rule 66 (for_stm)
 
 
 State 124
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   63 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr . T_RPAREN block
+   62 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN . block
 
-    T_RPAREN      shift, and go to state 135
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
-
-
-State 125
-
-   58 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN . block
-
-    T_LBRACE  shift, and go to state 112
+    T_LBRACE  shift, and go to state 114
 
     block  go to state 136
 
 
+State 125
+
+   61 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 114
+
+    block  go to state 137
+
+
 State 126
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   62 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr . T_RPAREN block
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   65 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr . T_RPAREN block
 
-    T_RPAREN      shift, and go to state 137
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    T_RPAREN      shift, and go to state 138
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
 
 
 State 127
 
-   57 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON . expr T_RPAREN block
-   61        | T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON . T_RPAREN block
+   60 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 114
+
+    block  go to state 139
+
+
+State 128
+
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   64 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr . T_RPAREN block
+
+    T_RPAREN      shift, and go to state 140
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
+
+
+State 129
+
+   59 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON . expr T_RPAREN block
+   63        | T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON . T_RPAREN block
 
     T_IDENTIFIER  shift, and go to state 7
     T_INTEGER     shift, and go to state 8
     T_DOUBLE      shift, and go to state 9
     T_LITERAL     shift, and go to state 10
     T_LPAREN      shift, and go to state 14
-    T_RPAREN      shift, and go to state 138
+    T_RPAREN      shift, and go to state 141
 
     ident       go to state 20
     array_elem  go to state 22
     assignmemt  go to state 23
-    expr        go to state 139
+    expr        go to state 142
     number      go to state 25
     call        go to state 26
 
 
-State 128
+State 130
 
     3 stats: stats . stat
    11 block: T_LBRACE stats . T_RBRACE
@@ -2658,7 +2750,7 @@ State 128
     T_TWHILE      shift, and go to state 12
     T_IF          shift, and go to state 13
     T_LPAREN      shift, and go to state 14
-    T_RBRACE      shift, and go to state 140
+    T_RBRACE      shift, and go to state 143
 
     stat        go to state 37
     func_dec    go to state 18
@@ -2675,171 +2767,215 @@ State 128
     if_stat     go to state 29
 
 
-State 129
+State 131
 
-   67 if_stat: T_IF T_LPAREN expr T_RPAREN block T_ELSE . block
+   69 if_stat: T_IF T_LPAREN expr T_RPAREN block T_ELSE . block
 
-    T_LBRACE  shift, and go to state 112
+    T_LBRACE  shift, and go to state 114
 
-    block  go to state 141
+    block  go to state 144
 
 
-State 130
+State 132
 
    12 func_dec: typename ident T_LPAREN varvec T_RPAREN block .
 
     $default  reduce using rule 12 (func_dec)
 
 
-State 131
+State 133
 
    14 varvec: varvec T_COMMA var_dec .
 
     $default  reduce using rule 14 (varvec)
 
 
-State 132
+State 134
+
+   20 var_dec: typename ident T_LBRACKET T_INTEGER T_RBRACKET T_ASSIGN . T_LBRACE call_args T_RBRACE
+
+    T_LBRACE  shift, and go to state 145
+
+
+State 135
 
    13 func_dec: T_EXTERN typename ident T_LPAREN varvec T_RPAREN T_SEMICOLON .
 
     $default  reduce using rule 13 (func_dec)
 
 
-State 133
-
-   60 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN block .
-
-    $default  reduce using rule 60 (for_stm)
-
-
-State 134
-
-   59 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN block .
-
-    $default  reduce using rule 59 (for_stm)
-
-
-State 135
-
-   63 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN . block
-
-    T_LBRACE  shift, and go to state 112
-
-    block  go to state 142
-
-
 State 136
 
-   58 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN block .
+   62 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr T_RPAREN block .
 
-    $default  reduce using rule 58 (for_stm)
+    $default  reduce using rule 62 (for_stm)
 
 
 State 137
 
-   62 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN . block
+   61 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON T_RPAREN block .
 
-    T_LBRACE  shift, and go to state 112
-
-    block  go to state 143
+    $default  reduce using rule 61 (for_stm)
 
 
 State 138
 
-   61 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN . block
+   65 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN . block
 
-    T_LBRACE  shift, and go to state 112
+    T_LBRACE  shift, and go to state 114
 
-    block  go to state 144
+    block  go to state 146
 
 
 State 139
 
-   30 expr: expr . T_PLUS expr
-   31     | expr . T_MINUS expr
-   32     | expr . T_MULT expr
-   33     | expr . T_DIV expr
-   34     | expr . T_RSHIFT expr
-   35     | expr . T_LSHIFT expr
-   36     | expr . T_CGE expr
-   37     | expr . T_CGT expr
-   38     | expr . T_CLE expr
-   39     | expr . T_CLT expr
-   40     | expr . T_CNEQUAL expr
-   41     | expr . T_CEQUAL expr
-   42     | expr . T_BITAND expr
-   43     | expr . T_BITXOR expr
-   44     | expr . T_BITOR expr
-   45     | expr . T_LOGICALAND expr
-   46     | expr . T_LOGICALOR expr
-   57 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr . T_RPAREN block
+   60 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON T_RPAREN block .
 
-    T_RPAREN      shift, and go to state 145
-    T_PLUS        shift, and go to state 44
-    T_MINUS       shift, and go to state 45
-    T_MULT        shift, and go to state 46
-    T_DIV         shift, and go to state 47
-    T_LSHIFT      shift, and go to state 48
-    T_RSHIFT      shift, and go to state 49
-    T_CLT         shift, and go to state 50
-    T_CLE         shift, and go to state 51
-    T_CGT         shift, and go to state 52
-    T_CGE         shift, and go to state 53
-    T_CEQUAL      shift, and go to state 54
-    T_CNEQUAL     shift, and go to state 55
-    T_BITAND      shift, and go to state 56
-    T_BITXOR      shift, and go to state 57
-    T_BITOR       shift, and go to state 58
-    T_LOGICALAND  shift, and go to state 59
-    T_LOGICALOR   shift, and go to state 60
+    $default  reduce using rule 60 (for_stm)
 
 
 State 140
+
+   64 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 114
+
+    block  go to state 147
+
+
+State 141
+
+   63 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 114
+
+    block  go to state 148
+
+
+State 142
+
+   32 expr: expr . T_PLUS expr
+   33     | expr . T_MINUS expr
+   34     | expr . T_MULT expr
+   35     | expr . T_DIV expr
+   36     | expr . T_RSHIFT expr
+   37     | expr . T_LSHIFT expr
+   38     | expr . T_CGE expr
+   39     | expr . T_CGT expr
+   40     | expr . T_CLE expr
+   41     | expr . T_CLT expr
+   42     | expr . T_CNEQUAL expr
+   43     | expr . T_CEQUAL expr
+   44     | expr . T_BITAND expr
+   45     | expr . T_BITXOR expr
+   46     | expr . T_BITOR expr
+   47     | expr . T_LOGICALAND expr
+   48     | expr . T_LOGICALOR expr
+   59 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr . T_RPAREN block
+
+    T_RPAREN      shift, and go to state 149
+    T_PLUS        shift, and go to state 45
+    T_MINUS       shift, and go to state 46
+    T_MULT        shift, and go to state 47
+    T_DIV         shift, and go to state 48
+    T_LSHIFT      shift, and go to state 49
+    T_RSHIFT      shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_CEQUAL      shift, and go to state 55
+    T_CNEQUAL     shift, and go to state 56
+    T_BITAND      shift, and go to state 57
+    T_BITXOR      shift, and go to state 58
+    T_BITOR       shift, and go to state 59
+    T_LOGICALAND  shift, and go to state 60
+    T_LOGICALOR   shift, and go to state 61
+
+
+State 143
 
    11 block: T_LBRACE stats T_RBRACE .
 
     $default  reduce using rule 11 (block)
 
 
-State 141
-
-   67 if_stat: T_IF T_LPAREN expr T_RPAREN block T_ELSE block .
-
-    $default  reduce using rule 67 (if_stat)
-
-
-State 142
-
-   63 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block .
-
-    $default  reduce using rule 63 (for_stm)
-
-
-State 143
-
-   62 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block .
-
-    $default  reduce using rule 62 (for_stm)
-
-
 State 144
 
-   61 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block .
+   69 if_stat: T_IF T_LPAREN expr T_RPAREN block T_ELSE block .
 
-    $default  reduce using rule 61 (for_stm)
+    $default  reduce using rule 69 (if_stat)
 
 
 State 145
 
-   57 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN . block
+   20 var_dec: typename ident T_LBRACKET T_INTEGER T_RBRACKET T_ASSIGN T_LBRACE . call_args T_RBRACE
 
-    T_LBRACE  shift, and go to state 112
+    T_IDENTIFIER  shift, and go to state 7
+    T_INTEGER     shift, and go to state 8
+    T_DOUBLE      shift, and go to state 9
+    T_LITERAL     shift, and go to state 10
+    T_LPAREN      shift, and go to state 14
 
-    block  go to state 146
+    $default  reduce using rule 58 (call_args)
+
+    ident       go to state 20
+    array_elem  go to state 22
+    assignmemt  go to state 23
+    expr        go to state 70
+    number      go to state 25
+    call        go to state 26
+    call_args   go to state 150
 
 
 State 146
 
-   57 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block .
+   65 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block .
 
-    $default  reduce using rule 57 (for_stm)
+    $default  reduce using rule 65 (for_stm)
+
+
+State 147
+
+   64 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr T_RPAREN block .
+
+    $default  reduce using rule 64 (for_stm)
+
+
+State 148
+
+   63 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON T_RPAREN block .
+
+    $default  reduce using rule 63 (for_stm)
+
+
+State 149
+
+   59 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN . block
+
+    T_LBRACE  shift, and go to state 114
+
+    block  go to state 151
+
+
+State 150
+
+   20 var_dec: typename ident T_LBRACKET T_INTEGER T_RBRACKET T_ASSIGN T_LBRACE call_args . T_RBRACE
+   56 call_args: call_args . T_COMMA expr
+
+    T_RBRACE  shift, and go to state 152
+    T_COMMA   shift, and go to state 101
+
+
+State 151
+
+   59 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr T_RPAREN block .
+
+    $default  reduce using rule 59 (for_stm)
+
+
+State 152
+
+   20 var_dec: typename ident T_LBRACKET T_INTEGER T_RBRACKET T_ASSIGN T_LBRACE call_args T_RBRACE .
+
+    $default  reduce using rule 20 (var_dec)

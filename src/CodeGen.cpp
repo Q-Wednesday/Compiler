@@ -132,7 +132,7 @@ int CodeGenContext::generateObject(const string &filename)
     return 0;
 }
 // 根据标识符获取基本类型方法，暂用
-Type *CodeGenContext::getTypeOf(IdentifierNode &node)
+Type *CodeGenContext::getTypeOf(const IdentifierNode &node)
 {
     string typestr = node.name;
     if (typestr == "int")
@@ -208,6 +208,14 @@ Value *IdentifierNode::codeGen(CodeGenContext &context)
     if (value->getType()->isPointerTy())
     {
         //TODO:用于支持数组
+        auto arrayPtr = context.builder.CreateLoad(value, "arrayPtr");
+        if(arrayPtr->getType()->isArrayTy()){
+            cout << "Ident is  array";
+            vector<Value*> indices;
+            indices.push_back(ConstantInt::get(Type::getInt32Ty(context.llvmContext), 0, false));
+            auto ptr = context.builder.CreateInBoundsGEP(value, indices, "arrayPtr");
+        }
+        
     }
     return context.builder.CreateLoad(value, false, ""); //布尔值表示是不是可变的
 }
@@ -243,10 +251,12 @@ Value *VariableDeclaration::codeGen(CodeGenContext &context)
         this->type->isArray = true;
         this->type->array_size = this->ident->array_size;
         Value *V_array_size = IntegerNode(this->ident->array_size).codeGen(context);
-        instance = context.builder.CreateAlloca(Ttype, V_array_size, "arraytmp");
+        auto arrayType = ArrayType::get(Ttype, this->ident->array_size);
+        instance = context.builder.CreateAlloca(arrayType, V_array_size, "arraytmp");
     }
     else
         instance = context.builder.CreateAlloca(Ttype);
+
     context.setSymbolType(this->ident->name, this->type);
     context.setSymbolValue(this->ident->name, instance);
 
@@ -275,14 +285,24 @@ Value *CodeBlockNode::codeGen(CodeGenContext &context)
 
 Value *FunctionDeclaration::codeGen(CodeGenContext &context)
 {
+    cout << "Gen Func dec" << endl;
     vector<Type *> argsType; //存放所有形参类型
 
-    //TODO:对参数为数组的情况作出调整
     for (auto &arg : *variables)
-    {
-        argsType.push_back(context.getTypeOf(*arg->type));
+    { 
+        if(arg->type==nullptr){
+                cout << "no null" << endl;
+        }
+        if(arg->type->isArray){
+           
+            argsType.push_back(PointerType::get(context.getTypeOf(*arg->type), 0));
+            cout << 2 << endl;
+        }else{
+            argsType.push_back(context.getTypeOf(*arg->type));
+        }
+        
     }
-
+    cout << 1 << endl;
     auto returnType = context.getTypeOf(*this->type);
     //获取函数类型
     auto functionTy = FunctionType::get(returnType, argsType, false);
@@ -302,8 +322,13 @@ Value *FunctionDeclaration::codeGen(CodeGenContext &context)
         { //IR中的表示
             auto argName = (*func_arg)->ident->name;
             ir_arg.setName(argName);
-            //TODO:添加对数组的支持
-            auto argAlloc = (*func_arg)->codeGen(context);
+            
+
+            Value *argAlloc;
+            if((*func_arg)->type->isArray)
+                argAlloc = context.builder.CreateAlloca(PointerType::get(context.getTypeOf(*(*func_arg)->type), 0));
+            else
+                argAlloc = (*func_arg)->codeGen(context);
             context.builder.CreateStore(&ir_arg, argAlloc, false);
             context.setSymbolValue(argName, argAlloc);
             context.setSymbolType(argName, (*func_arg)->type);
@@ -324,6 +349,7 @@ Value *FunctionDeclaration::codeGen(CodeGenContext &context)
         context.popBlock();
     }
 
+    cout << "Gen Func dec end" << endl;
     return function;
 }
 
@@ -509,17 +535,57 @@ Value *IfNode::codeGen(CodeGenContext &context)
 
 Value *ArrayElem::codeGen(CodeGenContext &context)
 {
+    cout << "Gen ArrayElem" << endl;
+    cout << "array elem: array name " << array->name<<endl;
+    //<< " index:" << dynamic_pointer_cast<IntegerNode>(index_expr)->value << endl;
     auto array_ptr = context.getIdent(this->array->name);
     auto array_type = context.getSymbolType(this->array->name);
     assert(array_type->isArray);
     auto V_array_size = IntegerNode(array_type->array_size).codeGen(context);
+    auto value = index_expr->codeGen(context);
     ArrayRef<Value *> indices;
     if (array_ptr->getType()->isPointerTy())
     {
-        indices = {ConstantInt ::get(Type::getInt64Ty(context.llvmContext), 0), V_array_size};
+        indices = {ConstantInt ::get(Type::getInt64Ty(context.llvmContext), 0), value};
     }
     auto ptr = context.builder.CreateInBoundsGEP(array_ptr, indices, "arrayelem");
 
     return context.builder.CreateAlignedLoad(ptr, MaybeAlign(4));
 }
 
+
+Value* ArrayAssignment::codeGen(CodeGenContext& context){
+    auto ptr = context.getIdent(arrayElem->array->name);
+
+    if(ptr==nullptr){
+        return LogErrorV("Unknown Array");
+    }
+
+    auto arrayPtr = context.builder.CreateLoad(ptr, "arrayPtr");
+
+    if( !arrayPtr->getType()->isArrayTy() && !arrayPtr->getType()->isPointerTy() ){
+        return LogErrorV("The variable is not array");
+    }
+
+    auto index = arrayElem->index_expr->codeGen(context);
+
+    ArrayRef<Value *> gep{ConstantInt::get(Type::getInt64Ty(context.llvmContext), 0), index};
+    auto ptr2elem=context.builder.CreateInBoundsGEP(ptr, gep, "elementPtr");
+
+    return context.builder.CreateAlignedStore(expr->codeGen(context), ptr2elem, MaybeAlign(4));
+
+}
+
+Value* ArrayInitialzation::codeGen(CodeGenContext& context){
+    auto arrayPtr = decl->codeGen(context);
+    auto arraySize = decl->ident->array_size;
+
+    for (int index = 0; index < exprVec->size();++index){
+        cout << "index: " << index << endl;
+        auto indexValue = make_shared<IntegerNode>(index);
+        auto arrayElem = make_shared<ArrayElem>(decl->ident, indexValue);
+        ArrayAssignment assignment(arrayElem, exprVec->at(index));
+        assignment.codeGen(context);
+    }
+    return nullptr;
+}

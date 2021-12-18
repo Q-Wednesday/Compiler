@@ -34,14 +34,15 @@ clean:
 	rm -rf grammar.cpp grammar.hpp parser compiler $(OBJECTS) AST.dot
 
 test: parser
-	cat test.input | ./parser
+	cat test.input | ./parser && clang test.o -o test
 
 
 viz: AST.dot
 	dot AST.dot -T png -o AST.png
-
-test.o:
+ 
+test.o: test.input
 	cat test.input | ./parser
 
 testlink: testlink.c test.o
 	clang testlink.c test.o -o testlink
+

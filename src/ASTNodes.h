@@ -147,7 +147,34 @@ public:
     {
         return "ArrayElem";
     }
-    Value *codeGen(CodeGenContext &context) override;
+    Value *codeGen(CodeGenContext &) override;
+};
+
+class ArrayAssignment:public ExpressionNode{
+    public:
+        shared_ptr<ArrayElem> arrayElem;
+        shared_ptr<ExpressionNode> expr;
+        ArrayAssignment(){}
+        ArrayAssignment(shared_ptr<ArrayElem> arrayElem,shared_ptr<ExpressionNode> expr):
+        arrayElem(arrayElem),expr(expr){}
+        string getNodeType()const override{
+            return "ArrayAssignment";
+        }
+        Value *codeGen(CodeGenContext &) override;
+};
+class ArrayInitialzation:public StatementNode{
+    public:
+    shared_ptr<VariableDeclaration> decl;
+    shared_ptr<ExprVec> exprVec = make_shared<ExprVec>();
+
+    ArrayInitialzation(){}
+    ArrayInitialzation(shared_ptr<VariableDeclaration> decl,shared_ptr<ExprVec> exprVec):
+    decl(decl),exprVec(exprVec){}
+    string getNodeType()const override{
+        return "ArrayInitialization";
+    }
+
+    Value *codeGen(CodeGenContext &) override;
 };
 
 class DoubleNode : public ExpressionNode
