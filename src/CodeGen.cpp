@@ -168,6 +168,17 @@ Value *CodeGenContext::getIdent(string name) const
     }
     return nullptr;
 }
+shared_ptr<IdentifierNode> CodeGenContext::getSymbolType(string name) const
+{
+    for (auto it = blockStack.rbegin(); it != blockStack.rend(); ++it)
+    {
+        if ((*it)->types.count(name))
+        {
+            return (*it)->types[name];
+        }
+    }
+    return nullptr;
+}
 
 //开始实现各个抽象语法树节点的代码生成
 Value *DoubleNode::codeGen(CodeGenContext &context)
@@ -221,12 +232,21 @@ Value *AssignmentNode::codeGen(CodeGenContext &context)
 Value *VariableDeclaration::codeGen(CodeGenContext &context)
 {
     //先获得类型
-    auto type = context.getTypeOf(*this->type);
+    auto Ttype = context.getTypeOf(*this->type);
     Value *initial = nullptr;
     Value *instance = nullptr;
-    //TODO:支持数组
 
-    instance = context.builder.CreateAlloca(type);
+    if (this->ident->isArray)
+    {
+        if (this->ident->array_size <= 0)
+            return LogErrorV("declared an array with nonpositive size");
+        this->type->isArray = true;
+        this->type->array_size = this->ident->array_size;
+        Value *V_array_size = IntegerNode(this->ident->array_size).codeGen(context);
+        instance = context.builder.CreateAlloca(Ttype, V_array_size, "arraytmp");
+    }
+    else
+        instance = context.builder.CreateAlloca(Ttype);
     context.setSymbolType(this->ident->name, this->type);
     context.setSymbolValue(this->ident->name, instance);
 
@@ -485,5 +505,21 @@ Value *IfNode::codeGen(CodeGenContext &context)
     context.builder.SetInsertPoint(merge_bb);
     //cout << "IfNode gen end" << endl;
     return nullptr;
+}
+
+Value *ArrayElem::codeGen(CodeGenContext &context)
+{
+    auto array_ptr = context.getIdent(this->array->name);
+    auto array_type = context.getSymbolType(this->array->name);
+    assert(array_type->isArray);
+    auto V_array_size = IntegerNode(array_type->array_size).codeGen(context);
+    ArrayRef<Value *> indices;
+    if (array_ptr->getType()->isPointerTy())
+    {
+        indices = {ConstantInt ::get(Type::getInt64Ty(context.llvmContext), 0), V_array_size};
+    }
+    auto ptr = context.builder.CreateInBoundsGEP(array_ptr, indices, "arrayelem");
+
+    return context.builder.CreateAlignedLoad(ptr, MaybeAlign(4));
 }
 
