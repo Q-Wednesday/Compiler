@@ -1,8 +1,9 @@
+
+extern void printf(string format);
 int func(int num){
     return num;
 }
 
-extern void printf(string format);
 
 int testFunc(int num){
     int a=num*func(num);
@@ -12,6 +13,11 @@ int testFunc(int num){
 }
 
 int main(){
-    printf("hello world\n");
+    int a=10;
+    int b=20;
+    if(a>b){
+        printf("hello world\n");
+    }
+    
     return 0;
 }

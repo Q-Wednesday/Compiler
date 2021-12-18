@@ -1,14 +1,14 @@
-/* A Bison parser, made by GNU Bison 2.3.  */
+/* A Bison parser, made by GNU Bison 3.5.1.  */
 
-/* Skeleton interface for Bison's Yacc-like parsers in C
+/* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
-   Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
+   Inc.
 
-   This program is free software; you can redistribute it and/or modify
+   This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,9 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -33,113 +31,78 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Tokens.  */
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
+
+#ifndef YY_YY_GRAMMAR_HPP_INCLUDED
+# define YY_YY_GRAMMAR_HPP_INCLUDED
+/* Debug traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 1
+#endif
+#if YYDEBUG
+extern int yydebug;
+#endif
+
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-   /* Put the tokens into the symbol table, so that GDB and other debuggers
-      know about them.  */
-   enum yytokentype {
-     T_TINT = 258,
-     T_TDOUBLE = 259,
-     T_TFLOAT = 260,
-     T_TCHAR = 261,
-     T_TBOOL = 262,
-     T_TVOID = 263,
-     T_TSTRING = 264,
-     T_EXTERN = 265,
-     T_RETURN = 266,
-     T_IDENTIFIER = 267,
-     T_INTEGER = 268,
-     T_DOUBLE = 269,
-     T_LITERAL = 270,
-     T_ASSIGN = 271,
-     T_TFOR = 272,
-     T_TWHILE = 273,
-     T_IF = 274,
-     T_ELSE = 275,
-     T_LPAREN = 276,
-     T_RPAREN = 277,
-     T_LBRACE = 278,
-     T_RBRACE = 279,
-     T_LBRACKET = 280,
-     T_RBRACKET = 281,
-     T_SEMICOLON = 282,
-     LOWER_THAN_ELSE = 283,
-     T_MINUS = 284,
-     T_PLUS = 285,
-     T_DIV = 286,
-     T_MULT = 287,
-     T_RSHIFT = 288,
-     T_LSHIFT = 289,
-     T_CGE = 290,
-     T_CGT = 291,
-     T_CLE = 292,
-     T_CLT = 293,
-     T_CNEQUAL = 294,
-     T_CEQUAL = 295,
-     T_BITAND = 296,
-     T_BITXOR = 297,
-     T_BITOR = 298,
-     T_LOGICALAND = 299,
-     T_LOGICALOR = 300,
-     T_COMMA = 301,
-     T_DOT = 302
-   };
+  enum yytokentype
+  {
+    T_TINT = 258,
+    T_TDOUBLE = 259,
+    T_TFLOAT = 260,
+    T_TCHAR = 261,
+    T_TBOOL = 262,
+    T_TVOID = 263,
+    T_TSTRING = 264,
+    T_EXTERN = 265,
+    T_RETURN = 266,
+    T_IDENTIFIER = 267,
+    T_INTEGER = 268,
+    T_DOUBLE = 269,
+    T_LITERAL = 270,
+    T_ASSIGN = 271,
+    T_TFOR = 272,
+    T_TWHILE = 273,
+    T_IF = 274,
+    T_ELSE = 275,
+    T_LPAREN = 276,
+    T_RPAREN = 277,
+    T_LBRACE = 278,
+    T_RBRACE = 279,
+    T_LBRACKET = 280,
+    T_RBRACKET = 281,
+    T_SEMICOLON = 282,
+    LOWER_THAN_ELSE = 283,
+    T_PLUS = 284,
+    T_MINUS = 285,
+    T_MULT = 286,
+    T_DIV = 287,
+    T_LSHIFT = 288,
+    T_RSHIFT = 289,
+    T_CLT = 290,
+    T_CLE = 291,
+    T_CGT = 292,
+    T_CGE = 293,
+    T_CEQUAL = 294,
+    T_CNEQUAL = 295,
+    T_BITAND = 296,
+    T_BITXOR = 297,
+    T_BITOR = 298,
+    T_LOGICALAND = 299,
+    T_LOGICALOR = 300,
+    T_DOT = 301,
+    T_COMMA = 302
+  };
 #endif
-/* Tokens.  */
-#define T_TINT 258
-#define T_TDOUBLE 259
-#define T_TFLOAT 260
-#define T_TCHAR 261
-#define T_TBOOL 262
-#define T_TVOID 263
-#define T_TSTRING 264
-#define T_EXTERN 265
-#define T_RETURN 266
-#define T_IDENTIFIER 267
-#define T_INTEGER 268
-#define T_DOUBLE 269
-#define T_LITERAL 270
-#define T_ASSIGN 271
-#define T_TFOR 272
-#define T_TWHILE 273
-#define T_IF 274
-#define T_ELSE 275
-#define T_LPAREN 276
-#define T_RPAREN 277
-#define T_LBRACE 278
-#define T_RBRACE 279
-#define T_LBRACKET 280
-#define T_RBRACKET 281
-#define T_SEMICOLON 282
-#define LOWER_THAN_ELSE 283
-#define T_MINUS 284
-#define T_PLUS 285
-#define T_DIV 286
-#define T_MULT 287
-#define T_RSHIFT 288
-#define T_LSHIFT 289
-#define T_CGE 290
-#define T_CGT 291
-#define T_CLE 292
-#define T_CLT 293
-#define T_CNEQUAL 294
-#define T_CEQUAL 295
-#define T_BITAND 296
-#define T_BITXOR 297
-#define T_BITOR 298
-#define T_LOGICALAND 299
-#define T_LOGICALOR 300
-#define T_COMMA 301
-#define T_DOT 302
 
-
-
-
+/* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-#line 14 "grammar.y"
+union YYSTYPE
 {
+#line 14 "grammar.y"
+
     ExpressionNode* expr;
     StatementNode* stat;
     IdentifierNode* ident;
@@ -150,14 +113,18 @@ typedef union YYSTYPE
     CodeBlockNode* block;
     VariableVec* varvec;
     ArrayElem* elem;
-}
-/* Line 1529 of yacc.c.  */
-#line 156 "grammar.hpp"
-	YYSTYPE;
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
-# define YYSTYPE_IS_DECLARED 1
+
+#line 118 "grammar.hpp"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
 #endif
+
 
 extern YYSTYPE yylval;
 
+int yyparse (void);
+
+#endif /* !YY_YY_GRAMMAR_HPP_INCLUDED  */
