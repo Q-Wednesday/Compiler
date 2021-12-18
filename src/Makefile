@@ -36,8 +36,12 @@ clean:
 test: parser
 	cat test.input | ./parser
 
+
 viz: AST.dot
 	dot AST.dot -T png -o AST.png
+
+test.o:
+	cat test.input | ./parser
 
 testlink: testlink.c test.o
 	clang testlink.c test.o -o testlink

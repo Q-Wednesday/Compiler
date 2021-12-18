@@ -360,9 +360,9 @@ Value *BinaryOperationNode::codeGen(CodeGenContext &context)
     case T_BITOR:
         return isFloat ? LogErrorV("invalid operands to |") : context.builder.CreateOr(lhsValue, rhsValue, "oetemp");
     case T_LOGICALAND:
-        return isFloat ? LogErrorV("invalid operands to |") : context.builder.CreateLogicalAnd(lhsValue, rhsValue, "logicalandtemp");
+        return isFloat ? LogErrorV("invalid operands to &&") : context.builder.CreateLogicalAnd(lhsValue, rhsValue, "logicalandtemp");
     case T_LOGICALOR:
-        return isFloat ? LogErrorV("invalid operands to |") : context.builder.CreateLogicalOr(lhsValue, rhsValue, "logicalortemp");
+        return isFloat ? LogErrorV("invalid operands to ||") : context.builder.CreateLogicalOr(lhsValue, rhsValue, "logicalortemp");
     default:
         return LogErrorV("Unknown binary operator");
     }
@@ -432,36 +432,58 @@ Value *ForNode::codeGen(CodeGenContext &context)
 
 Value *IfNode::codeGen(CodeGenContext &context)
 {
+    //cout << "IfNode gen start" << endl;
+
     Value *CondV = cond->codeGen(context);
     if (!CondV)
         return nullptr;
+
     CondV = ToBoolean(context, CondV);
+
     Function *calledFunc = context.builder.GetInsertBlock()->getParent();
 
     BasicBlock *then_bb = BasicBlock::Create(context.llvmContext, "then", calledFunc);
     BasicBlock *else_bb = BasicBlock::Create(context.llvmContext, "else");
     BasicBlock *merge_bb = BasicBlock::Create(context.llvmContext, "ifcont");
 
-    context.builder.CreateCondBr(CondV, then_bb, else_bb);
+    if(unmatched_block){
+        context.builder.CreateCondBr(CondV, then_bb, else_bb);
+    }else{
+        context.builder.CreateCondBr(CondV, then_bb, merge_bb);
+    }
+    
 
     context.builder.SetInsertPoint(then_bb);
+
+    context.pushBlock(then_bb);
+
     Value *ThenV = matched_block->codeGen(context);
     if (!ThenV)
         return nullptr;
-    context.builder.CreateBr(merge_bb);
+
+    context.popBlock();
+
+    
     then_bb = context.builder.GetInsertBlock();
 
-    calledFunc->getBasicBlockList().push_back(else_bb);
-    context.builder.SetInsertPoint(else_bb);
-    Value *ElseV = unmatched_block->codeGen(context);
-    if (!ElseV)
-        return nullptr;
-    context.builder.CreateBr(merge_bb);
-    else_bb = context.builder.GetInsertBlock();
+    if(then_bb->getTerminator()==nullptr){
+        context.builder.CreateBr(merge_bb);
+    }
+
+    if(unmatched_block){
+        calledFunc->getBasicBlockList().push_back(else_bb);
+        context.builder.SetInsertPoint(else_bb);
+        context.pushBlock(else_bb);
+        Value *ElseV = unmatched_block->codeGen(context);
+        if (!ElseV)
+            return nullptr;
+
+        context.popBlock();
+        context.builder.CreateBr(merge_bb);
+    }
     calledFunc->getBasicBlockList().push_back(merge_bb);
     context.builder.SetInsertPoint(merge_bb);
-    PHINode *PN = context.builder.CreatePHI(Type::getDoubleTy(context.llvmContext), 2, "iftmp");
-    PN->addIncoming(ThenV, then_bb);
-    PN->addIncoming(ElseV, else_bb);
-    return PN;
+    //cout << "IfNode gen end" << endl;
+    return nullptr;
 }
+

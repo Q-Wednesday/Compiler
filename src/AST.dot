@@ -1,22 +1,22 @@
 #@startdot
 digraph AST{
-node10[label="Code Block"]
-node9[label="Function declaration"]
+node7[label="Code Block"]
+node6[label="Function declaration"]
 node1[label="Identifier"]
 node2[label="Identifier"]
-node8[label="Code Block"]
-node7[label="Return"]
-node8->node7
-node9->node8
-node9->node1
-node9->node2
-node10->node9
+node6->node1
+node6->node2
+node7->node6
 node16[label="Function declaration"]
-node11[label="Identifier"]
-node12[label="Identifier"]
-node16->node11
-node16->node12
-node10->node16
+node8[label="Identifier"]
+node9[label="Identifier"]
+node15[label="Code Block"]
+node14[label="Return"]
+node15->node14
+node16->node15
+node16->node8
+node16->node9
+node7->node16
 node37[label="Function declaration"]
 node17[label="Identifier"]
 node18[label="Identifier"]
@@ -38,22 +38,44 @@ node30->node36
 node37->node30
 node37->node17
 node37->node18
-node10->node37
-node47[label="Function declaration"]
+node7->node37
+node60[label="Function declaration"]
 node38[label="Identifier"]
 node39[label="Identifier"]
 node44[label="Code Block"]
-node43[label="Expression Statement"]
-node42[label="Call Function"]
+node43[label="Variable Declaration"]
 node40[label="Identifier"]
-node42->node40
-node43->node42
+node41[label="Identifier"]
+node43->node40
+node43->node41
 node44->node43
-node46[label="Return"]
-node44->node46
-node47->node44
-node47->node38
-node47->node39
-node10->node47
+node48[label="Variable Declaration"]
+node45[label="Identifier"]
+node46[label="Identifier"]
+node48->node45
+node48->node46
+node44->node48
+node57[label="IfNode"]
+node51[label="Binary Op"]
+node49[label="Identifier"]
+node50[label="Identifier"]
+node51->node49
+node51->node50
+node57->node51
+node56[label="Code Block"]
+node55[label="Expression Statement"]
+node54[label="Call Function"]
+node52[label="Identifier"]
+node54->node52
+node55->node54
+node56->node55
+node57->node56
+node44->node57
+node59[label="Return"]
+node44->node59
+node60->node44
+node60->node38
+node60->node39
+node7->node60
 }
 #@enddot
