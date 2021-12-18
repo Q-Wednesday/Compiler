@@ -5,8 +5,9 @@ int func(int num){
 extern void printf(string format);
 
 int testFunc(int num){
-    int a=num*func(num);
-
+    int a=1;
+    int b[2];
+    b[1]=1;
     printf("Hello");
     return a;
 }

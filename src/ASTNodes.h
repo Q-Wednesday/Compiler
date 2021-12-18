@@ -147,6 +147,7 @@ public:
     {
         return "ArrayElem";
     }
+    Value *codeGen(CodeGenContext &context) override;
 };
 
 class DoubleNode : public ExpressionNode

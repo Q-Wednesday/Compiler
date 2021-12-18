@@ -18,11 +18,11 @@ using namespace llvm;
 class CodeGenBlock
 {
 public:
-    BasicBlock *block;                              // BasicBlock是llvm中的类，表示一个代码块
-    Value *returnValue;                             //
-    map<string, Value *> locals;                    //属于这个作用域的变量
-    map<string, shared_ptr<IdentifierNode> > types; //
-    map<string, bool> isFuncArg;                    //一个名字是不是函数的参数
+    BasicBlock *block;                             // BasicBlock是llvm中的类，表示一个代码块
+    Value *returnValue;                            //
+    map<string, Value *> locals;                   //属于这个作用域的变量
+    map<string, shared_ptr<IdentifierNode>> types; //
+    map<string, bool> isFuncArg;                   //一个名字是不是函数的参数
 };
 
 //该类用于存放生成代码的上下文相关的信息，
@@ -44,6 +44,7 @@ public:
 
     Value *getIdent(string name) const;
     Type *getTypeOf(IdentifierNode &node);
+    shared_ptr<IdentifierNode> getSymbolType(string name) const;
 
     void setSymbolValue(string name, Value *value)
     {
