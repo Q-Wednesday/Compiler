@@ -50,7 +50,7 @@ void yyerror(const char* msg){
 
 %type <expr> expr assignmemt number call
 %type <ident> ident typename
-%type <stat> stat var_dec func_dec for_stm while_stm if_stat
+%type <stat> stat var_dec array_dec func_dec for_stm while_stm if_stat
 %type <block> stats program block
 %type <varvec> varvec
 %type <exprvec> call_args
@@ -67,10 +67,11 @@ stats       : stat { $$ = new CodeBlockNode(); $$->statements->push_back(shared_
             //TODO block 是否可以嵌套？
 
 stat        :   var_dec T_SEMICOLON     {$$=$1;}
+            |   array_dec T_SEMICOLON   {$$=$1;}
             |   func_dec                {$$=$1;}
             |   expr T_SEMICOLON        {$$=new ExpressionStatement(shared_ptr<ExpressionNode>($1));}
             |   T_RETURN expr T_SEMICOLON {$$=new ReturnNode(shared_ptr<ExpressionNode>($2));}
-            |   if_stat
+            |   if_stat                 {$$=$1;}
             |   for_stm                 {$$=$1;}
             |   while_stm               {$$=$1;}
             ;
@@ -86,14 +87,17 @@ varvec      :   varvec T_COMMA var_dec {$$->push_back(shared_ptr<VariableDeclara
             |   /* nothing */ {$$ = new VariableVec();}
             ;
 
-var_dec     :   typename ident  { $$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2));}
-            |   typename ident T_ASSIGN expr{ $$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2),shared_ptr<ExpressionNode>($4));}
-            |   typename ident T_LBRACKET T_INTEGER T_RBRACKET {
+array_dec   :   typename ident T_LBRACKET T_INTEGER T_RBRACKET {
                     $$=new ArrayInitialzation(make_shared<VariableDeclaration>(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2)),make_shared<ExprVec>());$2->isArray=true; $2->array_size = atol($4->c_str());
                 }
             |   typename ident T_LBRACKET T_INTEGER T_RBRACKET T_ASSIGN  T_LBRACE call_args T_RBRACE {
                 $$=new ArrayInitialzation(make_shared<VariableDeclaration>(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2)),shared_ptr<ExprVec>($8));$2->isArray=true; $2->array_size = atol($4->c_str());
                 }
+            ;
+
+var_dec     :   typename ident  { $$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2));}
+            |   typename ident T_ASSIGN expr{ $$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2),shared_ptr<ExpressionNode>($4));} 
+            |   typename ident T_LBRACKET T_RBRACKET {$$= $$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2));$1->isArray=true;$2->isArray=true;}
             ;
 
 ident       :   T_IDENTIFIER    { $$=new IdentifierNode(*$1);cout<<"ident"<<endl; delete $1;}
@@ -103,6 +107,7 @@ typename    :   T_TINT  { $$ = new IdentifierNode(*$1); delete $1;}
             |   T_TDOUBLE   { $$ = new IdentifierNode(*$1); delete $1; }
             |   T_TVOID  {$$ = new IdentifierNode(*$1); delete $1; }
             |   T_TSTRING {$$ = new IdentifierNode(*$1); delete $1;}
+            |   T_TCHAR {$$ = new IdentifierNode(*$1); delete $1;}
             ;  
 
 array_elem : ident T_LBRACKET expr T_RBRACKET {$$ = new ArrayElem(shared_ptr<IdentifierNode>($1), shared_ptr<ExpressionNode>($3)); }

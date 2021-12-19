@@ -1,39 +1,18 @@
 
 extern void printf(string format);
-int func(int num){
-    return num;
-}
 
+extern void scanf(string format);
 
-int testFunc(int num){
-    int a=num*func(num);
-
-    printf("Hello");
-    return a;
-}
-
-void bubble(int c[6]){
-    int i;
-    int j;
-    for(i=1;i<6;i=i+1){
-        for(j=0;j<i;j=j+1){
-            if(c[j]>c[j+1]){
-                int temp=c[j];
-                c[j]=c[j+1];
-                c[j+1]=temp;
-            }
-        }
-    }
-}
-
+extern void getArray(int a[]);
 int main(){
     int i;
     int j;
-    int c[6]={1,2,4,5,6,9};
+    int a[6];
+    getArray(a);
+    char word[32];
+    scanf("%s",word);
     
-    bubble(c);
-    for(i=0;i<6;i=i+1){
-        printf("%d ",c[i]);
-    }
+    printf("%s ",word);
+    
     return 0;
 }
