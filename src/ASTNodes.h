@@ -147,30 +147,45 @@ public:
     {
         return "ArrayElem";
     }
+    void graphGen(ostream &out) const override
+    {
+        ASTNode::graphGen(out);
+        array->graphGen(out);
+        index_expr->graphGen(out);
+
+        out << "node" << to_string(nodeID)
+            << "->"
+            << "node" << to_string(array->nodeID) << endl;
+        out << "node" << to_string(nodeID)
+            << "->"
+            << "node" << to_string(index_expr->nodeID) << endl;
+    }
     Value *codeGen(CodeGenContext &) override;
 };
 
-class ArrayAssignment:public ExpressionNode{
-    public:
-        shared_ptr<ArrayElem> arrayElem;
-        shared_ptr<ExpressionNode> expr;
-        ArrayAssignment(){}
-        ArrayAssignment(shared_ptr<ArrayElem> arrayElem,shared_ptr<ExpressionNode> expr):
-        arrayElem(arrayElem),expr(expr){}
-        string getNodeType()const override{
-            return "ArrayAssignment";
-        }
-        Value *codeGen(CodeGenContext &) override;
+class ArrayAssignment : public ExpressionNode
+{
+public:
+    shared_ptr<ArrayElem> arrayElem;
+    shared_ptr<ExpressionNode> expr;
+    ArrayAssignment() {}
+    ArrayAssignment(shared_ptr<ArrayElem> arrayElem, shared_ptr<ExpressionNode> expr) : arrayElem(arrayElem), expr(expr) {}
+    string getNodeType() const override
+    {
+        return "ArrayAssignment";
+    }
+    Value *codeGen(CodeGenContext &) override;
 };
-class ArrayInitialzation:public StatementNode{
-    public:
+class ArrayInitialzation : public StatementNode
+{
+public:
     shared_ptr<VariableDeclaration> decl;
     shared_ptr<ExprVec> exprVec = make_shared<ExprVec>();
 
-    ArrayInitialzation(){}
-    ArrayInitialzation(shared_ptr<VariableDeclaration> decl,shared_ptr<ExprVec> exprVec):
-    decl(decl),exprVec(exprVec){}
-    string getNodeType()const override{
+    ArrayInitialzation() {}
+    ArrayInitialzation(shared_ptr<VariableDeclaration> decl, shared_ptr<ExprVec> exprVec) : decl(decl), exprVec(exprVec) {}
+    string getNodeType() const override
+    {
         return "ArrayInitialization";
     }
 

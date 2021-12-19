@@ -84,6 +84,15 @@ public:
         blockStack.back()->returnValue = value;
     }
 
+    bool isFuncArg(const string& name) const{
+        for(auto it=blockStack.rbegin(); it!=blockStack.rend(); it++){
+            if((*it)->isFuncArg.count(name)){
+                return (*it)->isFuncArg[name];
+            }
+        }
+        return false;
+    }
+
     void generateCode(CodeBlockNode &);
     int generateObject(const string &filename);
 };

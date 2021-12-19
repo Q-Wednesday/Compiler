@@ -17,3 +17,17 @@ int main(){
     }
     return 0;
 }
+
+void bubble(int c[]){
+    int i;
+    int j;
+    for(i=1;i<6;i=i+1){
+        for(j=0;j<i;j=j+1){
+            if(c[j]>c[j+1]){
+                int temp=c[j];
+                c[j]=c[j+1];
+                c[j+1]=temp;
+            }
+        }
+    }
+}

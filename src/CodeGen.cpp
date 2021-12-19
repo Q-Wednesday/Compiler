@@ -85,7 +85,7 @@ int CodeGenContext::generateObject(const string &filename)
     InitializeAllTargetMCs();
     InitializeAllAsmParsers();
     InitializeAllAsmPrinters();
-
+    cout << 1 << endl;
     auto TargetTriple = sys::getDefaultTargetTriple();
     //选择目标
     std::string Error;
@@ -96,6 +96,7 @@ int CodeGenContext::generateObject(const string &filename)
         return 1;
     }
 
+    cout << 2 << endl;
     //目标机器
     auto CPU = "generic";
     auto Features = "";
@@ -103,6 +104,8 @@ int CodeGenContext::generateObject(const string &filename)
     TargetOptions opt;
     auto RM = Optional<Reloc::Model>();
     auto TargetMachine = Target->createTargetMachine(TargetTriple, CPU, Features, opt, RM);
+
+    cout << 3 << endl;
 
     //配置模块
     theModule->setDataLayout(TargetMachine->createDataLayout());
@@ -116,7 +119,7 @@ int CodeGenContext::generateObject(const string &filename)
         errs() << "Could not open file: " << EC.message();
         return 1;
     }
-
+    cout << 4 << endl;
     legacy::PassManager pass;
     auto FileType = CGFT_ObjectFile;
 
@@ -125,8 +128,9 @@ int CodeGenContext::generateObject(const string &filename)
         errs() << "TargetMachine can't emit a file of this type";
         return 1;
     }
-
+    cout << 5 << endl;
     pass.run(*theModule);
+    cout << 6 << endl;
     dest.flush();
     cout << "-----Code Generation Succeed-----" << endl;
     return 0;
@@ -150,6 +154,9 @@ Type *CodeGenContext::getTypeOf(const IdentifierNode &node)
     if (typestr == "string")
     {
         return Type::getInt8PtrTy(llvmContext);
+    }
+    if(typestr=="char"){
+        return Type::getInt8Ty(llvmContext);
     }
     //TODO:支持其他加入的类型以及结构体
 
@@ -214,6 +221,7 @@ Value *IdentifierNode::codeGen(CodeGenContext &context)
             vector<Value*> indices;
             indices.push_back(ConstantInt::get(Type::getInt32Ty(context.llvmContext), 0, false));
             auto ptr = context.builder.CreateInBoundsGEP(value, indices, "arrayPtr");
+            return ptr;
         }
         
     }
@@ -296,13 +304,13 @@ Value *FunctionDeclaration::codeGen(CodeGenContext &context)
         if(arg->type->isArray){
            
             argsType.push_back(PointerType::get(context.getTypeOf(*arg->type), 0));
-            cout << 2 << endl;
+            
         }else{
             argsType.push_back(context.getTypeOf(*arg->type));
         }
         
     }
-    cout << 1 << endl;
+    
     auto returnType = context.getTypeOf(*this->type);
     //获取函数类型
     auto functionTy = FunctionType::get(returnType, argsType, false);
@@ -337,6 +345,7 @@ Value *FunctionDeclaration::codeGen(CodeGenContext &context)
         }
 
         body->codeGen(context);
+        
         Value *rv;
         if ((rv = context.getReturnValueNow()))
         {
@@ -344,7 +353,7 @@ Value *FunctionDeclaration::codeGen(CodeGenContext &context)
         }
         else
         {
-            return LogErrorV("No Return Value");
+            LogErrorV("No Return Value");
         }
         context.popBlock();
     }
@@ -544,17 +553,28 @@ Value *ArrayElem::codeGen(CodeGenContext &context)
     auto V_array_size = IntegerNode(array_type->array_size).codeGen(context);
     auto value = index_expr->codeGen(context);
     ArrayRef<Value *> indices;
-    if (array_ptr->getType()->isPointerTy())
+    if(context.isFuncArg(array->name)){
+        cout << "array is func arg" << endl;
+        array_ptr=context.builder.CreateLoad(array_ptr, "actualArrayPtr");
+        indices= value ;
+    }
+    else if (array_ptr->getType()->isPointerTy())
     {
+        cout << "not func arg" << endl;
         indices = {ConstantInt ::get(Type::getInt64Ty(context.llvmContext), 0), value};
+    }else{
+        return LogErrorV("The variable is not array");
     }
     auto ptr = context.builder.CreateInBoundsGEP(array_ptr, indices, "arrayelem");
-
-    return context.builder.CreateAlignedLoad(ptr, MaybeAlign(4));
+    
+    auto v=context.builder.CreateAlignedLoad(ptr, MaybeAlign(4));
+    cout << "Gen ArrayElem end" << endl;
+    return v;
 }
 
 
 Value* ArrayAssignment::codeGen(CodeGenContext& context){
+    cout << "Gen Array Assignment" << endl;
     auto ptr = context.getIdent(arrayElem->array->name);
 
     if(ptr==nullptr){
@@ -568,10 +588,17 @@ Value* ArrayAssignment::codeGen(CodeGenContext& context){
     }
 
     auto index = arrayElem->index_expr->codeGen(context);
+    ArrayRef<Value *> gep;
+    if(context.isFuncArg(arrayElem->array->name)){
+        cout << "is func arg" << endl;
+        gep = index;
+    }else{
+        gep={ConstantInt::get(Type::getInt64Ty(context.llvmContext), 0), index};
+    }
+   
 
-    ArrayRef<Value *> gep{ConstantInt::get(Type::getInt64Ty(context.llvmContext), 0), index};
     auto ptr2elem=context.builder.CreateInBoundsGEP(ptr, gep, "elementPtr");
-
+    cout << "Array Assignment End" << endl;
     return context.builder.CreateAlignedStore(expr->codeGen(context), ptr2elem, MaybeAlign(4));
 
 }
