@@ -1,14 +1,5 @@
 #include <stdio.h>
 
-char buf[4096];
-char ops_stack[4096];
-char vector[4096]; //0 - num
-int assistant_vector[4096];
-int RPN_stack[4096];
-int RPN_stack_size = 0;
-int ops_stack_size = 0;
-int vector_size = 0;
-
 int cmp_priority(char top, char cur)
 {
     if ((top == '+' || top == '-') && (cur == '+' || cur == '-'))
@@ -26,51 +17,16 @@ int cmp_priority(char top, char cur)
     return 0;
 }
 
-void RPN_vector_push_back(char ops, int num)
-{
-    assistant_vector[vector_size] = num;
-    vector[vector_size] = ops;
-    vector_size = vector_size + 1;
-    return;
-}
-
-void ops_push_back(char ops)
-{
-    ops_stack[ops_stack_size] = ops;
-    ops_stack_size = ops_stack_size + 1;
-    return;
-}
-
-char ops_pop()
-{
-    ops_stack_size = ops_stack_size - 1;
-    return ops_stack[ops_stack_size];
-}
-
-char ops_top()
-{
-    return ops_stack[ops_stack_size - 1];
-}
-void RPN_push_back(int ops)
-{
-    RPN_stack[RPN_stack_size] = ops;
-    RPN_stack_size = RPN_stack_size + 1;
-    return;
-}
-
-int RPN_pop()
-{
-    RPN_stack_size = RPN_stack_size - 1;
-    return RPN_stack[RPN_stack_size];
-}
-
-int RPN_top()
-{
-    return RPN_stack[RPN_stack_size - 1];
-}
-
 int main()
 {
+    char buf[4096];
+    char ops_stack[4096];
+    char vector[4096]; //0 - num
+    int assistant_vector[4096];
+    int RPN_stack[4096];
+    int RPN_stack_size = 0;
+    int ops_stack_size = 0;
+    int vector_size = 0;
 
     int i = 0;
     scanf("%s", buf);
@@ -88,38 +44,47 @@ int main()
         }
         if (num_flag)
         {
-            RPN_vector_push_back(0, temp);
+            assistant_vector[vector_size] = temp;
+            vector[vector_size] = 0;
+            vector_size = vector_size + 1;
         }
         else
         {
             if (buf[i] == '(' || ops_stack_size == 0)
             {
-                ops_push_back(buf[i]);
+                ops_stack[ops_stack_size] = buf[i];
+                ops_stack_size = ops_stack_size + 1;
             }
             else
             {
-                if (cmp_priority(ops_top(), buf[i]))
+                if (cmp_priority(ops_stack[ops_stack_size - 1], buf[i]))
                 {
                     if (buf[i] == ')')
                     {
-                        while (ops_stack_size && ops_top() != '(')
+                        while (ops_stack_size && ops_stack[ops_stack_size - 1] != '(')
                         {
-                            RPN_vector_push_back(ops_pop(), 0);
+                            ops_stack_size = ops_stack_size - 1;
+                            vector[vector_size] = ops_stack[ops_stack_size];
+                            vector_size = vector_size + 1;
                         }
-                        ops_pop();
+                        ops_stack_size = ops_stack_size - 1;
                     }
                     else
                     {
-                        while (ops_stack_size && cmp_priority(ops_top(), buf[i]))
+                        while (ops_stack_size && cmp_priority(ops_stack[ops_stack_size - 1], buf[i]))
                         {
-                            RPN_vector_push_back(ops_pop(), 0);
+                            ops_stack_size = ops_stack_size - 1;
+                            vector[vector_size] = ops_stack[ops_stack_size];
+                            vector_size = vector_size + 1;
                         }
-                        ops_push_back(buf[i]);
+                        ops_stack[ops_stack_size] = buf[i];
+                        ops_stack_size = ops_stack_size + 1;
                     }
                 }
                 else
                 {
-                    ops_push_back(buf[i]);
+                    ops_stack[ops_stack_size] = buf[i];
+                    ops_stack_size = ops_stack_size + 1;
                 }
             }
             i = i + 1;
@@ -127,7 +92,9 @@ int main()
     }
     while (ops_stack_size)
     {
-        RPN_vector_push_back(ops_pop(), 0);
+        ops_stack_size = ops_stack_size - 1;
+        vector[vector_size] = ops_stack[ops_stack_size];
+        vector_size = vector_size + 1;
     }
 
     //calcsuffix
@@ -135,8 +102,10 @@ int main()
     {
         if (vector[i])
         {
-            int numr = RPN_pop();
-            int numl = RPN_pop();
+            RPN_stack_size = RPN_stack_size - 1;
+            int numr = RPN_stack[RPN_stack_size];
+            RPN_stack_size = RPN_stack_size - 1;
+            int numl = RPN_stack[RPN_stack_size];
             if (vector[i] == '+')
             {
                 numl = numl + numr;
@@ -162,14 +131,16 @@ int main()
                     }
                 }
             }
-            RPN_push_back(numl);
+            RPN_stack[RPN_stack_size] = numl;
+            RPN_stack_size = RPN_stack_size + 1;
         }
         else
         {
-            RPN_push_back(assistant_vector[i]);
+            RPN_stack[RPN_stack_size] = assistant_vector[i];
+            RPN_stack_size = RPN_stack_size + 1;
         }
     }
-    printf("%d", RPN_pop());
-
+    RPN_stack_size = RPN_stack_size - 1;
+    printf("%d", RPN_stack[RPN_stack_size]);
     return 0;
 }
