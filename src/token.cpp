@@ -524,7 +524,7 @@ char *yytext;
 #include "grammar.hpp"
 #include <string>
 //SAVE_TOKEN保存了所有之后在构建语法树的时候要用到匹配到的字符串的token
-#define SAVE_TOKEN printf("%s\n",yytext);yylval.string = new string(yytext)
+#define SAVE_TOKEN yylval.string = new string(yytext)
 //MAKE_TOKEN仅仅保存token的值
 #define MAKE_TOKEN(t) (yylval.token = t)
 #line 531 "token.cpp"
@@ -910,12 +910,12 @@ YY_RULE_SETUP
 case 21:
 YY_RULE_SETUP
 #line 44 "token.l"
-{printf("T_ASSIGN\n");return MAKE_TOKEN(T_ASSIGN);}
+{return MAKE_TOKEN(T_ASSIGN);}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 46 "token.l"
-{printf("T_C_EQUAL\n");return MAKE_TOKEN(T_CEQUAL);}
+{return MAKE_TOKEN(T_CEQUAL);}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
@@ -1044,7 +1044,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 73 "token.l"
+#line 72 "token.l"
 ECHO;
 	YY_BREAK
 #line 1051 "token.cpp"
@@ -2052,7 +2052,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 73 "token.l"
+#line 72 "token.l"
 
 // int main(){
 //     int token;

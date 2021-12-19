@@ -4,7 +4,7 @@
 #include "grammar.hpp"
 #include <string>
 //SAVE_TOKEN保存了所有之后在构建语法树的时候要用到匹配到的字符串的token
-#define SAVE_TOKEN printf("%s\n",yytext);yylval.string = new string(yytext)
+#define SAVE_TOKEN yylval.string = new string(yytext)
 //MAKE_TOKEN仅仅保存token的值
 #define MAKE_TOKEN(t) (yylval.token = t)
 %}
@@ -41,9 +41,9 @@ CHAR            (\'.\')
 {CHAR}          {SAVE_TOKEN;return T_CHAR;}
 \"(\\.|[^"])*\"      {SAVE_TOKEN; return T_LITERAL;}
 
-"="             {printf("T_ASSIGN\n");return MAKE_TOKEN(T_ASSIGN);}
+"="             {return MAKE_TOKEN(T_ASSIGN);}
 
-"=="            {printf("T_C_EQUAL\n");return MAKE_TOKEN(T_CEQUAL);}
+"=="            {return MAKE_TOKEN(T_CEQUAL);}
 "!="            {return MAKE_TOKEN(T_CNEQUAL);}
 "<"             {return MAKE_TOKEN(T_CLT);}
 "<="            {return MAKE_TOKEN(T_CLE);}
@@ -69,7 +69,6 @@ CHAR            (\'.\')
 "^"             {return MAKE_TOKEN(T_BITXOR);}
 "<<"            {return MAKE_TOKEN(T_LSHIFT);}
 ">>"            {return MAKE_TOKEN(T_RSHIFT);}
-
 %%
 // int main(){
 //     int token;

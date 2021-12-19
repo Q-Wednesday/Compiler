@@ -1,20 +1,26 @@
-all: parser
+all: compiler
 
 OBJECTS = grammar.o \
 		 token.o \
 		 CodeGen.o \
 		 main.o \
-		 #graphGen.o \
-		 
+
+TESTOBJ = testOut/bubbleSort.o \
+		testOut/KMP.o \
+		testOut/palindromic.o  	 
+
+GRAPH = graph/bubbleSort.png \
+		graph/KMP.png \
+		graph/palindromic.png \
 
 LLVMCONFIG = llvm-config
-CPPFLAGS = `$(LLVMCONFIG) --cppflags` -std=c++14
+CPPFLAGS = `$(LLVMCONFIG) --cppflags` -std=c++14  
 LDFLAGS = `$(LLVMCONFIG) --ldflags` -lpthread -ldl -lz -lncurses -rdynamic -L/usr/local/lib
 LIBS = `$(LLVMCONFIG) --libs`
 CC = clang++
 
-parser: $(OBJECTS)
-		$(CC)  $(CPPFLAGS) -o $@ $(OBJECTS) $(LIBS) $(LDFLAGS)
+compiler: $(OBJECTS)
+		$(CC)  $(CPPFLAGS) -o $@ $(OBJECTS) $(LIBS) $(LDFLAGS) && rm -rf $(OBJECTS)
 
 
 token.cpp: token.l grammar.hpp
@@ -28,23 +34,26 @@ grammar.hpp: grammar.cpp
 %.o: %.cpp
 		$(CC) -c $(CPPFLAGS) -o $@ $<
 
-compiler: ASTNodes.h
 
 clean:
-	rm -rf grammar.cpp grammar.hpp parser compiler $(OBJECTS) AST.dot
+	rm -rf grammar.cpp grammar.hpp token.cpp compiler $(OBJECTS) testOut/* $(TESTOBJ) 
 
-test: parser
-	cat test.input | ./parser && clang test.o  mystdlib.c -o test
+test: test.o 
+	clang test.o  mystdlib.c -o test && dot test.o.dot -T png -o test.png
+
+test.o: test.input compiler
+	./compiler -i test.input -o test.o
+
+graph/%.png: testOut/%.o.dot
+	dot $< -T png -o $@
+
+viz: $(GRAPH)
+	echo "visualize all"
+
+testOut/%.o: testCode/%.input compiler
+	./compiler -o $@ -i $<  && clang $@ mystdlib.c -o testOut/$*
 
 
-viz: AST.dot
-	dot AST.dot -T png -o AST.png
- 
-test.o: test.input
-	cat test.input | ./parser
+testall: $(TESTOBJ)
+	echo "test all"
 
-testlink: testlink.c test.o
-	clang testlink.c test.o -o testlink
-
-link: test.o mystdlib.c
-	clang test.o mystdlib.c -o test

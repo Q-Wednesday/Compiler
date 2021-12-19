@@ -36,16 +36,17 @@ void yyerror(const char* msg){
 %nonassoc T_ELSE
 
 %right   T_ASSIGN
-%left  <token> T_PLUS T_MINUS  //上下顺序表示优先级，left表示左结合
-%left  <token> T_MULT T_DIV  
-%left  <token> T_LSHIFT T_RSHIFT
+
+%left  <token> T_LOGICALOR
+%left  <token> T_LOGICALAND
 %left  <token> T_CLT T_CLE T_CGT T_CGE
+%left  <token> T_PLUS T_MINUS  //上下顺序表示优先级，left表示左结合
+%left  <token> T_MULT T_DIV 
+%left  <token> T_LSHIFT T_RSHIFT 
 %left  <token> T_CEQUAL T_CNEQUAL
 %left  <token> T_BITAND
 %left  <token> T_BITXOR
 %left  <token> T_BITOR
-%left  <token> T_LOGICALAND
-%left  <token> T_LOGICALOR
 %left  <token> T_DOT T_COMMA 
 
 %type <expr> expr assignmemt number call
@@ -100,7 +101,7 @@ var_dec     :   typename ident  { $$=new VariableDeclaration(shared_ptr<Identifi
             |   typename ident T_LBRACKET T_RBRACKET {$$= $$=new VariableDeclaration(shared_ptr<IdentifierNode>($1),shared_ptr<IdentifierNode>($2));$1->isArray=true;$2->isArray=true;}
             ;
 
-ident       :   T_IDENTIFIER    { $$=new IdentifierNode(*$1);cout<<"ident"<<endl; delete $1;}
+ident       :   T_IDENTIFIER    { $$=new IdentifierNode(*$1); delete $1;}
             ;
 
 typename    :   T_TINT  { $$ = new IdentifierNode(*$1); delete $1;}
@@ -147,7 +148,7 @@ expr        :   assignmemt  {$$=$1; }
 
 number      :   T_INTEGER {$$=new IntegerNode(stoi(*$1));delete $1;}
             |   T_DOUBLE  {$$=new DoubleNode(stod(*$1));delete $1;}
-            |   T_CHAR      {$$=new DoubleNode(stod(*$1));delete $1;}
+            |   T_CHAR      {$$=new CharNode(*$1);delete $1;}
             ;
 
 call        :   ident T_LPAREN call_args T_RPAREN {$$= new CallFunctionNode(shared_ptr<IdentifierNode>($1),shared_ptr<ExprVec>($3));}

@@ -1,0 +1,45 @@
+extern int strlen(string str);
+extern void printf(string format);
+extern void scanf(string format);
+
+
+int main(){
+    char text[1024];
+    char pattern[1024];
+    printf("Input text:");
+    scanf("%s",text);
+    printf("Input pattern:");
+    scanf("%s",pattern);
+    int prefix_fun[1024];
+    prefix_fun[0] = 0;
+    int k = 0;
+    int i;
+    int m=strlen(pattern);
+    for (i = 1; i < m;i=i+1){
+        while(k>0 && pattern[k]!=pattern[i]){
+            k = prefix_fun[k];
+        }
+            
+        if(pattern[k]==pattern[i]){
+            k=k+1;
+        }
+        prefix_fun[i] = k;
+    }
+
+    int n=strlen(text);
+    int q=0;
+    for (i = 0; i < n;i=i+1){
+        
+        while(q>0 && pattern[q]!=text[i]){
+            q = prefix_fun[q];
+        }
+        if(pattern[q]==text[i]){
+            q = q + 1;
+        }
+        if(q==m){
+            q = prefix_fun[q-1];
+            printf("%d ",i - m+1);
+        }
+    }
+    return 0;
+}

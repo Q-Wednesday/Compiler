@@ -1,0 +1,211 @@
+#@startdot
+digraph AST{
+node4[label="Code Block"]
+node3[label="Function declaration"]
+node1[label="Identifier"]
+node2[label="Identifier"]
+node3->node1
+node3->node2
+node4->node3
+node13[label="Function declaration"]
+node5[label="Identifier"]
+node6[label="Identifier"]
+node13->node5
+node13->node6
+node4->node13
+node19[label="Function declaration"]
+node14[label="Identifier"]
+node15[label="Identifier"]
+node19->node14
+node19->node15
+node4->node19
+node25[label="Function declaration"]
+node20[label="Identifier"]
+node21[label="Identifier"]
+node25->node20
+node25->node21
+node4->node25
+node145[label="Function declaration"]
+node26[label="Identifier"]
+node27[label="Identifier"]
+node31[label="Code Block"]
+node30[label="Variable Declaration"]
+node28[label="Identifier"]
+node29[label="Identifier"]
+node30->node28
+node30->node29
+node31->node30
+node35[label="Expression Statement"]
+node34[label="Call Function"]
+node32[label="Identifier"]
+node34->node32
+node35->node34
+node31->node35
+node40[label="Expression Statement"]
+node39[label="Assignment"]
+node36[label="Identifier"]
+node38[label="Call Function"]
+node37[label="Identifier"]
+node38->node37
+node39->node36
+node39->node38
+node40->node39
+node31->node40
+node43[label="Variable Declaration"]
+node41[label="Identifier"]
+node42[label="Identifier"]
+node43->node41
+node43->node42
+node31->node43
+node46[label="Variable Declaration"]
+node44[label="Identifier"]
+node45[label="Identifier"]
+node46->node44
+node46->node45
+node31->node46
+node50[label="ArrayInitialization"]
+node31->node50
+node55[label="Expression Statement"]
+node54[label="Call Function"]
+node51[label="Identifier"]
+node54->node51
+node55->node54
+node31->node55
+node118[label="ForNode"]
+node60[label="Assignment"]
+node56[label="Identifier"]
+node59[label="Binary Op"]
+node57[label="Identifier"]
+node58[label="Integer"]
+node59->node57
+node59->node58
+node60->node56
+node60->node59
+node118->node60
+node63[label="Binary Op"]
+node61[label="Identifier"]
+node62[label="Integer"]
+node63->node61
+node63->node62
+node118->node63
+node68[label="Assignment"]
+node64[label="Identifier"]
+node67[label="Binary Op"]
+node65[label="Identifier"]
+node66[label="Integer"]
+node67->node65
+node67->node66
+node68->node64
+node68->node67
+node118->node68
+node117[label="Code Block"]
+node116[label="ForNode"]
+node71[label="Assignment"]
+node69[label="Identifier"]
+node70[label="Integer"]
+node71->node69
+node71->node70
+node116->node71
+node74[label="Binary Op"]
+node72[label="Identifier"]
+node73[label="Identifier"]
+node74->node72
+node74->node73
+node116->node74
+node79[label="Assignment"]
+node75[label="Identifier"]
+node78[label="Binary Op"]
+node76[label="Identifier"]
+node77[label="Integer"]
+node78->node76
+node78->node77
+node79->node75
+node79->node78
+node116->node79
+node115[label="Code Block"]
+node114[label="IfNode"]
+node88[label="Binary Op"]
+node82[label="ArrayElem"]
+node80[label="Identifier"]
+node81[label="Identifier"]
+node82->node80
+node82->node81
+node87[label="ArrayElem"]
+node83[label="Identifier"]
+node86[label="Binary Op"]
+node84[label="Identifier"]
+node85[label="Integer"]
+node86->node84
+node86->node85
+node87->node83
+node87->node86
+node88->node82
+node88->node87
+node114->node88
+node95[label="Code Block"]
+node94[label="Variable Declaration"]
+node89[label="Identifier"]
+node90[label="Identifier"]
+node94->node89
+node94->node90
+node95->node94
+node105[label="Expression Statement"]
+node104[label="ArrayAssignment"]
+node105->node104
+node95->node105
+node113[label="Expression Statement"]
+node112[label="ArrayAssignment"]
+node113->node112
+node95->node113
+node114->node95
+node115->node114
+node116->node115
+node117->node116
+node118->node117
+node31->node118
+node122[label="Expression Statement"]
+node121[label="Call Function"]
+node119[label="Identifier"]
+node121->node119
+node122->node121
+node31->node122
+node142[label="ForNode"]
+node125[label="Assignment"]
+node123[label="Identifier"]
+node124[label="Integer"]
+node125->node123
+node125->node124
+node142->node125
+node128[label="Binary Op"]
+node126[label="Identifier"]
+node127[label="Identifier"]
+node128->node126
+node128->node127
+node142->node128
+node133[label="Assignment"]
+node129[label="Identifier"]
+node132[label="Binary Op"]
+node130[label="Identifier"]
+node131[label="Integer"]
+node132->node130
+node132->node131
+node133->node129
+node133->node132
+node142->node133
+node141[label="Code Block"]
+node140[label="Expression Statement"]
+node139[label="Call Function"]
+node134[label="Identifier"]
+node139->node134
+node140->node139
+node141->node140
+node142->node141
+node31->node142
+node144[label="Return"]
+node31->node144
+node145->node31
+node145->node26
+node145->node27
+node4->node145
+}
+#@enddot

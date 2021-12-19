@@ -133,23 +133,23 @@ Terminals, with rules where they appear
     T_RBRACKET <token> (282) 18 19 22 29
     T_SEMICOLON <token> (283) 4 5 7 8 14 63 64 65 66 67 68 69 70
     LOWER_THAN_ELSE (284)
-    T_PLUS <token> (285) 35
-    T_MINUS <token> (286) 36
-    T_MULT <token> (287) 37
-    T_DIV <token> (288) 38
-    T_LSHIFT <token> (289) 40
-    T_RSHIFT <token> (290) 39
-    T_CLT <token> (291) 44
-    T_CLE <token> (292) 43
-    T_CGT <token> (293) 42
-    T_CGE <token> (294) 41
-    T_CEQUAL <token> (295) 46
-    T_CNEQUAL <token> (296) 45
-    T_BITAND <token> (297) 47
-    T_BITXOR <token> (298) 48
-    T_BITOR <token> (299) 49
-    T_LOGICALAND <token> (300) 50
-    T_LOGICALOR <token> (301) 51
+    T_LOGICALOR <token> (285) 51
+    T_LOGICALAND <token> (286) 50
+    T_CLT <token> (287) 44
+    T_CLE <token> (288) 43
+    T_CGT <token> (289) 42
+    T_CGE <token> (290) 41
+    T_PLUS <token> (291) 35
+    T_MINUS <token> (292) 36
+    T_MULT <token> (293) 37
+    T_DIV <token> (294) 38
+    T_LSHIFT <token> (295) 40
+    T_RSHIFT <token> (296) 39
+    T_CEQUAL <token> (297) 46
+    T_CNEQUAL <token> (298) 45
+    T_BITAND <token> (299) 47
+    T_BITXOR <token> (300) 48
+    T_BITOR <token> (301) 49
     T_DOT <token> (302)
     T_COMMA <token> (303) 15 60
 
@@ -548,23 +548,23 @@ State 27
    51     | expr . T_LOGICALOR expr
 
     T_SEMICOLON   shift, and go to state 48
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 28
@@ -633,23 +633,23 @@ State 34
    51     | expr . T_LOGICALOR expr
 
     T_SEMICOLON   shift, and go to state 67
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 35
@@ -740,23 +740,23 @@ State 38
    52     | T_LPAREN expr . T_RPAREN
 
     T_RPAREN      shift, and go to state 72
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 39
@@ -891,7 +891,7 @@ State 48
 
 State 49
 
-   35 expr: expr T_PLUS . expr
+   51 expr: expr T_LOGICALOR . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -910,7 +910,7 @@ State 49
 
 State 50
 
-   36 expr: expr T_MINUS . expr
+   50 expr: expr T_LOGICALAND . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -929,7 +929,7 @@ State 50
 
 State 51
 
-   37 expr: expr T_MULT . expr
+   44 expr: expr T_CLT . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -948,7 +948,7 @@ State 51
 
 State 52
 
-   38 expr: expr T_DIV . expr
+   43 expr: expr T_CLE . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -967,7 +967,7 @@ State 52
 
 State 53
 
-   40 expr: expr T_LSHIFT . expr
+   42 expr: expr T_CGT . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -986,7 +986,7 @@ State 53
 
 State 54
 
-   39 expr: expr T_RSHIFT . expr
+   41 expr: expr T_CGE . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1005,7 +1005,7 @@ State 54
 
 State 55
 
-   44 expr: expr T_CLT . expr
+   35 expr: expr T_PLUS . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1024,7 +1024,7 @@ State 55
 
 State 56
 
-   43 expr: expr T_CLE . expr
+   36 expr: expr T_MINUS . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1043,7 +1043,7 @@ State 56
 
 State 57
 
-   42 expr: expr T_CGT . expr
+   37 expr: expr T_MULT . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1062,7 +1062,7 @@ State 57
 
 State 58
 
-   41 expr: expr T_CGE . expr
+   38 expr: expr T_DIV . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1081,7 +1081,7 @@ State 58
 
 State 59
 
-   46 expr: expr T_CEQUAL . expr
+   40 expr: expr T_LSHIFT . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1100,7 +1100,7 @@ State 59
 
 State 60
 
-   45 expr: expr T_CNEQUAL . expr
+   39 expr: expr T_RSHIFT . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1119,7 +1119,7 @@ State 60
 
 State 61
 
-   47 expr: expr T_BITAND . expr
+   46 expr: expr T_CEQUAL . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1138,7 +1138,7 @@ State 61
 
 State 62
 
-   48 expr: expr T_BITXOR . expr
+   45 expr: expr T_CNEQUAL . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1157,7 +1157,7 @@ State 62
 
 State 63
 
-   49 expr: expr T_BITOR . expr
+   47 expr: expr T_BITAND . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1176,7 +1176,7 @@ State 63
 
 State 64
 
-   50 expr: expr T_LOGICALAND . expr
+   48 expr: expr T_BITXOR . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1195,7 +1195,7 @@ State 64
 
 State 65
 
-   51 expr: expr T_LOGICALOR . expr
+   49 expr: expr T_BITOR . expr
 
     T_IDENTIFIER  shift, and go to state 8
     T_INTEGER     shift, and go to state 9
@@ -1274,23 +1274,23 @@ State 69
    68        | T_TFOR T_LPAREN expr . T_SEMICOLON T_SEMICOLON expr T_RPAREN block
 
     T_SEMICOLON   shift, and go to state 101
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 70
@@ -1315,23 +1315,23 @@ State 70
    71 while_stm: T_TWHILE T_LPAREN expr . T_RPAREN block
 
     T_RPAREN      shift, and go to state 102
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 71
@@ -1357,23 +1357,23 @@ State 71
    73        | T_IF T_LPAREN expr . T_RPAREN block T_ELSE block
 
     T_RPAREN      shift, and go to state 103
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 72
@@ -1404,23 +1404,23 @@ State 73
    50     | expr . T_LOGICALAND expr
    51     | expr . T_LOGICALOR expr
 
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
     $default  reduce using rule 30 (assignmemt)
 
@@ -1446,23 +1446,23 @@ State 74
    51     | expr . T_LOGICALOR expr
    61 call_args: expr .
 
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
     $default  reduce using rule 61 (call_args)
 
@@ -1498,23 +1498,23 @@ State 76
    51     | expr . T_LOGICALOR expr
 
     T_RBRACKET    shift, and go to state 106
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 77
@@ -1584,554 +1584,28 @@ State 80
    50     | expr . T_LOGICALAND expr
    51     | expr . T_LOGICALOR expr
 
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
     $default  reduce using rule 31 (assignmemt)
 
 
 State 81
-
-   35 expr: expr . T_PLUS expr
-   35     | expr T_PLUS expr .
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 35 (expr)
-
-
-State 82
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   36     | expr T_MINUS expr .
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 36 (expr)
-
-
-State 83
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   37     | expr T_MULT expr .
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 37 (expr)
-
-
-State 84
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   38     | expr T_DIV expr .
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 38 (expr)
-
-
-State 85
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   40     | expr T_LSHIFT expr .
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 40 (expr)
-
-
-State 86
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   39     | expr T_RSHIFT expr .
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 39 (expr)
-
-
-State 87
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   44     | expr T_CLT expr .
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 44 (expr)
-
-
-State 88
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   43     | expr T_CLE expr .
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 43 (expr)
-
-
-State 89
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   42     | expr T_CGT expr .
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 42 (expr)
-
-
-State 90
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   41     | expr T_CGE expr .
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 41 (expr)
-
-
-State 91
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   46     | expr T_CEQUAL expr .
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 46 (expr)
-
-
-State 92
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   45     | expr T_CNEQUAL expr .
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 45 (expr)
-
-
-State 93
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   47     | expr T_BITAND expr .
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 47 (expr)
-
-
-State 94
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   48     | expr T_BITXOR expr .
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 48 (expr)
-
-
-State 95
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   49     | expr T_BITOR expr .
-   50     | expr . T_LOGICALAND expr
-   51     | expr . T_LOGICALOR expr
-
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
-
-    $default  reduce using rule 49 (expr)
-
-
-State 96
-
-   35 expr: expr . T_PLUS expr
-   36     | expr . T_MINUS expr
-   37     | expr . T_MULT expr
-   38     | expr . T_DIV expr
-   39     | expr . T_RSHIFT expr
-   40     | expr . T_LSHIFT expr
-   41     | expr . T_CGE expr
-   42     | expr . T_CGT expr
-   43     | expr . T_CLE expr
-   44     | expr . T_CLT expr
-   45     | expr . T_CNEQUAL expr
-   46     | expr . T_CEQUAL expr
-   47     | expr . T_BITAND expr
-   48     | expr . T_BITXOR expr
-   49     | expr . T_BITOR expr
-   50     | expr . T_LOGICALAND expr
-   50     | expr T_LOGICALAND expr .
-   51     | expr . T_LOGICALOR expr
-
-    T_LOGICALOR  shift, and go to state 65
-
-    $default  reduce using rule 50 (expr)
-
-
-State 97
 
    35 expr: expr . T_PLUS expr
    36     | expr . T_MINUS expr
@@ -2152,7 +1626,533 @@ State 97
    51     | expr . T_LOGICALOR expr
    51     | expr T_LOGICALOR expr .
 
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
+
     $default  reduce using rule 51 (expr)
+
+
+State 82
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   50     | expr T_LOGICALAND expr .
+   51     | expr . T_LOGICALOR expr
+
+    T_CLT      shift, and go to state 51
+    T_CLE      shift, and go to state 52
+    T_CGT      shift, and go to state 53
+    T_CGE      shift, and go to state 54
+    T_PLUS     shift, and go to state 55
+    T_MINUS    shift, and go to state 56
+    T_MULT     shift, and go to state 57
+    T_DIV      shift, and go to state 58
+    T_LSHIFT   shift, and go to state 59
+    T_RSHIFT   shift, and go to state 60
+    T_CEQUAL   shift, and go to state 61
+    T_CNEQUAL  shift, and go to state 62
+    T_BITAND   shift, and go to state 63
+    T_BITXOR   shift, and go to state 64
+    T_BITOR    shift, and go to state 65
+
+    $default  reduce using rule 50 (expr)
+
+
+State 83
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   44     | expr T_CLT expr .
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_PLUS     shift, and go to state 55
+    T_MINUS    shift, and go to state 56
+    T_MULT     shift, and go to state 57
+    T_DIV      shift, and go to state 58
+    T_LSHIFT   shift, and go to state 59
+    T_RSHIFT   shift, and go to state 60
+    T_CEQUAL   shift, and go to state 61
+    T_CNEQUAL  shift, and go to state 62
+    T_BITAND   shift, and go to state 63
+    T_BITXOR   shift, and go to state 64
+    T_BITOR    shift, and go to state 65
+
+    $default  reduce using rule 44 (expr)
+
+
+State 84
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   43     | expr T_CLE expr .
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_PLUS     shift, and go to state 55
+    T_MINUS    shift, and go to state 56
+    T_MULT     shift, and go to state 57
+    T_DIV      shift, and go to state 58
+    T_LSHIFT   shift, and go to state 59
+    T_RSHIFT   shift, and go to state 60
+    T_CEQUAL   shift, and go to state 61
+    T_CNEQUAL  shift, and go to state 62
+    T_BITAND   shift, and go to state 63
+    T_BITXOR   shift, and go to state 64
+    T_BITOR    shift, and go to state 65
+
+    $default  reduce using rule 43 (expr)
+
+
+State 85
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   42     | expr T_CGT expr .
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_PLUS     shift, and go to state 55
+    T_MINUS    shift, and go to state 56
+    T_MULT     shift, and go to state 57
+    T_DIV      shift, and go to state 58
+    T_LSHIFT   shift, and go to state 59
+    T_RSHIFT   shift, and go to state 60
+    T_CEQUAL   shift, and go to state 61
+    T_CNEQUAL  shift, and go to state 62
+    T_BITAND   shift, and go to state 63
+    T_BITXOR   shift, and go to state 64
+    T_BITOR    shift, and go to state 65
+
+    $default  reduce using rule 42 (expr)
+
+
+State 86
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   41     | expr T_CGE expr .
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_PLUS     shift, and go to state 55
+    T_MINUS    shift, and go to state 56
+    T_MULT     shift, and go to state 57
+    T_DIV      shift, and go to state 58
+    T_LSHIFT   shift, and go to state 59
+    T_RSHIFT   shift, and go to state 60
+    T_CEQUAL   shift, and go to state 61
+    T_CNEQUAL  shift, and go to state 62
+    T_BITAND   shift, and go to state 63
+    T_BITXOR   shift, and go to state 64
+    T_BITOR    shift, and go to state 65
+
+    $default  reduce using rule 41 (expr)
+
+
+State 87
+
+   35 expr: expr . T_PLUS expr
+   35     | expr T_PLUS expr .
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_MULT     shift, and go to state 57
+    T_DIV      shift, and go to state 58
+    T_LSHIFT   shift, and go to state 59
+    T_RSHIFT   shift, and go to state 60
+    T_CEQUAL   shift, and go to state 61
+    T_CNEQUAL  shift, and go to state 62
+    T_BITAND   shift, and go to state 63
+    T_BITXOR   shift, and go to state 64
+    T_BITOR    shift, and go to state 65
+
+    $default  reduce using rule 35 (expr)
+
+
+State 88
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   36     | expr T_MINUS expr .
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_MULT     shift, and go to state 57
+    T_DIV      shift, and go to state 58
+    T_LSHIFT   shift, and go to state 59
+    T_RSHIFT   shift, and go to state 60
+    T_CEQUAL   shift, and go to state 61
+    T_CNEQUAL  shift, and go to state 62
+    T_BITAND   shift, and go to state 63
+    T_BITXOR   shift, and go to state 64
+    T_BITOR    shift, and go to state 65
+
+    $default  reduce using rule 36 (expr)
+
+
+State 89
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   37     | expr T_MULT expr .
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_LSHIFT   shift, and go to state 59
+    T_RSHIFT   shift, and go to state 60
+    T_CEQUAL   shift, and go to state 61
+    T_CNEQUAL  shift, and go to state 62
+    T_BITAND   shift, and go to state 63
+    T_BITXOR   shift, and go to state 64
+    T_BITOR    shift, and go to state 65
+
+    $default  reduce using rule 37 (expr)
+
+
+State 90
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   38     | expr T_DIV expr .
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_LSHIFT   shift, and go to state 59
+    T_RSHIFT   shift, and go to state 60
+    T_CEQUAL   shift, and go to state 61
+    T_CNEQUAL  shift, and go to state 62
+    T_BITAND   shift, and go to state 63
+    T_BITXOR   shift, and go to state 64
+    T_BITOR    shift, and go to state 65
+
+    $default  reduce using rule 38 (expr)
+
+
+State 91
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   40     | expr T_LSHIFT expr .
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_CEQUAL   shift, and go to state 61
+    T_CNEQUAL  shift, and go to state 62
+    T_BITAND   shift, and go to state 63
+    T_BITXOR   shift, and go to state 64
+    T_BITOR    shift, and go to state 65
+
+    $default  reduce using rule 40 (expr)
+
+
+State 92
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   39     | expr T_RSHIFT expr .
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_CEQUAL   shift, and go to state 61
+    T_CNEQUAL  shift, and go to state 62
+    T_BITAND   shift, and go to state 63
+    T_BITXOR   shift, and go to state 64
+    T_BITOR    shift, and go to state 65
+
+    $default  reduce using rule 39 (expr)
+
+
+State 93
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   46     | expr T_CEQUAL expr .
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_BITAND  shift, and go to state 63
+    T_BITXOR  shift, and go to state 64
+    T_BITOR   shift, and go to state 65
+
+    $default  reduce using rule 46 (expr)
+
+
+State 94
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   45     | expr T_CNEQUAL expr .
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_BITAND  shift, and go to state 63
+    T_BITXOR  shift, and go to state 64
+    T_BITOR   shift, and go to state 65
+
+    $default  reduce using rule 45 (expr)
+
+
+State 95
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   47     | expr T_BITAND expr .
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_BITXOR  shift, and go to state 64
+    T_BITOR   shift, and go to state 65
+
+    $default  reduce using rule 47 (expr)
+
+
+State 96
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   48     | expr T_BITXOR expr .
+   49     | expr . T_BITOR expr
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    T_BITOR  shift, and go to state 65
+
+    $default  reduce using rule 48 (expr)
+
+
+State 97
+
+   35 expr: expr . T_PLUS expr
+   36     | expr . T_MINUS expr
+   37     | expr . T_MULT expr
+   38     | expr . T_DIV expr
+   39     | expr . T_RSHIFT expr
+   40     | expr . T_LSHIFT expr
+   41     | expr . T_CGE expr
+   42     | expr . T_CGT expr
+   43     | expr . T_CLE expr
+   44     | expr . T_CLT expr
+   45     | expr . T_CNEQUAL expr
+   46     | expr . T_CEQUAL expr
+   47     | expr . T_BITAND expr
+   48     | expr . T_BITXOR expr
+   49     | expr . T_BITOR expr
+   49     | expr T_BITOR expr .
+   50     | expr . T_LOGICALAND expr
+   51     | expr . T_LOGICALOR expr
+
+    $default  reduce using rule 49 (expr)
 
 
 State 98
@@ -2216,23 +2216,23 @@ State 100
    69        | T_TFOR T_LPAREN T_SEMICOLON expr . T_SEMICOLON expr T_RPAREN block
 
     T_SEMICOLON   shift, and go to state 116
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 101
@@ -2331,23 +2331,23 @@ State 107
    50     | expr . T_LOGICALAND expr
    51     | expr . T_LOGICALOR expr
 
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
     $default  reduce using rule 21 (var_dec)
 
@@ -2434,23 +2434,23 @@ State 115
    66 for_stm: T_TFOR T_LPAREN T_SEMICOLON T_SEMICOLON expr . T_RPAREN block
 
     T_RPAREN      shift, and go to state 129
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 116
@@ -2518,23 +2518,23 @@ State 118
    67        | T_TFOR T_LPAREN expr T_SEMICOLON expr . T_SEMICOLON T_RPAREN block
 
     T_SEMICOLON   shift, and go to state 134
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 119
@@ -2613,23 +2613,23 @@ State 122
    51     | expr . T_LOGICALOR expr
    60 call_args: call_args T_COMMA expr .
 
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
     $default  reduce using rule 60 (call_args)
 
@@ -2733,23 +2733,23 @@ State 131
    69 for_stm: T_TFOR T_LPAREN T_SEMICOLON expr T_SEMICOLON expr . T_RPAREN block
 
     T_RPAREN      shift, and go to state 144
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 132
@@ -2783,23 +2783,23 @@ State 133
    68 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON T_SEMICOLON expr . T_RPAREN block
 
     T_RPAREN      shift, and go to state 146
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 134
@@ -2976,23 +2976,23 @@ State 148
    63 for_stm: T_TFOR T_LPAREN expr T_SEMICOLON expr T_SEMICOLON expr . T_RPAREN block
 
     T_RPAREN      shift, and go to state 155
-    T_PLUS        shift, and go to state 49
-    T_MINUS       shift, and go to state 50
-    T_MULT        shift, and go to state 51
-    T_DIV         shift, and go to state 52
-    T_LSHIFT      shift, and go to state 53
-    T_RSHIFT      shift, and go to state 54
-    T_CLT         shift, and go to state 55
-    T_CLE         shift, and go to state 56
-    T_CGT         shift, and go to state 57
-    T_CGE         shift, and go to state 58
-    T_CEQUAL      shift, and go to state 59
-    T_CNEQUAL     shift, and go to state 60
-    T_BITAND      shift, and go to state 61
-    T_BITXOR      shift, and go to state 62
-    T_BITOR       shift, and go to state 63
-    T_LOGICALAND  shift, and go to state 64
-    T_LOGICALOR   shift, and go to state 65
+    T_LOGICALOR   shift, and go to state 49
+    T_LOGICALAND  shift, and go to state 50
+    T_CLT         shift, and go to state 51
+    T_CLE         shift, and go to state 52
+    T_CGT         shift, and go to state 53
+    T_CGE         shift, and go to state 54
+    T_PLUS        shift, and go to state 55
+    T_MINUS       shift, and go to state 56
+    T_MULT        shift, and go to state 57
+    T_DIV         shift, and go to state 58
+    T_LSHIFT      shift, and go to state 59
+    T_RSHIFT      shift, and go to state 60
+    T_CEQUAL      shift, and go to state 61
+    T_CNEQUAL     shift, and go to state 62
+    T_BITAND      shift, and go to state 63
+    T_BITXOR      shift, and go to state 64
+    T_BITOR       shift, and go to state 65
 
 
 State 149

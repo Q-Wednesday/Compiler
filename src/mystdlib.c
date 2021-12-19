@@ -5,11 +5,9 @@ int inputNum(){
     return num;
 }
 
-
-
 void getArray(int a[],int len){
     for (int i = 0; i < len;i++){
-        printf("input a[%d]:", i);
+        printf("input array[%d]:", i);
         scanf("%d", &a[i]);
     }
 }
