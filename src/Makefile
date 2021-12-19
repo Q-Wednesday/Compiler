@@ -34,7 +34,7 @@ clean:
 	rm -rf grammar.cpp grammar.hpp parser compiler $(OBJECTS) AST.dot
 
 test: parser
-	cat test.input | ./parser && clang test.o -o test
+	cat test.input | ./parser && clang test.o  mystdlib.c -o test
 
 
 viz: AST.dot
@@ -46,3 +46,5 @@ test.o: test.input
 testlink: testlink.c test.o
 	clang testlink.c test.o -o testlink
 
+link: test.o mystdlib.c
+	clang test.o mystdlib.c -o test

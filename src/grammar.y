@@ -26,7 +26,7 @@ void yyerror(const char* msg){
 
 %token <string> T_TINT T_TDOUBLE T_TFLOAT T_TCHAR T_TBOOL T_TVOID T_TSTRING T_EXTERN T_RETURN 
 
-%token <string> T_IDENTIFIER T_INTEGER T_DOUBLE T_LITERAL
+%token <string> T_IDENTIFIER T_INTEGER T_DOUBLE T_LITERAL T_CHAR
 
 %token <token>  T_ASSIGN T_TFOR T_TWHILE T_IF T_ELSE
 
@@ -147,6 +147,7 @@ expr        :   assignmemt  {$$=$1; }
 
 number      :   T_INTEGER {$$=new IntegerNode(stoi(*$1));delete $1;}
             |   T_DOUBLE  {$$=new DoubleNode(stod(*$1));delete $1;}
+            |   T_CHAR      {$$=new DoubleNode(stod(*$1));delete $1;}
             ;
 
 call        :   ident T_LPAREN call_args T_RPAREN {$$= new CallFunctionNode(shared_ptr<IdentifierNode>($1),shared_ptr<ExprVec>($3));}

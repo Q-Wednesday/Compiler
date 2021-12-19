@@ -195,9 +195,14 @@ Value *DoubleNode::codeGen(CodeGenContext &context)
 
 Value *IntegerNode::codeGen(CodeGenContext &context)
 {
-    return ConstantInt::get(Type::getInt32Ty(context.llvmContext), this->value, true); //true表示有符号
+    return ConstantInt::get(Type::getInt8Ty(context.llvmContext), this->value); //true表示有符号
 }
 
+Value* CharNode::
+codeGen(CodeGenContext &context)
+{
+    return ConstantInt::get(Type::getInt32Ty(context.llvmContext), this->value, true); //true表示有符号
+}
 Value *LiteralNode::codeGen(CodeGenContext &context)
 {
     return context.builder.CreateGlobalString(this->value, "string"); //创建字符串常量

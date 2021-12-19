@@ -15,7 +15,7 @@ DOUBLE          ([0-9]+\.[0-9]*)
 LITERAL         (\"(\\.|[^"])*\" )
 IDENTIFIER      ([_a-zA-Z][_a-zA-Z0-9]*)
 COMMENT         ("//"[^\n]*)
-
+CHAR            (\'.\')
 %%
 
 [ \n\t\r]       { /* space */}
@@ -38,11 +38,12 @@ COMMENT         ("//"[^\n]*)
 {IDENTIFIER}    {SAVE_TOKEN; return T_IDENTIFIER;}
 {INTEGER}       {SAVE_TOKEN; return T_INTEGER;}
 {DOUBLE}        {SAVE_TOKEN; return T_DOUBLE;}
+{CHAR}          {SAVE_TOKEN;return T_CHAR;}
 \"(\\.|[^"])*\"      {SAVE_TOKEN; return T_LITERAL;}
 
 "="             {printf("T_ASSIGN\n");return MAKE_TOKEN(T_ASSIGN);}
 
-"=="            {return MAKE_TOKEN(T_CEQUAL);}
+"=="            {printf("T_C_EQUAL\n");return MAKE_TOKEN(T_CEQUAL);}
 "!="            {return MAKE_TOKEN(T_CNEQUAL);}
 "<"             {return MAKE_TOKEN(T_CLT);}
 "<="            {return MAKE_TOKEN(T_CLE);}

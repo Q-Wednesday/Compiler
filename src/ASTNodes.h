@@ -223,6 +223,18 @@ public:
     Value *codeGen(CodeGenContext &context) override;
 };
 
+class CharNode: public ExpressionNode{
+    public:
+        char value;
+        CharNode();
+        CharNode(string s):value(s[1]){
+            cout << "Char:" << value << endl;
+        }
+        string getNodeType() const override{
+            return "Char";
+        }
+        Value *codeGen(CodeGenContext &context) override;
+};
 class LiteralNode : public ExpressionNode
 {
 public:

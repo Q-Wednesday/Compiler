@@ -1,5 +1,5 @@
-extern void printf(string format, int a);
-extern void scanf(string format, char* buf);
+extern void printf(string format);
+extern void scanf(string format);
 
 int cmp_priority(char top, char cur)
 {
@@ -33,7 +33,7 @@ int main()
     scanf("%s", buf);
 
     //infix_to_suffix();
-    while (buf[i] != 0)
+    while (buf[i])
     {
         int temp = 0;
         int num_flag = 0;
